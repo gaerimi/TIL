@@ -88,3 +88,10 @@
 - Custom-Designed Chips
     - custom or semi-custom design
     - ASIC(Application Specific Integrated Circuit)
+
+## Binary Number
+
+- $a_5a_4a_3a_2a_1a_0 . a_{-1}a_{-2}a_{-3}$  
+    = $a_nr^n+a_{n-1}r^{n-1}+\dots+a_2r^2+a_1r+a_0+a_{-1}r^{-1}+a_{-2}r^{-2}+\dots+a_{-m}r^{-m}$
+- $a_i$: coefficient(계수)
+- $r$: base(진수)
