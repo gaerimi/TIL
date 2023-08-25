@@ -71,3 +71,20 @@
 
 - 복사본은 원본과 완전히 같을 수 있다 -> 정보 공유
 - 우리의 삶에서 디지털(digital)은 공유(sharing)와 같다
+
+## Digital Hardware System
+
+- Computer: Power supply, PCBs(Printed circuit boards, mother board), storage units(Hard disk, Solid state disk, DVD, CD-ROM, ...)
+- Mother board: CPU, storage(ROM/RAM), I/O interface, plugged-in slots
+- **Chip: sub-circuit(logic gates)**
+
+### Digital Hardware Components
+
+- Standard Chip
+    - 1980년대 초까지 논리 회로를 구축하는데 자주 사용됨
+    - Drawback: 고정적 기능과 비효율적 공간
+- Programmable Logic Devices
+    - FPGA(Field-Programmable Gate Array)
+- Custom-Designed Chips
+    - custom or semi-custom design
+    - ASIC(Application Specific Integrated Circuit)
