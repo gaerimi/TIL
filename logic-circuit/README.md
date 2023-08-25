@@ -62,4 +62,12 @@
         - dsd128: 1bit 5.6448mHz
     - 32bit/768kHz(49.152mbps)
     - 확장자: .dff, .dsf
-    
+
+## Digital advantages
+
+- `Data Processing`(데이터 처리): 더 효율적이게
+- `Data Transmission`(데이터 전송): 더 믿을 수 있게
+- `Data Storage`(데이터 저장): 더 작게
+
+- 복사본은 원본과 완전히 같을 수 있다 -> 정보 공유
+- 우리의 삶에서 디지털(digital)은 공유(sharing)와 같다
