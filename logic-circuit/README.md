@@ -44,3 +44,22 @@
 
 - 샘플을 충분히 자주 추출하면 원본 아날로그 데이터를 완벽하게 복원할 수 있음
 - 하지만 양자화 에러로 인해 원본을 완벽하게 복원할 수 없음...
+
+## Example of Audio Coding
+
+- `cd(compact disc)`
+    - PCM(Pulse Coded Modulation): 16bit/44.1kHz(1411.2kbps)
+    - CD ripping: waveform audio format(.wav)
+    - 무손실 압축: FLAC(Free Lossless Audio Coding), ALAC(Apple Lossless Audio Coding),(.ape)
+    - 손실 압축: MP3(56kbps, 196kbps)
+
+- `sacd(super audio cd)`
+    - 24bit/192kHz(9.216mbps)
+
+- `dsd(direct stream digital)`
+    - PDM(Pulse Density Modulation)
+        - dsd64: 1bit 2.8224mHz
+        - dsd128: 1bit 5.6448mHz
+    - 32bit/768kHz(49.152mbps)
+    - 확장자: .dff, .dsf
+    
