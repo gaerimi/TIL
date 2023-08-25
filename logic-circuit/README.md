@@ -95,3 +95,12 @@
     = $a_nr^n+a_{n-1}r^{n-1}+\dots+a_2r^2+a_1r+a_0+a_{-1}r^{-1}+a_{-2}r^{-2}+\dots+a_{-m}r^{-m}$
 - $a_i$: coefficient(계수)
 - $r$: base(진수)
+
+### Number Base Conversions
+
+- 10진수 -> 2진수
+    1. 주어진 수를 2로 나눈다
+    2. 나누었을 때의 몫이 0이 될 때까지 1.을 반복한다
+    3. 나머지를 나머지를 뒤에서부터 적는다
+
+![10진수->2진수](../image/decimal_to_binary.jpg)
