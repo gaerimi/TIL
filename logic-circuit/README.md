@@ -30,4 +30,4 @@
 
 - 아날로그 데이터를 디지털로 표현하는 것은 샘플링과 양자화를 통해 가능하다
 
-![샘플링과 양자화](./image/sampling_quantizing.jpg)
+![샘플링과 양자화](../image/sampling_quantizing.jpg)
