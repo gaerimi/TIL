@@ -238,3 +238,14 @@
 2. Complement of each literal
 ![complement_func](../image/not_func.jpg)
 - AND를 OR로 OR을 AND로 바꾼 뒤 1을 0으로 0을 1로 바꾸면 된다
+
+### Minimization by Boolean Function
+
+- 예)
+![Truth Table](../image/mini_exam_truth_table.jpg)
+![F1](../image/mini_exam_f1.jpg)
+![F2](../image/mini_exam_f2.jpg)
+- 진리표에서 최소화하기
+    1. 진리표에서 True인 부분의 변수를 찾는다
+    2. 공통 부분을 찾아 묶는다
+    3. 식 정리
