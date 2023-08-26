@@ -160,3 +160,9 @@
 
 - X NOR Y = (X+Y)'
 ![NOR GATE](../image/nor_gate.jpg)
+
+### Exclusive-OR(X-OR)
+
+- X XOR Y = XY'+X'Y = X⊕Y
+- Mod 2 addition
+![XOR GATE](../image/xor_gate.jpg)
