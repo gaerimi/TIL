@@ -191,3 +191,9 @@
         - X OR 0일 때 0은 False이므로 X의 값에 따라 X + 0이 결정됨   
         즉, X가 0이면 0이고 X가 1이면 1이됨
         - X AND 1일 때 X가 1인 경우에만 XY가 1이 되고 나머지 X가 0인 경우에는 XY가 0이 됨
+    
+- Operator precedence(연산자 우선순위)
+1. Parentheses(괄호)
+2. NOT
+3. AND
+4. OR
