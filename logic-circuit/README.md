@@ -134,14 +134,14 @@
 ### AND
 
 - X AND Y = XY or X*Y
-- 불 방정식(Boolean Algebra)에서 곱셈과 같음
+- 불 대수(Boolean Algebra)에서 곱셈과 같음
 ![AND GATE](../image/and_gate.jpg)
 - **입력이 모두 1일 경우 출력이 1**
 
 ### OR
 
 - X OR Y = X+Y
-- 불 방정식에서 덧셈과 같음
+- 불 대수에서 덧셈과 같음
 ![OR GATE](../image/or_gate.jpg)
 - **입력 중 하나라도 1일 경우 출력이 1**
 
@@ -172,3 +172,13 @@
 - X XNOR Y = XY+X'Y' = (X⊕Y)'
 - 두 입력이 서로 같으면 1, 다르면 0
 ![XNOR GATE](../image/xnor_gate.jpg)
+
+## Boolean Algebra
+
+- 1850년대에 George Boole이 개발한 기호로 논리 진술을 공식화하는 시스템
+- 논리 문제를 일반적인 대수처럼 쓰고 풀 수 있음
+- Constants(상수)
+    - True and False
+    - 1 and 0
+- Variables(변수)
+    - 불 상수인 값을 저장하는 변수
