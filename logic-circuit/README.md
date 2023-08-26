@@ -241,7 +241,7 @@
 
 ### Minimization by Boolean Function
 
-- 예)
+- 예)   
 ![Truth Table](../image/mini_exam_truth_table.jpg)
 ![F1](../image/mini_exam_f1.jpg)
 ![F2](../image/mini_exam_f2.jpg)
