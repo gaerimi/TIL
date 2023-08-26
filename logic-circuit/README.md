@@ -166,3 +166,9 @@
 - X XOR Y = XY'+X'Y = X⊕Y
 - Mod 2 addition
 ![XOR GATE](../image/xor_gate.jpg)
+
+### Exclusive-NOR(equivalence)
+
+- X XNOR Y = XY+X'Y' = (X⊕Y)'
+- 두 입력이 서로 같으면 1, 다르면 0
+![XNOR GATE](../image/xnor_gate.jpg)
