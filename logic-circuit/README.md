@@ -227,3 +227,7 @@
 
 - DeMorgan(드모르간 법칙)
     - $(x + y)' = x'y' ↔ (xy)' = x' + y'$
+
+- Absorption
+    - (영한사전) 흡수, 통합
+    - $x + xy = x ↔ x(x+y) = x$
