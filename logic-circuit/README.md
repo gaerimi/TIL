@@ -149,4 +149,4 @@
 
 - X = $\bar A$ or X = A'
 - Not A = A complement = A prime = A bar
-![NOT GATE](../image/not_gate.jpg)
+![NOT GATE](..\image\not_gate.jpg)
