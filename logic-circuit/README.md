@@ -118,3 +118,15 @@
     3. 소수점 앞 숫자들을 앞에서부터 적는다
 
 ![10진수(소수)->2진수](../image/decimal_to_binary(2).jpg)
+
+## Logic Gates
+
+- Basic Logic Gates
+    - `AND`
+    - `OR`
+    - `NOT`
+- Related Logic Gates
+    - `NAND(AND-NOT)`
+    - `NOR(OR-NOT)`
+    - `X-OR`
+    - `X-NOR`
