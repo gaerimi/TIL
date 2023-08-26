@@ -150,3 +150,8 @@
 - X = $\bar A$ or X = A'
 - Not A = A complement = A prime = A bar
 ![NOT GATE](../image/not_gate.jpg)
+
+### NAND
+
+- X NAND Y = (XY)'
+![NAND GATE](../image/nand_gate.jpg)
