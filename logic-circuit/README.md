@@ -223,6 +223,7 @@
     - (영한사전) 분배적
         - 수학에서의 분배법칙이라고 이해
     - $x(y + z) = xy + xz ↔ x + yz = (x + y)(x + z)$
+    ![x + yz](../image/distributive_proof.jpg)
 
 - DeMorgan(드모르간 법칙)
     - $(x + y)' = x'y' ↔ (xy)' = x' + y'$
