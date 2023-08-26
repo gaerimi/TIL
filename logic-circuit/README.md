@@ -197,3 +197,10 @@
 2. NOT
 3. AND
 4. OR
+
+- Basic OR, AND operation
+    - $x + 0 = x ↔ x * 1 = x$
+    - $x + x' = 1 ↔ x * x' = 0$
+    - $x + x = x ↔ x * x = x$
+    - $x + 1 = 1 ↔ x * 0 = 0$
+    
