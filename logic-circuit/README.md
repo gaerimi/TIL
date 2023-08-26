@@ -155,3 +155,8 @@
 
 - X NAND Y = (XY)'
 ![NAND GATE](../image/nand_gate.jpg)
+
+### NOR
+
+- X NOR Y = (X+Y)'
+![NOR GATE](../image/nor_gate.jpg)
