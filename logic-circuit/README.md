@@ -231,3 +231,10 @@
 - Absorption
     - (영한사전) 흡수, 통합
     - $x + xy = x ↔ x(x+y) = x$
+
+### Complement of a Function
+
+1. Find its dual(AND↔OR, 1↔0)
+2. Complement of each literal
+![complement_func](../image/not_func.jpg)
+- AND를 OR로 OR을 AND로 바꾼 뒤 1을 0으로 0을 1로 바꾸면 된다
