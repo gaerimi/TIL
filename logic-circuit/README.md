@@ -145,3 +145,8 @@
 ![OR GATE](../image/or_gate.jpg)
 - **입력 중 하나라도 1일 경우 출력이 1**
 
+### NOT(Inverter)
+
+- X = $\bar A$ or X = A'
+- Not A = A complement = A prime = A bar
+![NOT GATE](../image/not_gate.jpg)
