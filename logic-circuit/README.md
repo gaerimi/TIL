@@ -136,3 +136,4 @@
 - X AND Y = XY or X*Y
 - 불 방정식(Boolean Algebra)에서 곱셈과 같음
 ![AND GATE](../image/and_gate.jpg)
+- **입력이 모두 1일 경우 출력이 1**
