@@ -130,3 +130,9 @@
     - `NOR(OR-NOT)`
     - `X-OR`
     - `X-NOR`
+
+### AND
+
+- X AND Y = XY or X*Y
+- 불 방정식(Boolean Algebra)에서 곱셈과 같음
+![AND GATE](../image/and_gate.jpg)
