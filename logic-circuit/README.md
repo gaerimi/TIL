@@ -249,3 +249,28 @@
     1. 진리표에서 True인 부분의 변수를 찾는다
     2. 공통 부분을 찾아 묶는다
     3. 식 정리
+
+## Canonical And Standard Forms
+
+### Canonical Forms
+
+- Minterms and Maxterms   
+![Canonical Forms](../image/canonical_forms.jpg)   
+    - minterms에서는 AND로 연결되어있으며 0을 '으로 표시하고 소문자로 표시
+    - maxterms에서는 OR로 연결되어있으며 1을 '으로 표시하고 대문자로 표시
+
+- Canonical SOP/POS Forms
+    - SOP: Sum Of Product
+    - POS: Product Of Sum
+    - 예)   
+    ![Canonical exam](../image/canonical_exam.jpg)
+        - Canonical SOP   
+        ![Canonical SOP](../image/canonical_exam_sop.jpg)   
+        - Canonical POS   
+        ![Canonical POS](../image/canonical_exam_pos.jpg)
+
+#### Conversion between Canonical Forms
+
+- Relation between SOP and POS
+    - $m_i = M_i'$ and $m_i' = M_i$
+    - 예) $F(x,y,z) = \Sigma(1,3,6,7)$일 때 $F(x,y,z) = \Pi(0,2,4,5)$와 같다
