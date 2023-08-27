@@ -314,3 +314,24 @@
 ### Five-Variable Map
 
 ![5-karnaugh](../image/karnaugh_5.jpg)
+
+## Strategy For Minimization
+
+- `Literal(문자)`: 변수
+- `Implicant(항)`: 1이나 1의 묶음들
+- `Prime implicant`: 다른 항들과 묶이지 않는 항
+- `Cover`: 함숫값을 1로 만드는 모든 항들
+- `Cost`: 회로의 게이트와 입력의 개수의 합
+- 예)   
+    - Literal
+        - $x_1x_2'x_3$: 3 literals
+        - $x_1'x_3x_4'x_6$: 4 literals
+    ![Implicant](../image/implicant_exam.jpg)   
+    ![Prime-Implicants_Cover](../image/prime_implicant_exam.jpg)   
+    ![Cover_Cost](../image/cover_cost_exam.jpg)   
+
+### Minimization Procedure
+
+1. 주어진 함수 f에 대한 모든 주요 항(prime implicant)을 생성한다
+2. 다른 항과 겹치지 않는 항이 있는 주요 항(essential prime implicant)들의 집합을 찾는다
+3. 위에서 찾은 항이 f = 1에 대한 모든 값을 포함하는 경우 이 집합은 f의 cover이다
