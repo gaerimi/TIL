@@ -325,7 +325,7 @@
 - 예)   
     - Literal
         - $x_1x_2'x_3$: 3 literals
-        - $x_1'x_3x_4'x_6$: 4 literals
+        - $x_1'x_3x_4'x_6$: 4 literals   
     ![Implicant](../image/implicant_exam.jpg)   
     ![Prime-Implicants_Cover](../image/prime_implicant_exam.jpg)   
     ![Cover_Cost](../image/cover_cost_exam.jpg)   
