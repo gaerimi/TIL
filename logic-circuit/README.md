@@ -286,3 +286,11 @@
 ### DeMorgan's Theorem
 
 ![DeMorgan](../image/de_morgan.jpg)   
+
+### Basic Gates Using NAND
+
+![Basic_NAND](../image/bg_use_nand.jpg)
+
+### Basic Gates Using NOR
+
+![Basic_NOR](../image/bg_use_nor.jpg)
