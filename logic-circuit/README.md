@@ -345,3 +345,10 @@
 ![SOP](../image/dont_care_term_sop.jpg)   
 ![POS](../image/dont_care_term_pos.jpg)   
 - don't care term을 포함하면 식이 간결해질 수 있음
+
+## Multiple-Output Circuit
+
+- 예)   
+![Multiple Output](../image/multi_output(1).jpg)   
+![Multiple Output(2)](../image/multi_output(2).jpg)   
+![Multiple Output(3)](../image/multi_output(3).jpg)
