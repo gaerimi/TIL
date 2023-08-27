@@ -299,3 +299,18 @@
 
 - 논리식을 최소화 하는 과정에서 주어진 진리표에 대한 최적의 답인지 판단하기 위해 사용
 
+### Two-Variable Map
+
+![2-karnaugh](../image/karnaugh_2.jpg)
+
+### Three-Variable Map
+
+![3-karnaugh](../image/karnaugh_3.jpg)
+
+### Four-Variable Map
+
+![4-karnaugh](../image/karnaugh_4.jpg)
+
+### Five-Variable Map
+
+![5-karnaugh](../image/karnaugh_5.jpg)
