@@ -294,3 +294,8 @@
 ### Basic Gates Using NOR
 
 ![Basic_NOR](../image/bg_use_nor.jpg)
+
+## Karnaugh Map(카르노 맵)
+
+- 논리식을 최소화 하는 과정에서 주어진 진리표에 대한 최적의 답인지 판단하기 위해 사용
+
