@@ -337,3 +337,11 @@
 3. 위에서 찾은 항이 f = 1에 대한 모든 값을 포함하는 경우 이 집합은 f의 cover이다
 
 - 위의 방식은 SOP form을 위한 방식이므로 POS form을 원한다면 f = 0인 항에 대해 적용하면 된다
+
+## Incompletely Specified Funtion
+
+- 예)   
+![Truth Table](../image/dont_care_term_tt.jpg)   
+![SOP](../image/dont_care_term_sop.jpg)   
+![POS](../image/dont_care_term_pos.jpg)   
+- don't care term을 포함하면 식이 간결해질 수 있음
