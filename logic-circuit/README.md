@@ -335,3 +335,5 @@
 1. 주어진 함수 f에 대한 모든 주요 항(prime implicant)을 생성한다
 2. 다른 항과 겹치지 않는 항이 있는 주요 항(essential prime implicant)들의 집합을 찾는다
 3. 위에서 찾은 항이 f = 1에 대한 모든 값을 포함하는 경우 이 집합은 f의 cover이다
+
+- 위의 방식은 SOP form을 위한 방식이므로 POS form을 원한다면 f = 0인 항에 대해 적용하면 된다
