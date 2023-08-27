@@ -280,3 +280,9 @@
 - 예)   
 ![Standard SOP](../image/standard_sop.jpg)   
 ![Standard POS](../image/standard_pos.jpg)   
+
+## NAND And NOR Logic Networks
+
+### DeMorgan's Theorem
+
+![DeMorgan](../image/de_morgan.jpg)   
