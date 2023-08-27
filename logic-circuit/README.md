@@ -274,3 +274,9 @@
 - Relation between SOP and POS
     - $m_i = M_i'$ and $m_i' = M_i$
     - 예) $F(x,y,z) = \Sigma(1,3,6,7)$일 때 $F(x,y,z) = \Pi(0,2,4,5)$와 같다
+
+### Standard SOP/POS Forms
+
+- 예)   
+![Standard SOP](../image/standard_sop.jpg)   
+![Standard POS](../image/standard_pos.jpg)   
