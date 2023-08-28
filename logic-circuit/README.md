@@ -352,3 +352,15 @@
 ![Multiple Output](../image/multi_output(1).jpg)   
 ![Multiple Output(2)](../image/multi_output(2).jpg)   
 ![Multiple Output(3)](../image/multi_output(3).jpg)
+
+## Multilevel Sythesis
+
+- Fan-in problem
+    - 입력의 개수가 제한되어있음
+    - Fan-out problem: 출력의 개수가 제한되어 있음
+- Implementation
+    - CPLD: two-level logic expression(SOP)
+    - FPGA: multilevel logic expression(LogicCell)
+- Techniques for synthesis of multilevel circyit
+    - `Factoring`
+    - `Functional Decomposition`
