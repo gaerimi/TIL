@@ -364,3 +364,8 @@
 - Techniques for synthesis of multilevel circyit
     - `Factoring`
     - `Functional Decomposition`
+
+### Factoring
+
+- 예)   
+![Factoring](../image/factoring.jpg)   
