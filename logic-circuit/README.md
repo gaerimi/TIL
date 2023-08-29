@@ -369,3 +369,12 @@
 
 - 예)   
 ![Factoring](../image/factoring.jpg)   
+
+### Functional Decomposition
+
+- 예)   
+![Functional Decomposition(1)](../image/func_decomp(1).jpg)   
+![Functional Decomposition(2)](../image/func_decomp(2).jpg)   
+![Functional Decomposition(3)](../image/func_decomp(3).jpg)   
+![Functional Decomposition(4)](../image/func_decomp(4).jpg)   
+![Functional Decomposition(5)](../image/func_decomp(5).jpg)   
