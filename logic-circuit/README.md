@@ -378,3 +378,11 @@
 ![Functional Decomposition(3)](../image/func_decomp(3).jpg)   
 ![Functional Decomposition(4)](../image/func_decomp(4).jpg)   
 ![Functional Decomposition(5)](../image/func_decomp(5).jpg)   
+
+## Conversion Decimal, Binary
+
+- [10진수 -> 2진수, 10진수 -> 8진수, 10진수(소수 0.xxxx) -> 2진수](#number-base-conversions)
+- 2진수 -> 8진수
+    1. 주어진 수를 뒤에서부터 3자리씩 나눈다
+    2. 나누어진 3자리를 앞에서부터 4,2,1로 1인 부분만 더한다
+    3. 각 8진수로 변환된 숫자들을 적는다
