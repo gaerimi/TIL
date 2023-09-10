@@ -398,3 +398,7 @@
 ### Half-adder(반가산기)
 
 ![half-adder](../image/half-adder.jpg)
+
+### Full-adder(전가산기)
+
+![full-adder](../image/full-adder.jpg)
