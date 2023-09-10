@@ -402,3 +402,7 @@
 ### Full-adder(전가산기)
 
 ![full-adder](../image/full-adder.jpg)
+
+- Decomposed Full-adder
+
+![decomposed FA](../image/decomposed_fa.jpg)
