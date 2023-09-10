@@ -406,3 +406,12 @@
 - Decomposed Full-adder
 
 ![decomposed FA](../image/decomposed_fa.jpg)
+
+### Ripple Carry Adder
+
+![ripple carry adder](../image/ripple_carry_adder.jpg)
+- MSB: Most Significant Bit (최상위 비트)
+- LSB: Least Significant Bit (최하위 비트)
+- FA(Full Adder) 연산 후 그 캐리 값을 다음 FA로 전달하는 Adder => 속도가 느림
+- 숫자의 크기에 따라 지연 시간이 달라짐
+- $\Delta t$가 한 비트의 지연 시간이라면, 전체 지연 시간은 $n\Delta t$
