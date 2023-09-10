@@ -392,3 +392,9 @@
     2. 나누어진 4자리를 앞에서부터 8,4,2,1로 1인 부분만 더한다
     3. 각 16진수로 변환된 숫자들을 적는다
 ![2진수->16진수](../image/binary_to_hexa.jpg)
+
+## Addition of Unsigned Numbers
+
+### Half-adder(반가산기)
+
+![half-adder](../image/half-adder.jpg)
