@@ -415,3 +415,13 @@
 - FA(Full Adder) 연산 후 그 캐리 값을 다음 FA로 전달하는 Adder => 속도가 느림
 - 숫자의 크기에 따라 지연 시간이 달라짐
 - $\Delta t$가 한 비트의 지연 시간이라면, 전체 지연 시간은 $n\Delta t$
+
+## Signed Numbers
+
+### Formats for representation of integers
+
+![formats of integers](../image/unsign_sign.jpg)
+- Unsigned Number의 범위: $0$ ~ $2^n-1$
+- Signed Number의 범위: $-2^{n-1}$ ~ $2^{n-1}-1$
+- Signed Number에서 Sign(부호 비트)가 존재한다    
+    - Sign이 0이라면 +, 1이라면 -를 나타낸다
