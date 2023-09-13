@@ -425,3 +425,10 @@
 - Signed Number의 범위: $-2^{n-1}$ ~ $2^{n-1}-1$
 - Signed Number에서 Sign(부호 비트)가 존재한다    
     - Sign이 0이라면 +, 1이라면 -를 나타낸다
+
+### 1's Complement(1의 보수)
+
+- $N$: 바꿀 수, $n$: 비트의 수
+- $N$의 1의 보수 = $-N$ = $(2^n-1)-N$
+- 예)   
+![1's complement](../image/1complement.jpg)
