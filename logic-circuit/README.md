@@ -439,3 +439,11 @@
 - $N$의 2의 보수 = $-N$ = $(2^n)-N$ = $((2^n-1)-N)+1$ = N의 1의 보수 + 1
 - 예)   
 ![2's complement](../image/2complement.jpg)
+
+### 1's complement addition
+
+- $M>N$일 때, $M+N\le(2^4-1)$: unsigned,  $M+N\le(2^3-1)$: signed
+- $-M+N=(2^4-1)-M+N=(2^4-1)-(M-N)$
+- $M-N=M+(2^4-1)-N=M-N+(2^4-1)$
+- $-M-N=(2^4-1)-M+(2^4-1)-N=(2^4-1)-(M+N)+(2^4-1)$
+- carry 발생 시 carry를 더해줘야 함
