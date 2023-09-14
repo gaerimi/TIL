@@ -432,3 +432,10 @@
 - $N$의 1의 보수 = $-N$ = $(2^n-1)-N$
 - 예)   
 ![1's complement](../image/1complement.jpg)
+
+### 2's Complement(2의 보수)
+
+- $N$: 바꿀 수, $n$: 비트의 수
+- $N$의 2의 보수 = $-N$ = $(2^n)-N$ = $((2^n-1)-N)+1$ = N의 1의 보수 + 1
+- 예)   
+![2's complement](../image/2complement.jpg)
