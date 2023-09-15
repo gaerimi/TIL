@@ -496,3 +496,10 @@
     - $c_{i+1} = g_i+p_ic_i+p_ip_{i-1}g_{i-2}+\cdots+p_ip_{i-1}\cdots p_2p_1g_0+p_ip_{i-1}\cdots p_1p_0c_0$
 - $n$이 커질수록 $n$비트 carry-lookahead adder의 복잡성이 급격히 증가한다   
 => 복잡성을 줄이기 위해 계층적 접근 방식을 사용할 수 있다
+
+#### hierarchical carry-lookahead adder
+
+- 비트들을 여러 블록으로 나누고 각 블록은 비트들을 그룹화하여 병렬로 계산
+- 각 블록에서 carry-lookahead를 미리 계산(해당 블록에서 덧셈 결과에 대한 캐리값)
+- 각 블록은 carry-lookahead를 계산 후 다음 블록으로 전달(이전 블록의 carry가 다음 블록에서 사용됨)
+- 블록 내부는 carry-lookahead, 블록 사이는 ripple carry
