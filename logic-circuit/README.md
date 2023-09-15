@@ -480,3 +480,19 @@
 - 우수한 성능은 높은 비용으로 실현됨
 - $n$비트 리플캐리 가산기에서 지연 시간이 대략 $n\Delta t$임
 - => 컴퓨터 성능을 높이기 위해서는 덧셈을 수행할 더 빠른 회로를 찾는 것이 중요함
+
+## Fast Adder
+
+### Carry-Lookahead Adder(자리올림수 예측 가산기)
+
+- ripple-carry adder에서 $c_{i+1} = x_iy_i+c_i(x_i+y_i)$
+- carry-lookahead adder에서는 다음의 연산을 수행하여 g와 p를 구한다
+    - $g_i = x_iy_i$
+        - `generate(자리올림수 생성)`: 기존의 연산과 관계 없이 반드시 carry가 생기는 경우를 확인
+    - $p_i = x_i+y_i$
+        - `propagate(자리올림수 전파)`: 추가로 carry가 생기는 경우 확인
+- g와 p를 활용한 가산기의 carry
+    - $c_{i+1} = g_i+p_ic_i$
+    - $c_{i+1} = g_i+p_ic_i+p_ip_{i-1}g_{i-2}+\cdots+p_ip_{i-1}\cdots p_2p_1g_0+p_ip_{i-1}\cdots p_1p_0c_0$
+- $n$이 커질수록 $n$비트 carry-lookahead adder의 복잡성이 급격히 증가한다   
+=> 복잡성을 줄이기 위해 계층적 접근 방식을 사용할 수 있다
