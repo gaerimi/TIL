@@ -466,3 +466,10 @@
 
 ![adder/subtractor unit(1)](../image/adder_subtractor(1).jpg)
 ![adder/subtractor unit(2)](../image/adder_subtractor(2).jpg)
+
+### Arithmetic Overflow
+
+- Overflow: Out of range
+    - $c_{n-1}⊕c_n$
+    - 1: overflow, 0: normal
+    - 마지막 캐리와 그 전 캐리가 같은 값이면 normal 다른 값이면 overflow
