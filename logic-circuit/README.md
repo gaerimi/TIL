@@ -461,3 +461,8 @@
 - 음수 - 음수 = 뒤의 음수를 보수로 바꾸고 더함
 - 양수 - 양수 = 뒤의 양수를 보수로 바꾸고 더함
 - 음수 - 양수 = 양수를 보수로 바꾸고 더함
+
+### Adder/Subtractor Unit
+
+![adder/subtractor unit(1)](../image/adder_subtractor(1).jpg)
+![adder/subtractor unit(2)](../image/adder_subtractor(2).jpg)
