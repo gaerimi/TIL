@@ -503,3 +503,10 @@
 - 각 블록에서 carry-lookahead를 미리 계산(해당 블록에서 덧셈 결과에 대한 캐리값)
 - 각 블록은 carry-lookahead를 계산 후 다음 블록으로 전달(이전 블록의 carry가 다음 블록에서 사용됨)
 - 블록 내부는 carry-lookahead, 블록 사이는 ripple carry
+
+## Multiplication
+
+### Multiplication
+
+- $n$ $bit \times n$ $bit = 2n$ $bit$
+![multiplicaion](../image/multiplication.jpg)
