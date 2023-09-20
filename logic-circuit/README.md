@@ -519,3 +519,13 @@
 ![a block in the top row](../image/4x4multiple_block_top.jpg)
 - a block in the top row
 ![a block in the top row](../image/4x4multiple_block_bottom.jpg)
+
+## Other Number Representations
+
+### Fixed-Point Numbers
+
+- 기수점의 위치가 가정되기 때문에 Fixed-point라는 이름이 붙는다
+- `radix point`: 기수점(소수에서 정수와 분수 부분을 분리하는 십진법의 소수점과 같은 지점)
+- 기수점이 표시되지 않으면 최하위 숫자의 오른쪽에 있는 것으로 가정되며, 이는 숫자가 정수임을 의미
+- 예)   
+    [fixed-point numbers](#formats-for-representation-of-integers)
