@@ -510,3 +510,12 @@
 
 - $n$ $bit \times n$ $bit = 2n$ $bit$
 ![multiplicaion](../image/multiplication.jpg)
+
+### 4 $\times$ 4 multiplier circuit
+
+- structure of the circuit
+![structure of the circuit](../image/4x4multiple_structure.jpg)
+- a block in the top row
+![a block in the top row](../image/4x4multiple_block_top.jpg)
+- a block in the top row
+![a block in the top row](../image/4x4multiple_block_bottom.jpg)
