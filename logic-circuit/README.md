@@ -547,3 +547,13 @@
 
 - single precision example
      ![single precision example](../image/single_precision_example.jpg)
+
+### Binary-Coded-Decimal Representation
+
+- binary-coded decimal digits
+    ![BCD digits](../image/BCD_digits.jpg)
+- addition of BCD digits
+    ![addition of BCD digits](../image/BCD_addition.jpg)
+    - 결과가 9를 초과하면 $(0110)_2 = (6)_{10}$ 을 더한다
+- BCD adder
+    ![BCD adder block diagram](../image/BCD_adder_blockdiagram.jpg)
