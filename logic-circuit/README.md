@@ -529,3 +529,21 @@
 - 기수점이 표시되지 않으면 최하위 숫자의 오른쪽에 있는 것으로 가정되며, 이는 숫자가 정수임을 의미
 - 예)   
     [fixed-point numbers](#formats-for-representation-of-integers)
+
+### Floating-Point Numbers
+
+- excess-127을 사용하면 부동소수점 숫자를 더하고 뺄 때 편리함
+- single precision(32비트 단정밀도)
+    - exponent: E-127
+    - value = $\pm$ 1.M $\times$ $2^{E-127}$
+    - 부호 1비트, 지수부 8비트, 가수부 23비트
+     ![single precision](../image/single_precision.jpg)
+
+- double precision(64비트 배정밀도)
+    - exponent: E-1023
+    - value = $\pm$ 1.M $\times$ $2^{E-1023}$
+    - 부호 1비트, 지수부 11비트, 가수부 52비트
+     ![double precision](../image/double_precision.jpg)
+
+- single precision example
+     ![single precision example](../image/single_precision_example.jpg)
