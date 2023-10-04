@@ -5,7 +5,7 @@
 - 개인적인 공부뿐만 아니라 시험 공부에도 유용하게 사용
 
 ## algorithm
-- [링크](algorithm/README.md)
+- [algorithm](algorithm/README.md)
 
 ## git
 
