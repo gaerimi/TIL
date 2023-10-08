@@ -83,8 +83,8 @@
 
 ### Kinds of analysis
 
-- **Worst-case**: $T(n) = $ 크기 n의 입력에 대한 알고리즘의 최대 시간
-- **Average-case**: $T(n) = $ 크기 n의 모든 입력에 대한 알고리즘의 예상 시간
+- **Worst-case**: $T(n)$ = 크기 n의 입력에 대한 알고리즘의 최대 시간
+- **Average-case**: $T(n)$ = 크기 n의 모든 입력에 대한 알고리즘의 예상 시간
 - **Best-case**: 어떤 입력에 대해 빠르게 동작
 
 ### Analysis of Algorithm
@@ -163,7 +163,7 @@
 - 재귀 방정식으로 기술
 - $T(n)$ 을 크기 n의 문제의 실행 시간이라고 가정
 - $T(n) = \Theta(1)$ if $n \leq c$   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$aT(n / b) + D(n) + C(n)$ otherwise
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $aT(n / b) + D(n) + C(n)$ otherwise
     - a: 하위 배열의 수
     - n/b: 하위 배열의 크기
     - D(n): 분할 작업 비용
@@ -178,11 +178,11 @@
     
 
 - $T(n) = \Theta(1)$ if $n = 1$   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$2T(n / 2) + \Theta(1) + \Theta(n)$ if $n > 1$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $2T(n / 2) + \Theta(1) + \Theta(n)$ if $n > 1$
 
 - $\Theta(1)$과 $\Theta(n)$은 관계가 없으므로 무시할 수 있다
 - $T(n) = c$ if $n = 1$   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$2T(n / 2) + c(n)$ if $n > 1$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $2T(n / 2) + c(n)$ if $n > 1$
 
 - 분할 단계는 얼마나 많은가?
 - n이 2의 어떤 거듭제곱이라고 가정하면, 크기 n의 배열에 대해 배열을 크기 1의 하위 배열로 재귀적으로 세분화하는 $log_2n$ 단계가 필요
