@@ -49,3 +49,20 @@
     - `Memory used`
     - `Communication`
     - `Energy`
+
+### Design and Analysis of Algorithms
+
+- 알고리즘을 어떻게 설계할까?
+    - `Brute force`: 무차별 대입
+        - 발생할 수 있는 모든 경우를 탐색
+    - `Divide and conquer`: 분할 및 정복
+        - 하나의 문제를 작은 여러 개의 문제로 쪼갠 후 재귀적으로 각 문제를 해결한 후 이를 다시 합쳐 문제를 해결
+    - `Dynamic programming`: 동적 프로그래밍
+        - 큰 문제를 작은 문제로 나누어 푸는 문제
+        - 정답을 구한 작은 문제를 어딘가에 메모해두고, 그보다 큰 문제를 풀 때 똑같은 작은 문제가 나타나면 메모해둔 작은 문제의 결과값 이용
+    - `Greedy Algorithm`: 탐욕 알고리즘
+        - 선택의 순간마다 최적의 상황만을 쫓아 최종적인 해답에 도달하는 방법
+- 어떻게 알고리즘의 효율성을 분석할까?
+    - `Time`: 시간
+    - `Space`: 공간
+    - `Energy`: 에너지
