@@ -163,7 +163,7 @@
 - 재귀 방정식으로 기술
 - $T(n)$ 을 크기 n의 문제의 실행 시간이라고 가정
 - $T(n) = \Theta(1)$ if $n \leq c$   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $aT(n / b) + D(n) + C(n)$ otherwise
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $aT(n / b) + D(n) + C(n)$ otherwise
     - a: 하위 배열의 수
     - n/b: 하위 배열의 크기
     - D(n): 분할 작업 비용
