@@ -30,3 +30,10 @@
 - Program
     - 알고리즘의 구체적인 구현
     - 특정 컴퓨터에서, 특정 언어로
+
+### Presenting Algorithm
+
+- `Desciption`: 알고리즘은 하나 이상의 예제를 사용하여 영어로 설명한다
+- `Specification`: 알고리즘은 의사코드(pseudo code)로 제시된다
+- `Validation`: 알고리즘이 모든 문제 사례에 대해 올바른 것으로 증명된다
+- `Analysis`: 알고리즘의 실행 시간 또는 공간 복잡도를 평가한다
