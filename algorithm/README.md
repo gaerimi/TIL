@@ -37,3 +37,15 @@
 - `Specification`: 알고리즘은 의사코드(pseudo code)로 제시된다
 - `Validation`: 알고리즘이 모든 문제 사례에 대해 올바른 것으로 증명된다
 - `Analysis`: 알고리즘의 실행 시간 또는 공간 복잡도를 평가한다
+
+### The algorithms we design should be
+
+- `Simple`: 단순한
+    - `Unambiguous`: 모호하지 않은
+- `Feasible`: 실현 가능한
+    - 프로그래밍을 사용하여 구현할 수 있어야 함
+- `Cost effective`
+    - `CPU time`
+    - `Memory used`
+    - `Communication`
+    - `Energy`
