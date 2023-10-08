@@ -4,7 +4,7 @@
 - 보통 학교에서 배운 전공 과목 내용을 정리
 - 개인적인 공부뿐만 아니라 시험 공부에도 유용하게 사용
 
-## algorithm
+## algorithm (알고리즘)
 - [algorithm](algorithm/README.md)
 
 ## git
