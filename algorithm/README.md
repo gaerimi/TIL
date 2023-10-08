@@ -142,7 +142,7 @@
 
 1. n1 $\leftarrow$ q - p + 1
 2. n2 $\leftarrow$ r - q
-3. create arrays L[1 ... n1 + 1] and R[1 ... n2 + 1]
+3. create arrays L[1 ... n1 + 1] **and** R[1 ... n2 + 1]
 4. **for** i $\leftarrow$ 1 **to** n1
 5. &nbsp;&nbsp;&nbsp;&nbsp;**do** L[i] $\leftarrow$ A[p + i - 1]
 6. **for** j $\leftarrow$ 1 **to** n2
