@@ -68,3 +68,8 @@
     - `Energy`: 에너지
 
 ## Chapter 2
+
+### The importance of sorting 
+
+- 컴퓨터는 정렬에 가장 많은 시간을 소비함
+- 정렬은 다양한 알고리즘을 가진 컴퓨터과학에서 가장 잘 연구된 문제
