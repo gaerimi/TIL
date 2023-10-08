@@ -78,7 +78,7 @@
 
 - 실행 시간은 입력에 따라 다르다: 이미 정렬된 배열은 정렬하기가 더 쉽다
 - 주요 단순화 규칙: 짧은 배열이 긴 배열보다 정렬하기 쉽기 때문에 실행 시간을 입력 크기로 매개 변수화한다
-    - $T_A(n) = $ 길이 n 입력에서 A의 시간
+    - $T_A(n)$ = 길이 n 입력에서 A의 시간
 - 일반적으로, 성능을 보장하기 위해 수행시간의 상한을 찾는다
 
 ### Kinds of analysis
@@ -163,7 +163,7 @@
 - 재귀 방정식으로 기술
 - $T(n)$ 을 크기 n의 문제의 실행 시간이라고 가정
 - $T(n) = \Theta(1)$ if $n \leq c$   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $aT(n / b) + D(n) + C(n)$ otherwise
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $aT(n / b) + D(n) + C(n)$ otherwise
     - a: 하위 배열의 수
     - n/b: 하위 배열의 크기
     - D(n): 분할 작업 비용
@@ -178,11 +178,11 @@
     
 
 - $T(n) = \Theta(1)$ if $n = 1$   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $2T(n / 2) + \Theta(1) + \Theta(n)$ if $n > 1$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $2T(n / 2) + \Theta(1) + \Theta(n)$ if $n > 1$
 
 - $\Theta(1)$과 $\Theta(n)$은 관계가 없으므로 무시할 수 있다
 - $T(n) = c$ if $n = 1$   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $2T(n / 2) + c(n)$ if $n > 1$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $2T(n / 2) + c(n)$ if $n > 1$
 
 - 분할 단계는 얼마나 많은가?
 - n이 2의 어떤 거듭제곱이라고 가정하면, 크기 n의 배열에 대해 배열을 크기 1의 하위 배열로 재귀적으로 세분화하는 $log_2n$ 단계가 필요
