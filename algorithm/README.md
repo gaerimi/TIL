@@ -92,3 +92,30 @@
 - 알고리즘을 분석할 때 worst-case가 중요한 이유
 - 최악의 경우는 알고리즘의 실행 시간에 대한 상한(알고리즘의 성능이 이보다 나쁠 수 없음)
 - 일부 알고리즘의 경우 worst-case가 자주 발생
+
+### Insertion Sort
+
+- 삽입 정렬: 자료 배열의 모든 요소를 앞에서부터 차례대로 이미 정렬된 배열 부분과 비교하여, 자신의 위치를 찾아 삽입함으로써 정렬을 완성하는 알고리즘
+
+#### INSERTION-SORT(A)
+
+1. **for** j = 2 to length[A]
+2. &nbsp;&nbsp;&nbsp;&nbsp;**do** key $\leftarrow$ A[j]
+3. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//insert A[j] to sorted sequence A[1 ... j - 1]
+4. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i $\leftarrow$ j - 1
+5. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**while** i > 0 and A[i] > key
+6. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**do** A[i + 1] $\leftarrow$ A[i]  //move A[i] one position right
+7. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i $\leftarrow$ i - 1
+8. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[i + 1] $\leftarrow$ key
+
+#### Insertion Sort analysis
+
+- Worst case
+    - Reverse sorted list: 역으로 정렬된 리스트
+    - $O(n^2)$
+- Best case
+    - Sorted input: 정렬된 리스트
+    - $O(n)$
+- 삽입 정렬이 빠른 정렬 알고리즘인가?
+    - n이 작은 경우에는 적당히 빠름
+    - n이 클 경우에는 빠르지 않음
