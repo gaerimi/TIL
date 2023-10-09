@@ -213,3 +213,8 @@ $O(g(n)) = f(n)$: 모든 $n \ge n_0$에 대해 $0 \le f(n) \le cg(n)$을 만족�
 $7n - 2$ is $O(n)$   
 모든 $n \ge n_0$에 대해 $7n - 2 \le cn$을 만족하는 $c > 0$과 $n_0 \ge 1$이 필요하다   
 이는 $c = 7$과 $n_0 = 1$에 대해 만족한다
+
+### Omega: Lower bound
+
+- $\Omega(g(n))$ 은 함수들의 집합이다   
+$\Omega(g(n)) = f(n)$: 모든 $n \ge n_0$에 대해 $0 \le cg(n) \le f(n)$을 만족하는 양의 상수 $c$ 와 $n_0$이 존재한다
