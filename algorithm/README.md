@@ -291,3 +291,64 @@ $T(n) = \Theta(1)$
 
 - 많은 알고리즘의 복잡성은 쉽게 재귀로 표현된다
 - 재귀적 알고리즘의 복잡성은 쉽게 재귀로 표현된다
+
+### Maximum Subarray Problem
+
+- Maximum subarray problem: 숫자들로 이루어진 주어진 1차원 배열 A[1 ... n] 내에서 가장 큰 합을 갖는 연속적인 하위 배열을 찾는 작업
+- brute-force방법으로 maximum subarray를 풀면 시간복잡도는 $O(n^2)$   
+![brute-force](../image/MSP_bruteforce.jpg)
+- brute-force 알고리즘보다 더 나은 알고리즘이 필요 $\rightarrow$ 분할 및 정복 알고리즘은 어떨까?
+![divide and conquer](../image/MSP_divideconquer.jpg)
+- 배열을 2개의 배열로 나눈다
+    - 왼쪽 배열에 속하는 하위 배열
+    - 오른쪽 배열에 속하는 하위 배열
+    - 중간을 가로지르는 하위 배열
+- A[low ... high]의 maximum subarray를 구한다고 가정할 때
+    - 분할과 정복은 하위 배열의 중간점(mid)를 찾고 하위 배열 A[low ... mid]와 A[mid + 1 ... high]를 고려
+    - 연속된 하위 배열 A[i ... j]는 3 영역 중 하나의 영역에 있어야 한다
+        - entirely in A[low ... mid]
+        - entirely in A[mid + 1 ... high]
+        - crosses the midpoint
+
+#### Find Max Crossing Subarray
+
+- 중간점을 가로지르는 maximum subarray를 쉽게 찾을 수 있음
+- A[i ... mid]와 A[mid + 1 ... j]의 maximun subarray를 찾아 결합하면 됨
+
+- FIND-MAX-CROSSING-SUBARRAY(A, low, mid, high)
+1. left-sum = $-\infty$
+2. sum = 0
+3. **for** i = mid **downto** low
+4. &nbsp;&nbsp;&nbsp;&nbsp;sum = sum + A[i]
+5. &nbsp;&nbsp;&nbsp;&nbsp;**if** sum > left-sum
+6. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left-sum = sum
+7. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;max-left = i
+8. right-sum = $-\infty$
+9. sum = 0
+10. **for** j = mid + 1 **to** high
+11. &nbsp;&nbsp;&nbsp;&nbsp;sum = sum + A[j]
+12. &nbsp;&nbsp;&nbsp;&nbsp;**if** sum > right-sum
+13. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;right-sum = sum
+14. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;max-right = j
+15. **return** (max-left, max-right, left-sum + right-sum)
+
+#### Find Maximum subarray
+
+- 3가지 경우로 나누어 최적의 솔루션을 선택한다
+    - 왼쪽 하위 배열
+    - 교차 하위 배열
+    - 오른쪽 하위 배열
+
+- FIND-MAXIMUM-SUBARRAY(A, low, high)
+1. **if** high == low
+2. &nbsp;&nbsp;&nbsp;&nbsp;**return** (low, high, A[low])
+3. **else** mid = $\lfloor$ (low + high) / 2 $\rfloor$
+4. &nbsp;&nbsp;&nbsp;&nbsp;(left-low, left-high, left-sum) = FIND-MAXIMUM-SUBARRAY(A, low, mid)
+5. &nbsp;&nbsp;&nbsp;&nbsp;(right-low, right-high, right-sum) = FIND-MAXIMUM-SUBARRAY(A, mid + 1, high)
+6. &nbsp;&nbsp;&nbsp;&nbsp;(cross-low, cross-high, cross-sum) = FIND-MAX-CROSSING-SUBARRAY(A, low, mid, high)
+7. &nbsp;&nbsp;&nbsp;&nbsp;**if** left-sum $\ge$ right-sum **and** left-sum $\ge$ cross-sum
+8. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**return** (left-low, left-high, left-sum)
+9. &nbsp;&nbsp;&nbsp;&nbsp;**elseif** right-sum $\ge$ left-sum **and** right-sum $\ge$ cross-sum
+10. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**return** (right-low, right-high, right-sum)
+11. &nbsp;&nbsp;&nbsp;&nbsp;**else** **return** (cross-low, cross-high, cross-sum)
+- 시간복잡도는 $O(nlogn)$
