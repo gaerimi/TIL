@@ -241,7 +241,7 @@ $\Theta(g(n)) = f(n)$: 모든 $n \ge n_0$에 대해 $0 \le c_1g(n) \le f(n) \le 
 - 임의의 다항식이 임의의 로그를 지배한다
     - $n^2$ dominates $nlogn$, $n$ dominates $log n$ or $log logn$
 - 다른 변수들로 이루어진 차항에서 저차항을 생략하면 안된다
-    - $(n^2 + m)$ &nbsp;&nbsp;$- \times \rightarrow n^2$
+    - $(n^2 + m)$ &nbsp;&nbsp; $- \times \rightarrow n^2$
 
 ### Some examples of Big O
 
