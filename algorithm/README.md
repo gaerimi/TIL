@@ -218,3 +218,9 @@ $7n - 2$ is $O(n)$
 
 - $\Omega(g(n))$ 은 함수들의 집합이다   
 $\Omega(g(n)) = f(n)$: 모든 $n \ge n_0$에 대해 $0 \le cg(n) \le f(n)$을 만족하는 양의 상수 $c$ 와 $n_0$이 존재한다
+
+### Theta: Upper and Lower bound
+
+-   $\Theta(g(n))$ 은 함수들의 집합이다   
+$\Theta(g(n)) = f(n)$: 모든 $n \ge n_0$에 대해 $0 \le c_1g(n) \le f(n) \le c_2g(n)$을 만족하는 양의 상수 $c_1, c_2$ 와 $n_0$이 존재한다
+- 함수에서 빅오와 빅오메가의 공통부분 
