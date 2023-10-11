@@ -352,3 +352,86 @@ $T(n) = \Theta(1)$
 10. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**return** (right-low, right-high, right-sum)
 11. &nbsp;&nbsp;&nbsp;&nbsp;**else** **return** (cross-low, cross-high, cross-sum)
 - 시간복잡도는 $O(nlogn)$
+
+### Methods for Solving Recurrences
+
+#### Substitution Method
+
+1. 풀이의 형태를 추측한다
+2. 수학적 귀납법을 이용하여 상수를 찾고 풀이법이 작동함을 보인다
+    - 풀이를 추측하기 쉬울 때 잘 작동한다
+    - 상한 또는 하한에서 사용할 수 있다
+- 예)   
+$T(n) = 2T(n/2) + n$ = ?
+- $T(n) = O(nlogn)$이라고 추측
+- $T(n) \le cnlogn$을 어떤 $c$에 대해 증명
+    - Inductive base: 어떤 작은 $n$에 대해 부등식이 성립함을 증명
+        - $T(2) = 2T(1) + 2 = 4$
+        - $cnlogn = c * 2 * log2 = 2c$   choose any $c \ge 2$
+    - Assume true for $n/2$
+        - $T(n/2) \ge c(n/2)log(n/2)$
+    - Prove
+        - $T(n) = 2T(n/2) + n$   
+        $\le 2T(c(n/2)log(n/2)) + n$   
+        $= cnlog(n/2) + n$   
+        $= cnlogn - cn + n$   
+        $\le cnlogn$  &nbsp;&nbsp;&nbsp;&nbsp; for $c \ge 2$   
+        $= O(nlogn)$  &nbsp;&nbsp;&nbsp;&nbsp; for $c \ge 2$
+- 재귀 방정식이 익숙해보인다면 비슷한 풀이를 추측할 수 있다
+    - $T(n) = 2T(n/2+17) + n$
+    - $T(N) = O(nlogn)$ 추측 가능
+        - 왜? 17은 재귀방정식 풀이에 실질적으로 영향을 미칠 수 없다 (단지 상수이기 때문에)
+
+#### Iterative Substitution
+
+- 예)   
+$T(n) = 0$ &nbsp;&nbsp;&nbsp;&nbsp; if $n = 0$   
+$= T(n-1) + n$ &nbsp;&nbsp;&nbsp;&nbsp; if $n > 0$
+- 원래 관계식에서 n을 n-1로 대체하면: $T(n-1) = T(n-2) + (n-1)$
+- 원래 관계식에서 n-1을 위에서 구한 식으로 대체하면: $(T(n-2)+(n-1))+n$
+- $T(n-2) = T(n-3) + (n-2)$임을 안다
+- 위위의 식에서 $T(n-2)$를 위의 식으로 대체하면: $T(n) = (T(n-3)+(n-2))+(n-1)+n$
+- 패턴을 확인할 수 있다
+    - $T(n) = T(n-1)+n$
+    - $T(n) = (T(n-2)+(n-1))+n$
+    - $T(n) = (T(n-3)+(n-2))+(n-1)+n$
+    - $\dots$
+    - $T(n) = T(n-(n-2))+2+3+\dots+(n-2)+(n-1)+n$
+    - $T(n) = T(n-(n-1))+2+3+\dots+(n-2)+(n-1)+n$
+    - $T(n) = T(n-(n-0))+2+3+\dots+(n-2)+(n-1)+n$
+    - $\Rightarrow T(n) = T(0)+1+2+3+\dots+(n-2)+(n-1)+n$
+- $T(0) = 0$임을 알고있으므로 $T(n) = 0+1+2+3+\dots+(n-2)+(n-1)+n$
+    - $T(n) = T(0)+1+2+3+\dots+(n-2)+(n-1)+n$의 합은 $T(n) = (n(n+1)/2) = 1/2n^2 + 1/2n$
+    - 따라서 $O(n^2)$ 
+
+#### Recursion Tree
+
+- 각 노드는 재귀 함수 호출 집합에서 단일 하위 문제의 비용을 나타낸다
+- 트리의 각 레벨 내에서 비용을 합산하여 레벨별 비용 집합을 얻는다
+- 모든 레벨의 비용을 합산하여 재귀의 총 비용을 결정한다
+- substitution method를 위한 좋은 추측을 생성하는 데 유용하다
+
+#### Master Theorem
+
+- $a \ge 1$, $b > 1$이고, $f(n)$이 점근적 양의 함수인 $T(n) = aT(n/b)+f(n)$형태의 재귀를 해결하기 위한 cookbook method를 제공한다
+- 분할 정복 알고리즘은 $T(n) = aT(n/b) + D(n) + C(n)$의 형태가 반복되기 때문에 마스터 정리의 형태는 매우 편하다
+- $T(n) = aT(n/b)+f(n)$
+    - case 1) if $f(n) = O(n^{log_b{a-\varepsilon}})$ for $\varepsilon > 0$, then $T(n) = \Theta(n^{log_ba})$
+    - case 2) if $f(n) = \Theta(n^{log_ba})$, then $T(n) = \Theta(n^{log_ba}logn)$
+    - case 3) if $f(n) = \Omega(n^{log_b{a+\varepsilon}})$ for $\varepsilon > 0$ and $af(n/b) \le cf(n)$ for $c < 1$ then $T(n) = \Theta(f(n))$
+- 위의 정리를 다시 말하면
+    - 우선 $f(n)$과 $n^{log_ba}$를 비교한다
+    - $f(n)$이 점근적으로 느리게 성장하면(case 1)
+        - $T(n) = \Theta(n^{log_ba}$
+    - 성장률이 같으면(case 2)
+        - $T(n) = \Theta(n^{log_ba}logn)$
+    - $f(n)$이 점근적으로 빠르게 성장하면(case 3)
+        - $T(n) = \Theta(f(n))$
+- 예)   
+$T(n) = 16T(n/4)+n$
+- $f(n)$과 $n^{log_ba}$를 비교한다
+    - $f(n) = n$
+    - $a = 16, b = 4$
+    - $n^{log_ba} = n^{log_416} = n^2$
+- $f(n) = n$은 $n^2$보다 점근적으로 느리게 성장한다
+    - case 1) $T(n) = \Theta(n^{log_ba} = \Theta(n^2)$
