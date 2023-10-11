@@ -435,3 +435,5 @@ $T(n) = 16T(n/4)+n$
     - $n^{log_ba} = n^{log_416} = n^2$
 - $f(n) = n$은 $n^2$보다 점근적으로 느리게 성장한다
     - case 1) $T(n) = \Theta(n^{log_ba} = \Theta(n^2)$
+
+## Chapter 6
