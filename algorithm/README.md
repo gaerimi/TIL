@@ -562,3 +562,12 @@ $T(n) = 16T(n/4)+n$
         - 이벤트 중심 시뮬레이터에서 시뮬레이션할 이벤트 목록을 발생 시간의 순서대로 유지   
 
 ![process state diagram](../image/priorityqueue_diagram.jpg)
+
+###### Basic Operatioins
+
+- 최대 우선 순위 큐에 대한 작업
+    - `Insert(S, x)`: 요소 x를 집합 S에 삽입한다 $S \leftarrow S \cup \{x\}$
+    - `Maximum(S)`: 키 값이 가장 큰 S의 요소를 반환한다
+    - `Extract-Max(S)`: 키 값이 가장 큰 S의 요소를 제거하고 반환한다
+    - `Increase-Key(S, x, k)`: 원소 x의 키 값을 새로운 값 k로 증가시킨다
+- 최소 우선 순위 큐도 삽입, 최소, 최소값 추출, 키 감소를 지원한다
