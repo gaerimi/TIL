@@ -765,3 +765,5 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
 2. **then** q $\leftarrow$ RANDOMIZED-PARTITION(A, p, r)
 3. &nbsp;&nbsp;&nbsp;&nbsp;RANDOMIZED-QUICKSORT(A, p, q - 1)
 4. &nbsp;&nbsp;&nbsp;&nbsp;RANDOMIZED-QUICKSORT(A, q + 1, r)
+
+## Chapter 8
