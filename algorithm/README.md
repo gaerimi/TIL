@@ -601,3 +601,11 @@ $T(n) = 16T(n/4)+n$
 5. &nbsp;&nbsp;&nbsp;&nbsp;**do** exchange A[i] $\leftrightarrow$ A[Parent[i]]
 6. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i $\leftarrow$ Parent[i]
 - 수행 시간: $O(log n)$
+
+###### Heap Insert
+
+- HEAP-INSERT(A, key)
+1. heap-size[A] $\leftarrow$ heap-size[A] + 1
+2. A[heap-size[A]] $\leftarrow -\infty$
+3. HEAP-INCREASE-KEY(A, heap-size[A], key)
+- 수행 시간: $O(log n)$
