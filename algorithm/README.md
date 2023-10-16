@@ -591,3 +591,13 @@ $T(n) = 16T(n/4)+n$
 7. **return** max
 - 수행 시간: $O(log n)$ (MaxHeapify의 수행시간에 지배됨)
 
+###### Heap Increase Key
+
+- HEAP-INCREASE-KEY(A, i, key)
+1. **if** ket < A[i]
+2. &nbsp;&nbsp;&nbsp;&nbsp;**then error** "new key is smaller then the current key"
+3. A[i] $\leftarrow$ key
+4. **while** i > 1 **and** A[Parent[i]] < A[i]
+5. &nbsp;&nbsp;&nbsp;&nbsp;**do** exchange A[i] $\leftrightarrow$ A[Parent[i]]
+6. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i $\leftarrow$ Parent[i]
+- 수행 시간: $O(log n)$
