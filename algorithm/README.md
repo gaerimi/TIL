@@ -578,3 +578,15 @@ $T(n) = 16T(n/4)+n$
 1. **return** A[1]
 - 힙의 최상위(루트)에 있는 요소를 반환한다
 - 수행 시간: $\Theta(1)$
+
+###### Heap Extract Max
+
+- HEAP-EXTRACT-MAX(A)
+1. **if** heap-size[A] < 1
+2. &nbsp;&nbsp;&nbsp;&nbsp;**then** error "heap-underflow"
+3. max $\leftarrow$ A[1]
+4. A[1] $\leftarrow$ A[heap-size[A]]
+5. heap-size[A] $\leftarrow$ heap-size[A] - 1
+6. MAX-HEAPIFY(A, 1)
+7. **return** max
+- 수행 시간: $O(log n)$ (MaxHeapify의 수행시간에 지배됨)
