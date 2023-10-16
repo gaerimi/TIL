@@ -490,3 +490,9 @@ $T(n) = 16T(n/4)+n$
 - 트리에서 노드의 높이: 노드에서 단말노드까지의 가장 긴 단순한 하향 경로의 가지 수
 - 트리의 높이: 루트의 높이
 - 힙의 높이: $\lfloor log n \rfloor$
+
+#### Heap Characteristics
+
+- Height(높이) = $\lfloor log n \rfloor$
+- \# of leaves(단말노드의 개수) = $\lceil n/2 \rceil$
+- \# of nodes of height h(높이 h에서의 노드의 개수) $\le \lceil n/2^{h+1} \rceil$
