@@ -638,3 +638,15 @@ $T(n) = 16T(n/4)+n$
 2. &nbsp;&nbsp;&nbsp;&nbsp;**then** q $\leftarrow$ PARTITION(A, p, r)
 3. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUICKSORT(A, p, q - 1)
 4. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUICKSORT(A, q + 1, r)
+
+#### Partition Algorithm
+
+- PARTITION(A, p, r)
+1. x $\leftarrow$ A[r]
+2. i $\leftarrow$ p - 1
+3. **for** j $\leftarrow$ p **to** r - 1
+4. &nbsp;&nbsp;&nbsp;&nbsp;**do if** A[j] $\le$ x
+5. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**then** i $\leftarrow$ i + 1
+6. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exchange A[i] $\leftrightarrow$ A[j]
+7. exchange A[i + 1] $\leftrightarrow$ A[r]
+8. **return** i + 1
