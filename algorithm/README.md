@@ -520,3 +520,11 @@ $T(n) = 16T(n/4)+n$
 9. &nbsp;&nbsp;&nbsp;&nbsp;**then** exchange A[i] $\leftrightarrow$ A[largest]
 10. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAX-HEAPIFY(A, largest)
 - 수행 시간: $O(logn)$ or $O(h)$
+
+##### Build Max Heap
+
+- BUILD-MAX-HEAP(A)
+1. heap-size[A] $\leftarrow$ length[A]
+2. **for** i $\leftarrow \lfloor$ length[A]/2 $\rfloor$ **downto** 1 **do**
+3. &nbsp;&nbsp;&nbsp;&nbsp;MAX-HEAPIFY(A, i)
+- 수행 시간: $O(n)$
