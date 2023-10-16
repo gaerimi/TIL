@@ -504,3 +504,19 @@ $T(n) = 16T(n/4)+n$
 - `HEAPSORT`: 배열을 제자리에서 정렬한다
 - `EXTRACT-MAX`: 최대 요소를 선택한다
 - `INSERT`: 새 요소를 삽입한다
+
+##### MaxHeapify
+
+- Assumption: Left(i) and Right(i) are max-heaps
+- MaxHeapify(A, i)
+1. l $\leftarrow$ left(i)
+2. r $\leftarrow$ right(i)
+3. **if** l $\le$ heap-size[A] **and** A[l] > A[i]
+4. &nbsp;&nbsp;&nbsp;&nbsp;**then** largest $\leftarrow$ l
+5. &nbsp;&nbsp;&nbsp;&nbsp;**else** largest $\leftarrow$ i
+6. **if** r $\le$ heap-size[A] **and** A[r] > A[largest]
+7. &nbsp;&nbsp;&nbsp;&nbsp;**then** largest $\leftarrow$ r
+8. **if** largest $\ne$ i
+9. &nbsp;&nbsp;&nbsp;&nbsp;**then** exchange A[i] $\leftrightarrow$ A[largest]
+10. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MaxHeapify(A, largest)
+- 수행 시간: $O(logn)$ or $O(h)$
