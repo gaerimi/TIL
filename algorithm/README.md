@@ -496,3 +496,11 @@ $T(n) = 16T(n/4)+n$
 - Height(높이) = $\lfloor log n \rfloor$
 - \# of leaves(단말노드의 개수) = $\lceil n/2 \rceil$
 - \# of nodes of height h(높이 h에서의 노드의 개수) $\le \lceil n/2^{h+1} \rceil$
+
+#### Heaps have 5 basic procedures
+
+- `HEAPIFY`: 힙 속성을 유지한다
+- `BUILD-HEAP`: 정렬되지 않은 배열로 힙을 만든다
+- `HEAPSORT`: 배열을 제자리에서 정렬한다
+- `EXTRACT-MAX`: 최대 요소를 선택한다
+- `INSERT`: 새 요소를 삽입한다
