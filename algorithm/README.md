@@ -583,10 +583,11 @@ $T(n) = 16T(n/4)+n$
 
 - HEAP-EXTRACT-MAX(A)
 1. **if** heap-size[A] < 1
-2. &nbsp;&nbsp;&nbsp;&nbsp;**then** error "heap-underflow"
+2. &nbsp;&nbsp;&nbsp;&nbsp;**then error** "heap-underflow"
 3. max $\leftarrow$ A[1]
 4. A[1] $\leftarrow$ A[heap-size[A]]
 5. heap-size[A] $\leftarrow$ heap-size[A] - 1
 6. MAX-HEAPIFY(A, 1)
 7. **return** max
 - 수행 시간: $O(log n)$ (MaxHeapify의 수행시간에 지배됨)
+
