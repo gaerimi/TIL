@@ -750,3 +750,10 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
     - A[p...r]에서 임의로 피벗을 선택
     - 입력 배열을 랜덤화하는 초기 단계를 선택
     - 수행 시간과 입력 순서는 독립적이다
+
+#### Randomized Partition
+
+- RANDOMIZED-PARTITION(A, p, r)
+1. i $\leftarrow$ RANDOM(p, r)
+2. exchange A[r] $\leftrightarrow$ A[i]
+3. **return** PARTITION(A, p, r)
