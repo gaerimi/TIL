@@ -630,3 +630,11 @@ $T(n) = 16T(n/4)+n$
     - 피벗이라는 요소를 기반으로 배열을 나눈다
     - 분할 단계는 모든 작업을 수행한다, 병합 단계는 사소하다
 - 하위 배열에 1개의 요소만 포함될 때까지 배열을 두 개의 하위 배열로 분할하여 왼쪽의 모든 값이 오른쪽의 값보다 작아지도록 반복한다
+
+#### Quick Sort Algorithm
+
+- QUICKSORT(A, p, r)
+1. **if** p < r
+2. &nbsp;&nbsp;&nbsp;&nbsp;**then** q $\leftarrow$ PARTITION(A, p, r)
+3. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUICKSORT(A, p, q - 1)
+4. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUICKSORT(A, q + 1, r)
