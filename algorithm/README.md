@@ -650,3 +650,10 @@ $T(n) = 16T(n/4)+n$
 6. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exchange A[i] $\leftrightarrow$ A[j]
 7. exchange A[i + 1] $\leftrightarrow$ A[r]
 8. **return** i + 1
+
+### Performance of Quicksort
+
+- 파티션의 균형 또는 불균형 여부에 따라 달라짐
+- 파티션의 균형은 피벗 선택에 따라 달라짐
+    - 균형적인 경우 병합 정렬만큼 빨리 실행됨
+    - 불균형적인 경우 삽입 정렬만큼 느리게 실행됨
