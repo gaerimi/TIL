@@ -609,3 +609,13 @@ $T(n) = 16T(n/4)+n$
 2. A[heap-size[A]] $\leftarrow -\infty$
 3. HEAP-INCREASE-KEY(A, heap-size[A], key)
 - 수행 시간: $O(log n)$
+
+#### Heap Summary
+
+- MAX-HEAPIFY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$O(log n)$
+- BUILD-MAX-HEAP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$O(n)$
+- HEAP-SORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$O(nlog n)$
+- HEAP-MAXIMUM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$O(1)$
+- HEAP-EXTRACT-MAX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$O(log n)$
+- HEAP-INCREASE_KEY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$O(log n)$
+- HEAP-INSERT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$O(log n)$
