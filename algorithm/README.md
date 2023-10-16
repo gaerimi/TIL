@@ -528,3 +528,17 @@ $T(n) = 16T(n/4)+n$
 2. **for** i $\leftarrow \lfloor$ length[A]/2 $\rfloor$ **downto** 1 **do**
 3. &nbsp;&nbsp;&nbsp;&nbsp;MAX-HEAPIFY(A, i)
 - 수행 시간: $O(n)$
+
+##### Heap Sort
+
+- HEAP-SORT(A)
+1. BUILD-MAX-HEAP(A)
+2. **for** i $\leftarrow$ length[A] **downto** 2 **do**
+3. &nbsp;&nbsp;&nbsp;&nbsp;exchange A[1] $\leftrightarrow$ A[i]
+4. &nbsp;&nbsp;&nbsp;&nbsp;heap-size[A] $\leftarrow$ heap-size[A] - 1
+5. &nbsp;&nbsp;&nbsp;&nbsp;MAX-HEAPIFY(A, 1)
+- 수행 시간: $O(nlogn)$
+- 힙 정렬은 힙을 데이터 구조로 사용함
+- 힙 정렬은 제자리 정렬임
+- 추가로 공간이 필요한가?
+    - 아주 적은 양의 공간: 두 개의 배열 요소를 교환할 때 임시 저장소로 한 개의 추가 공간이 필요함
