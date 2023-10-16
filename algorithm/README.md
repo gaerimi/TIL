@@ -674,3 +674,13 @@ $T(n) = 16T(n/4)+n$
 $T(n) = T(n-1) + T(0) + \Theta(n)$   
 = $T(n-1) + \Theta(n)$   
 = $\Theta(n^2)$
+
+#### Best case performance
+
+- 각 하위 문제의 크기는 $n/2$ 보다 작음
+    - 하위 문제 중 하나의 크기는 $\lfloor n/2 \rfloor$
+    - 다른 하위 문제으 ㅣ크기는 $\lceil n/2 \rceil - 1$
+- 수행 시간에 대한 재귀방정식   
+$T(n) \le 2T(n/2) + PartitionTime(n)$   
+= $2T(n/2) + \Theta(n)$   
+= $\Theta(nlogn)$
