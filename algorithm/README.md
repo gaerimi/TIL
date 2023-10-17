@@ -839,3 +839,21 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
     - k = $O(n)$ 일 때 최악의 경우는 $O(n)$
     - 비교 정렬이 아니므로 (n log n)의 하한을 넘는다
     - 비교하지 않음: 요소의 실제 값을 사용하여 배열로 인덱싱
+
+### Radix Sort
+
+- Radix Sort(기수 정렬): 기수 별로 비교 없이 수행하는 알고리즘
+- 일부 k진수에서 d자리 숫자로 키를 나타냄
+    - key = $x_dx_{d-1} \dots x_2x_1$ where $0 \le x_i \le k - 1$
+- 가정
+    - d = $O(1)$, k = $O(n)$
+- 정렬은 한번에 하나의 열만 처리
+    - d자리 숫자의 경우, 최하위 숫자를 먼저 정렬
+    - 모든 숫자가 정렬될 때까지 다음 최하위 숫자 정렬
+    - 목록을 d번만 통과하면 됨
+
+- RADIX-SORT(A, d)
+1. **for** i $\leftarrow$ 1 **to** d **do**
+2. use a stable sort to sort array A on digit i
+
+- stable sort algotithms 참조
