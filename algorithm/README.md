@@ -948,3 +948,13 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
 #### Why Quick sort is unstable?
 
 - 퀵 정렬은 원래 위치를 고려하지 않고 피벗의 위치에 따라 요소의 자리를 바꾸기 때문에 불안정하다
+
+#### Radix Sort
+
+- RADIX-SORT(A, d)
+1. **for** i $\leftarrow$ **to** d **do**
+2. use a <U>stable</U> sort to sort array A on digit
+
+- 기수 정렬에서 안정적 정렬을 사용
+- 기수 정렬에서 사용할 수 없는 정렬은?
+    - 힙 정렬, 퀵 정렬 같은 불안정 정렬
