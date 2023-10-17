@@ -899,3 +899,7 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
 - 퀵 정렬, 선택 정렬, 계수 정렬
 
 ## Sorting Conclusion
+
+### The importance of sorting
+
+- [챕터 2의 importance of sorting 참조](#the-importance-of-sorting)
