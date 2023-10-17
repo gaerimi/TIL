@@ -1014,3 +1014,7 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
     - 계수 정렬
     - 버킷 정렬
     - 기수 정렬
+
+### Performance characteristic of sorting algorithm
+
+![sorting algorithm table](../image/sorting_character.jpg)
