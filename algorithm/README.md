@@ -856,7 +856,7 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
 1. **for** i $\leftarrow$ 1 **to** d **do**
 2. use a stable sort to sort array A on digit i
 
-- stable sort algotithms 참조
+- [stable sort algotithms 참조](#stable-sort-algorithms)
 
 - 수행 시간
     - d자리의 수 n개가 주어지고, 각 자리가 최대 k개의 값을 가질 수 있을 때, $O(d(n+k))$
