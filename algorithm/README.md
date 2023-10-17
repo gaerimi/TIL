@@ -863,3 +863,27 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
         - 숫자 당 정렬의 한 패스는 계수 정렬을 사용한다고 가정하면 $O(n+k)$
         - 각 자리마다 d번의 패스를 함
     - d = $O(1)$, k = $O(n)$을 가정하면 $O(n)$
+
+### Bucket Sort
+
+- Bucket Sort(버킷 정렬): 배열의 원소를 여러 버킷으로 분산하여 작동하는 정렬 알고리즘
+- 가정
+    - 원소가 0보다 크거나 같고 1보다 작은 수로 [0, 1) 균일하게 분배하는 과정에 의해 입력이 생성
+- 동일한 크기의 n개의 버킷으로 나눈다
+    - 1로 시작하면 버킷 1, 5로 시작하면 버킷 5 이런 식
+- n개의 입력 값을 버킷에 분배한다
+- 각 버킷을 정렬한다
+- 각 버킷에 있는 요소를 나열하면서 순서대로 버킷을 살펴본다
+
+- BUCKET-SORT(A)
+- 입력: A[1...n], where 0 $\le$ A[i] < 1 for all i
+- 보조 배열: 각 목록이 비어있는 연결 리스트 B[0...n - 1]
+1. n $\leftarrow$ length[A]
+2. **for** i $\leftarrow$ 1 **to** n
+3. &nbsp;&nbsp;&nbsp;&nbsp;**do** insert A[i] **into** list B[$\lfloor$ nA[i] $\rfloor$]
+4. **for** i $\leftarrow$ 0 **to** n - 1
+5. &nbsp;&nbsp;&nbsp;&nbsp;**do** sort list B[i] with insertion sort
+6. concatenate the lists B[i]s together in order
+7. **return** the concatenated lists
+
+- 수행 시간: $O(n)$
