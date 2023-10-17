@@ -887,3 +887,8 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
 7. **return** the concatenated lists
 
 - 수행 시간: $O(n)$
+
+### Stable sort algorithms
+
+- Stable sort(안정 정렬): 중복된 값을 입력 순서와 동일하게 정렬
+- 삽입 정렬, 병합 정렬, 버블 정렬
