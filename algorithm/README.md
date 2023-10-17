@@ -809,3 +809,33 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
             - n에 스털링 근사값을 사용하면
                 - n! > $(n/e)^n$
     - 따라서 h $\le log(n!) \le log(n/e)^n = n log n - n log e = \Omega(n log n)$
+
+### Counting Sort
+
+- Counting Sort(계수 정렬): 데이터 값을 직접 비교하지 않고, 각 숫자가 몇 개 있는지 개수를 세어 저장한 후에 정렬하는 알고리즘
+1. A에 A[i]가 나타나는 횟수(빈도)를 찾는다
+2. A[i]보다 작은 원소의 개수를 찾는다
+3. A의 마지막 요소부터 시작하여 출력 배열의 올바른 위치에 A[i]를 배치하고, C[A[i]]를 하나씩 줄인다
+
+- n개의 입력 요소 각각을 일부 정수 k에 대해 0~k 범위의 정수라고 가정
+- 각 원소 x에 대해 x보다 작은 원소들의 개수를 찾는다
+- 3개의 배열이 필요
+    - 입력 배열 A[1...n]
+    - 정렬된 출력을 위한 배열 B[1...n]
+    - 각 원소가 발생하는 횟수를 계산하기 위한 배열 C[0...k] (임시 작업 저장소)
+
+- COUNTING-SORT(A, B, k)
+1. **for** i $\leftarrow$ 0 **to** k
+2. &nbsp;&nbsp;&nbsp;&nbsp;**do** C[i] $\leftarrow$ 0
+3. **for** j $\leftarrow$ 1 **to** length[A]
+4. &nbsp;&nbsp;&nbsp;&nbsp;**do** C[A[j]] $\leftarrow$ C[A[j]] + 1
+5. **for** i $\leftarrow$ 1 **to** k
+6. &nbsp;&nbsp;&nbsp;&nbsp;**do** C[i] $\leftarrow$ C[i] + C[i - 1]
+7. **for** j $\leftarrow$ length[A] **downto** 1
+8. &nbsp;&nbsp;&nbsp;&nbsp;**do** B[C[A[j]]] $\leftarrow$ A[j]
+9. &nbsp;&nbsp;&nbsp;&nbsp; C[A[j]] $\leftarrow$ C[A[j]] - 1
+
+- 수행 시간: $\Theta(n+k)$
+    - k = $O(n)$ 일 때 최악의 경우는 $O(n)$
+    - 비교 정렬이 아니므로 (n log n)의 하한을 넘는다
+    - 비교하지 않음: 요소의 실제 값을 사용하여 배열로 인덱싱
