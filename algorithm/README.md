@@ -897,3 +897,5 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
 
 - Unstable sort(불안정 정렬): 중복된 값이 입력 순서와 동일하지 않게 정렬됨
 - 퀵 정렬, 선택 정렬, 계수 정렬
+
+## Sorting Conclusion
