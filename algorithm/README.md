@@ -924,3 +924,7 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
 - 중앙값과 선택
     - 집합에서 k번째로 큰 항목 찾기
     - 키 값이 배열에서 정렬된 순서로 배치되면 배열의 k번째 위치를 보면 k번째로 큰 키 값을 일정한 시간 내에 찾을 수 있음
+
+### In place vs not in place
+
+[챕터 6의 some definitions 참조](#some-definitions)
