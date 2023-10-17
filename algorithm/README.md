@@ -933,3 +933,14 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
 
 [챕터 8의 stable sort algorithms 참조](#stable-sort-algorithms)
 [챕터 8의 unstable sort algorithms 참조](#unstable-sort-algorithms)
+
+#### Why Heap sort is unstable?
+
+- 3, 3, 2, 1의 예시가 있을 때
+    - 앞의 3을 3(a), 뒤의 3을 3(b)라 한다
+    - 3(a), 3(b), 2, 1
+- 힙 정렬은 max-heap에서 첫번째 요소인 최댓값을 추출한 후 마지막 위치에 놓는 것으로 시작
+    - 3(b), 2, 1, 3(a)
+    - 그러면 크기가 1 줄어들고 max-heapify 연산이 적용되므로 새로운 크기는 3이며 힙 속성을 만족하는 3개의 요소가 있다
+    - 최종 정렬 결과는 1, 2, 3(b), 3(a)
+- 힙 정렬은 안정적이지 않다
