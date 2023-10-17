@@ -767,3 +767,11 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
 4. &nbsp;&nbsp;&nbsp;&nbsp;RANDOMIZED-QUICKSORT(A, q + 1, r)
 
 ## Chapter 8
+
+### Lower Bounds for Sorting
+
+- 지금까지 정리한 정렬은 모두 "키 비교"에 의해 작동
+    - 정렬에 사용된 키의 값을 비교함으로써 요소를 올바른 위치에 배치
+- 병합 정렬과 힙 정렬 수행 시간 $\Theta(n log n)$
+    - 키 비교에 의한 정렬의 하한
+        - 어떤 알고리즘일지라도 해를 구하려면 적어도 하한의 시간복잡도만큼 필요!!
