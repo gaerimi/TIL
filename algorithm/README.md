@@ -857,3 +857,9 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
 2. use a stable sort to sort array A on digit i
 
 - stable sort algotithms 참조
+
+- 수행 시간
+    - d자리의 수 n개가 주어지고, 각 자리가 최대 k개의 값을 가질 수 있을 때, $O(d(n+k))$
+        - 숫자 당 정렬의 한 패스는 계수 정렬을 사용한다고 가정하면 $O(n+k)$
+        - 각 자리마다 d번의 패스를 함
+    - d = $O(1)$, k = $O(n)$을 가정하면 $O(n)$
