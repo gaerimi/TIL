@@ -928,3 +928,8 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
 ### In place vs not in place
 
 [챕터 6의 some definitions 참조](#some-definitions)
+
+### Stable vs unstable
+
+[챕터 8의 stable sort algorithms 참조](#stable-sort-algorithms)
+[챕터 8의 unstable sort algorithms 참조](#unstable-sort-algorithms)
