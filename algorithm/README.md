@@ -1182,3 +1182,69 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
 - `Open Addressing(개방 주소법)`
     - 모든 요소는 해시테이블 자체에 저장됨
     - 충돌이 발생하면 체계적인 절차를 사용하여 요소를 테이블의 빈 슬롯에 저장
+
+#### Hashing with Chaining
+
+- Chained-Hash-Insert(T, x)
+    - 리스트 T[h(key[x])]의 맨 앞에 x를 삽입
+    - 최악의 경우: $O(1)$
+- Chained-Hash-Delete(T, x)
+    - 리스트 T[h(key[x])]에서 x를 삭제
+    - 최악의 경우: 단일 연결 리스트 - 리스트의 길이에 비례, 이중 연결 리스트 - $O(1)$
+- Chained-Hash-Search(T, k)
+    - 리스트 T[h(key[x])]에서 k를 탐색
+    - 최악의 경우: 리스트의 길이에 비례
+
+##### Analysis of Hashing with Chaining
+
+- 최악의 경우
+    - n개의 키가 모두 동일한 슬롯에 해시되었을 경우
+    - 탐색 시간은 $\Theta(n)$ + 해시 함수 계산 시간
+
+- 평균적 경우
+    - 해시 함수가 n개의 키를 m개의 슬롯에 얼마나 잘 분배하는지에 따라 다름
+    - simple uniform hashing이라고 가정
+        - 임의의 요소는 동일한 확률로 m개의 슬롯 중 어느 하나에 해시 됨(충돌 가능성은 1/m)
+    - 리스트의 길이
+        - T[j] = $n_j$, j = 0, 1, ... , m - 1
+    - 테이블에 있는 키의 개수
+        - n = $n_0 + n_1 + ... + n_{m-1}$
+    - $n_j$의 평균
+        - E[ $n_j$ ] = $\alpha$ = n/m
+
+##### Load Factor of a Hash Table
+
+- 해시 테이블 T의 부하율(Load factor)
+    - $\alpha$ = n/m
+    - n = 테이블에 저장된 요소의 개수
+    - m = 테이블의 슬롯 수
+- $\alpha$ 는 체인에 저장된 요소의 평균 개수를 부호화함
+- $\alpha$ 는 1보다 작을 수도, 같을 수도, 클 수도 있음
+
+###### Case 1: Unsuccessful Search
+
+- 정리
+    - simple uniform hashing을 가정할 때 해시 테이블에서 검색에 실패하면 수행 시간은 $\Theta(1 + \alpha)$
+- 증명
+    - 키 k를 검색하지 못함: T[h(k)]
+    - 예상 리스트 길이: E[ $n_{h(k)}$ ] = $\alpha$ = n/m
+    - 검색에 실패할 경우 검사하는 요소의 예상 개수: $\alpha$
+    - 총 수행 시간: $O(1)$ (해시 함수 계산) + $\alpha$ = $\Theta(1 + \alpha)$
+
+###### Case 2: Successful Search
+
+- 정리
+    - 검색에 성공하면 수행시간은 $\Theta(1 + \alpha)$
+- 증명
+    - $x_i$ 를 테이블에 삽입한 i번째 원소라고 하고, $k_i$ = key[ $x_i$ ]라고 한다
+    - 모든 i, j에 대해 $X_{ij} = l\{h(k_i) = h(k_j)\}$ 라고 정의
+    - simple uniform hashing $\Rightarrow$ $Pr\{h(k_i) = h(k_j)\}$ = 1/m $\Rightarrow$ E[ $X_{ij}$ ] = 1/m
+    - 검색에 성공할 경우 검사하는 요소의 예상 개수: $O(1 + 1 + \alpha / 2 - \alpha / 2n)$ = $O(1 + \alpha)$
+
+##### Analysis of Search in Hash Tables
+
+- 만약 n = $O(m)$ 이면 $\alpha$ = n/m = $O(m)$ / m = $O(1)$
+    - 탐색은 평균적으로 상수적 시간이 소요
+- 최악의 경우 삽입은 $O(1)$
+- 이중 연결 리스트일 때 최악의 경우 삭제는 $O(1)$
+- 모든 사전 연산은 평균적으로 $O(1)$
