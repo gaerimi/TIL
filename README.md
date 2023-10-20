@@ -18,3 +18,5 @@
 ## statistical analysis (통계적 분석)
 
 ## system software (시스템 소프트웨어)
+
+- [system software](system-software/README.md)
