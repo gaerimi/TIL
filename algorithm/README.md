@@ -1331,7 +1331,7 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
     - 탐색이 k단계로 종료될 확률 = $\alpha^{k-1}$ (1 - $\alpha$)
     - 탐색의 평균 단계수 = $1 \over 1 - \alpha$
 - 탐색 성공
-    - 탐색 성공 시 평균 탐색 수는 최대 ($1 / \alpha$) log ($1 / (1 - \alpha)$)
+    - 탐색 성공 시 평균 탐색 수는 최대 ($1 / \alpha$) log ( $1 / (1 - \alpha)$ )
 
 ### Other Hashing Application
 
