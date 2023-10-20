@@ -1526,3 +1526,15 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
 17. **return** y
 
 - 수행 시간: $O(h)$
+
+### BST: Summary
+
+- SEARCH &nbsp;&nbsp;&nbsp;&nbsp; $O(h)$
+- PREDECESSOR &nbsp;&nbsp;&nbsp;&nbsp; $O(h)$
+- SUCCESOR &nbsp;&nbsp;&nbsp;&nbsp; $O(h)$
+- MINIMUM &nbsp;&nbsp;&nbsp;&nbsp; $O(h)$
+- MAXIMUM &nbsp;&nbsp;&nbsp;&nbsp; $O(h)$
+- INSERT &nbsp;&nbsp;&nbsp;&nbsp; $O(h)$
+- DELETE &nbsp;&nbsp;&nbsp;&nbsp; $O(h)$
+
+- 트리의 높이가 작으면 위의 작업들이 빠르지만, 그렇지 않으면 연결 리스트의 성능과 비슷함
