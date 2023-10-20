@@ -1489,3 +1489,40 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
 13. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**else** right[y] $\leftarrow$ z
 
 - 수행 시간: $O(h)$
+
+### Deletion
+
+- 이진 탐색 트리에서 지정된 노드 z를 삭제한다
+- 아이디어
+    - case 1: z의 자식 노드가 없을 때
+        - z의 부모 노드를 NIL로 만들어 z 삭제
+    - case 2: z가 하나의 자식 노드만 가질 때
+        - z의 부모 노드가 z 대신 z의 자식 노드를 가리키게 해서 z 삭제
+    - case 3: z가 두 개의 자식 노드를 가질 때
+        - z의 후임 y는 z의 오른쪽 하위 트리에 있는 최소 노드
+        - y에는 자식이 없거나 오른쪽 자식이 하나 있음(왼쪽 자식은 없음)
+        - y를 트리에서 삭제(case 1 or case 2를 통해)
+        - z의 키와 위치 데이터를 y로 대체
+
+### Tree Delete
+
+- TREE-DELETE(T, z)
+1. **if** left[z] = NIL or right[z] = NIL
+2. &nbsp;&nbsp;&nbsp;&nbsp;**then** y $\leftarrow$ z
+3. &nbsp;&nbsp;&nbsp;&nbsp;**else** y $\leftarrow$ TREE-SUCCESSOR(z)
+4. **if** left[y] $\neq$ NIL
+5. &nbsp;&nbsp;&nbsp;&nbsp;**then** x $\leftarrow$ left[y]
+6. &nbsp;&nbsp;&nbsp;&nbsp;**else** x $\leftarrow$ right[y]
+7. **if** x $\neq$ NIL
+8. &nbsp;&nbsp;&nbsp;&nbsp;**then** p[x] $\leftarrow$ p[y]
+9. **if** p[y] = NIL
+10. &nbsp;&nbsp;&nbsp;&nbsp;**then** root[T] $\leftarrow$ x
+11. &nbsp;&nbsp;&nbsp;&nbsp;**else if** y = left[p[y]]
+12. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**then** left[p[y]] $\leftarrow$ x
+13. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**else** right[p[y]] $\leftarrow$ x
+14. **if** y $\neq$ z
+15. &nbsp;&nbsp;&nbsp;&nbsp;**then** key[z] $\leftarrow$ key[y]
+16. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copy y's satellite data into z
+17. **return** y
+
+- 수행 시간: $O(h)$
