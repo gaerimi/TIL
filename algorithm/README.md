@@ -1428,3 +1428,25 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
 3. **return** x
 
 - 수행 시간: 트리의 높이가 h일 때 $O(h)$
+
+### Find the Successor
+
+- 정의: x의 후임 = y, key[y]는 key[x]보다 큰 값들 중에서 가장 작은 키
+- case 1: x의 오른쪽이 비어 있지 않을 때
+    - x의 후임 = x의 오른쪽에서 최솟값
+- case 2: x의 오른쪽이 비어 있을 때
+    - 현재 노드가 왼쪽 자식 노드가 될 때까지 트리 위로 이동, x의 후임은 현재 노드의 부모
+    - 더 이상 진행할 수 없는 경우(루트에 도달한 경우)에는 x가 가장 큰 원소임
+
+#### Tree Successor
+
+- TREE-SUCCESSOR(x)
+1. **if** right[x] $\neq$ NIL
+2. &nbsp;&nbsp;&nbsp;&nbsp;**then return** TREE-MINIMUM(right[x])
+3. y $\leftarrow$ p[x]
+4. **while** y $\nep$ NIL **and** x = right[y]
+5. &nbsp;&nbsp;&nbsp;&nbsp;**do** x $\leftarrow$ y
+6. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y $\leftarrow$ p[y]
+7. **return** y
+
+- 수행 시간: 트리의 높이가 h일 때 $O(h)$
