@@ -1415,3 +1415,16 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
 3. **return** x
 
 - 수행 시간: 트리의 높이가 h일 때 $O(h)$
+
+### Find the Maximum
+
+- NIL에 도달할 때까지 루트에서 오른쪽 자식 포인터를 따라간다
+
+#### Tree Maximum
+
+- TREE-MAXIMUM(x)
+1. **while** right[x] $\neq$ NIL
+2. &nbsp;&nbsp;&nbsp;&nbsp;**do** x $\leftarrow$ right[x]
+3. **return** x
+
+- 수행 시간: 트리의 높이가 h일 때 $O(h)$
