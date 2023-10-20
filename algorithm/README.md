@@ -1371,3 +1371,12 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
         - 트리의 높이가 log n
     - 최악의 경우: $\Theta(n)$
         - 트리가 n개의 노드로 이루어진 선형 체인일 때
+
+### Traversing a Binary Search Tree
+
+- `Inorder`(중위 순회)
+    - 왼쪽 하위 트리 방문 후 루트 방문 후 오른쪽 하위 트리 방문 (left, root, right)
+- `Preorder` (전위 순회)
+    - 루트 방문 후 왼쪽 하위 트리, 오른쪽 하위 트리 방문 (root, left, right)
+- `Postorder` (후위 순회)
+    - 왼쪽 하위 트리, 오른쪽 하위 트리 방문 후 루트 방문 (left, right, root)
