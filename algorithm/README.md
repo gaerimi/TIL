@@ -1402,3 +1402,16 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
 5. &nbsp;&nbsp;&nbsp;&nbsp;**else return** TREE-SEARCH(right[x], k)
 
 - 수행 시간: 트리의 높이가 h일 때 $O(h)$
+
+### Finding the Minimum
+
+- NIL에 도달할 때까지 루트에서 왼쪽 자식 포인터를 따라간다
+
+#### Tree Minimum
+
+- TREE-MINIMUM(x)
+1. **while** left[x] $\neq$ NIL
+2. &nbsp;&nbsp;&nbsp;&nbsp;**do** x $\leftarrow$ left[x]
+3. **return** x
+
+- 수행 시간: 트리의 높이가 h일 때 $O(h)$
