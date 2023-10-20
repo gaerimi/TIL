@@ -1354,3 +1354,10 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
     - Left: 왼쪽 자식을 가리키는 포인터
     - Right: 오른쪽 자식을 가리키는 포인터
     - p: 부모를 가리키는 포인터 (p[root[T]] = NIL)
+
+### Binary Search Tree Property
+
+- 만약 y가 x의 왼쪽 부분 트리에 있다면
+    - key [y] $\le$ key [x]
+- 만약 y가 x의 오른쪽 부분 트리에 있다면
+    - key [y] $\ge$ key [x]
