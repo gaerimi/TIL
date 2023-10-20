@@ -1361,3 +1361,13 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
     - key [y] $\le$ key [x]
 - 만약 y가 x의 오른쪽 부분 트리에 있다면
     - key [y] $\ge$ key [x]
+
+### Binary Search Tree
+
+- 다양한 동적 연산 집합 지원
+    - `SEARCH(탐색)`, `MINIMUM(최솟값)`, `MAXIMUM(최댓값)`, `PREDECESSOR(선임자)`, `SUCCESSOR(후임자)`, `INSERT(삽입)`, `DELETE(삭제)`
+- 수행 시간
+    - 평균적 경우: $\Theta(log n)$
+        - 트리의 높이가 log n
+    - 최악의 경우: $\Theta(n)$
+        - 트리가 n개의 노드로 이루어진 선형 체인일 때
