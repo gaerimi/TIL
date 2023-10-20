@@ -1343,3 +1343,14 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
 - 지문 채취
 
 ## Chapter 12
+
+### Binary Search Tree Representation
+
+- 트리 표현
+    - 각 노드가 객체인 연결 데이터 구조
+- 노드 표현
+    - 키 영역
+    - 위치 데이터
+    - Left: 왼쪽 자식을 가리키는 포인터
+    - Right: 오른쪽 자식을 가리키는 포인터
+    - p: 부모를 가리키는 포인터 (p[root[T]] = NIL)
