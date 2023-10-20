@@ -67,3 +67,54 @@
 2. 명령 실행(`execution`)
 3. 명령 가져오기 단계로 돌아가 반복
 ![fetch-execution](../image/fetch_execution.jpg)
+
+### Processor Registers
+
+#### User-visible registers
+
+- 프로그래머가 레지스터 사용을 최적화하여 메인 메모리 참조를 최소화할 수 있게 해줌
+- 실행이 되는 과정에 직접 접근하는 레지스터
+- 기계어로 참조 가능
+- 어떤 프로그램이든(응용이던 시스템이던) 마음대로 user-visible register에 접근 가능
+- `데이터 레지스터(data register)`
+- `주소 레지스터(address register)`
+    - `인덱스(index)`
+        - 몇 번째에 접근하는지
+        - 주소를 얻기 위해 기본값에 인덱스를 추가하는 작업도 포함
+    - `세그먼트 포인터(segment pointer)`
+        - 세그먼트 기반의 메모리를 사용하는 경우 어느 세그먼트를 접근해야 하는지 지정
+    - `스택 포인터(stack pointer)`
+        - 스택의 top을 가리킴
+
+#### Control and status registers
+
+- 프로세서의 동작을 제어하기 위해 사용
+- `프로그램 카운터(Program Counter, PC)`
+    - 다음에 실행할 명령의 메인 메모리상의 주소를 가지고 있는 레지스터
+    - 한 번 fetch가 이루어지면 자동으로 다음 명령을 가리키도록 값이 업데이트 됨
+- `명령 레지스터(Instruction Register, IR)`
+    - fetch단계에서 메모리로부터 복사해온 명령을 담아두는 레지스터
+    - 현재 실행 중인 명령을 담고 있음(명령 하나만 담을 수 있는 크기라 덮어쓰기 함)
+- `프로그램 상태 워드(Program Status Word, PSW)`
+    - 현재 CPU의 상태에 대한 여러가지 정보를 담고 있는 레지스터
+    - `Condition Codes` or `Flags`
+        - 연산에 의해 발생한 부가적 정보를 나타냄
+            - 양수/음수 결과
+            - 0인지 아닌지
+            - 오버플로우가 발생했는지 아닌지
+    - `Interrupt enable/disable`
+        - 인터럽트 신호를 받을지 아닐지 상태 조절
+    - `Supervisor/user mode`
+        - CPU의 실행 모드 제어
+
+#### Program Execution of a Hypothetical Machine
+
+![가상 머신의 프로그램 실행](../image/programexe_hypo.jpg)   
+- Memory address register(MAR)
+    - 다음에 읽을 또는 쓸 주소 지정
+- Memory buffer register(MBR)
+    - 메모리에 기록되거나 수신 받은 데이터를 보관
+- Accumulator(AC)
+- I/O address register
+    - 입출력할 데이터의 메모리 주소를 가지고 있는 레지스터
+- I/O buffer register
