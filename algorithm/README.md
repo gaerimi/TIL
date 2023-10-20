@@ -1459,3 +1459,33 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
 - case 2: x의 왼쪽이 비어 있을 때
     - 현재 노드가 오른쪽 자식 노드가 될 때까지 트리 위로 이동, x의 선임은 현재 노드의 부모
     - 더 이상 진행할 수 없는 경우(루트에 도달한 경우)에는 x가 가장 작은 원소임
+
+### Insertion
+
+- 이진 탐색 트리에 v값을 삽입한다
+- 아이디어
+    - 만약 key[x] < v라면 x의 오른쪽 자식 노드로 이동, 아니면 왼쪽 자식 노드로 이동
+    - x가 NIL이라면 정확한 위치 찾음
+    - 만약 v < key[y] 라면 새로운 노드를 y의 왼쪽 자식으로 삽입, 아니면 오른쪽 자식으로 삽입
+    - 루트에서 시작하여 트리의 아래로 내려가며 다음을 유지
+        - 포인터 x: 하향 경로(현재 노드) 추적
+        - 포인터 y: x의 부모(추적 포인터)
+
+#### Tree Insert
+
+- TREE-INSERT (T, z)
+1. y $\leftarrow$ NIL
+2. x $\leftarrow$ root[T]
+3. **while** x $\neq$ NIL
+4. &nbsp;&nbsp;&nbsp;&nbsp;**do** y $\leftarrow$ x
+5. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**if** key[z] < key[x]
+6. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**then** x $\leftarrow$ left[x]
+7. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**else** x $\leftarrow$ right[x]
+8. p[z] $\leftarrow$ y
+9. **if** y = NIL
+10. &nbsp;&nbsp;&nbsp;&nbsp;**then** root[T] $\leftarrow$ z
+11. &nbsp;&nbsp;&nbsp;&nbsp;**else if** key[z] < key[y]
+12. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**then** left[y] $\leftarrow$ z
+13. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**else** right[y] $\leftarrow$ z
+
+- 수행 시간: $O(h)$
