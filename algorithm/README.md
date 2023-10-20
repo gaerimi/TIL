@@ -1380,3 +1380,25 @@ $\Rightarrow$ 피벗을 현명하고 효율적으로 선택해야 함
     - 루트 방문 후 왼쪽 하위 트리, 오른쪽 하위 트리 방문 (root, left, right)
 - `Postorder` (후위 순회)
     - 왼쪽 하위 트리, 오른쪽 하위 트리 방문 후 루트 방문 (left, right, root)
+
+### Searching for a Key
+
+- 트리의 루트에 대한 포인터와 키 k가 주어졌을 때
+    - k 키가 있는 노드의 포인터 반환
+    - 그렇지 않으면 NIL 반환
+- 아이디어
+    - 루트에서 시작: k와 현재 노드의 키를 비교하여 경로 추적
+        - 키가 같은 경우: 키 찾음
+        - k < key[x]: x의 왼쪽 하위 트리에서 탐색
+        - k > key[x]: x의 오른쪽 하위 트리에서 탐색
+
+#### Tree Search
+
+- TREE-SEARCH(x, k)
+1. **if** x = NIL or k = key[x]
+2. &nbsp;&nbsp;&nbsp;&nbsp;**then return** x
+3. **if** k < key[x]
+4. &nbsp;&nbsp;&nbsp;&nbsp;**then return** TREE-SEARCH(left[x], k)
+5. &nbsp;&nbsp;&nbsp;&nbsp;**else return** TREE-SEARCH(right[x], k)
+
+- 수행 시간: 트리의 높이가 h일 때 $O(h)$
