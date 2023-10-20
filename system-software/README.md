@@ -46,3 +46,24 @@
 - 기계어
     - 0과 1로 표시된 것으로 컴퓨터의 프로세서가 이해하는 유일한 언어
     - 각 기계간에 호환성이 없음
+
+### Fetch-Execution Cycle
+
+- 에니악은 내장 프로그램이 아님
+    - 플러그와 점퍼 케이블을 이용해 연결
+
+- Stored program(내장 프로그램) 방식의 컴퓨터
+    - von Neumann(폰 노이만)
+    - 현재의 대부분의 컴퓨터
+    - computation(계산): 프로그램의 수행
+    - memory: 프로그램이 저장된 장소
+    - processor: 계산을 수행하는 기계의 부분, CPU
+    - computer program: 일련의 컴퓨터 명령들
+
+- 폰 노이만 컴퓨터는 프로세서와 메인 메모리로 구성
+
+- 프로세서에 의한 계산은 Fetch-Execution Cycle을 사용하여 이루어짐
+1. 메모리의 명령을 가져옴(`fetch`)
+2. 명령 실행(`execution`)
+3. 명령 가져오기 단계로 돌아가 반복
+![fetch-execution](../image/fetch_execution.jpg)
