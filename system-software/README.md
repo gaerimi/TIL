@@ -541,3 +541,191 @@
     - 5세대: Broadwell(2014)
     - 6세대: Skylake(2015~2019)
     - Kady lake, coffee lake, cannon lake, ice lake, comet lake, ...
+
+### IA-32 Architecture
+
+- 컴퓨터 아키텍쳐: CPU가 어떻게 작동하고 컴퓨터 메모리를 어떻게 사용하는지에 관한 것
+    - 명령어 집합 아키텍쳐(ISA), 마이크로 아키텍쳐(ISA 구현 방식), 시스템 설계(주변 장치들과 어떻게 상호작용 하는지에 대한 것) 포함
+- IA-32, IA-64 아키텍쳐: 인텔 사가 사용하는 인텔 32비트 객체, 64비트 객체의 공식 명칭
+    - Intel 64 = x86-64 = AMD64
+
+#### IA-32 Basic Execution Environment
+
+- Stack
+- 함수가 호출될 때 매개 변수를 담음
+- 함수가 수행이 끝나고 복귀할 때 복귀 주소
+- 프로그램이 시작할 때 메모리 상에 무조건 주어짐
+
+![Adress Space](../image/IA32_AS.jpg)   
+- 메인 메모리 주소 공간
+- 전체 주소 공간: $2^{32}$ byte, 0 ~ $2^{32} - 1$, 4GB
+- flat하거나 segemented하게 사용할 수 있음
+- 실행 중인 모든 작업이나 프로그램은 최대 4GB의 선형 주소 공간과 최대 64GB의 물리적 주소 공간을 처리할 수 있음
+
+![Basic Program Execution Registers](../image/IA32_BPER.jpg)   
+- 응용 프로그램이 실행 도중에 접근할 수 있는 기본적인 레지스터 집합
+- `General-Purpose Registers(범용 레지스터)`: 피연산자와 포인터를 저장하여 사용하는 레지스터(32비트, 8개), user-visible 레지스터에 해당
+- `Segment Registers(세그먼트 레지스터)`: 세그먼트에 대한 정보를 담고 관리하는 레지스터(16비트, 6개)
+    - 세그먼트 레지스터에 담기는 16비트 크기의 값은 세그먼트 셀렉터라고 함
+- `EFLAGS Register`: 현재 CPU의 상태 정보를 담고 있는 레지스터(32비트, 1개), control and status 레지스터에 해당
+    - 제한적이지만 CPU의 동작에 대한 제어를 할 수 있음
+- `EIP(Instruction Pointer Register)`: 다음 명령어 실행의 위치를 가리키는 포인터를 갖는 레지스터(32비트, 1개), control and status 레지스터에 해당   
+    ![General-Purpose/Segment](../image/IA32_BPER(2).jpg)     
+    - General Purpose Registers
+        - 논리 연산과 산술 연산을 수행할 때 피연산자를 담음
+        - 메모리 포인터를 담음
+        - 주소 계산을 위한 피연산자를 담음
+    - ESP 레지스터: 스택의 탑을 나타내는 스택 포인터, 다른 용도로 사용하면 안됨
+    - 많은 명령어들은 피연산자를 담기 위해 특정 레지스터를 할당
+        - `EAX`: Accumulator(누산기) (EAX, AX, AL, AH)
+            - 곱셈, 나눗셈 명령을 실행 시 사용
+            - 그 외에는 범용
+        - `EBX`: Base Index
+            - 데이터 포인터에 대한 오프셋
+            - 데이터 세그먼트에 대한 포인터
+        - `ECX`: Count
+            - REP, LOOP 명령 실행 시 반복 횟수를 담을 때 사용
+            - 그 외에는 범용
+        - `EDX`: Data
+            - 곱셈, 나눗셈 명령 실행 시 사용됨
+            - 입출력 명령 실행 시 대상 데이터에 대한 포인터
+        - `ESI`: Source Index
+        - `EDI`: Destination Index
+            - 배열 접근 명령 실행 시 소스/대상 포인터
+        - `ESP`: Stack Pointer
+            - 스택의 탑을 가리키는 포인터
+        - `EBP`: Base Pointer
+            - 메모리 데이터 전송을 위한 포인터
+            - 스택의 탑이 아닌 데이터 포인터
+        
+        ![범용 레지스터 이름](../image/GPR_altername.jpg)
+    
+    ![Program Status/Control, Instruction Pointer](../image/IA32_BPER(3).jpg)   
+    - EFLAGS Register
+        - 32비트, 일련의 상태 플래그, 하나의 제어 플래그, 여러 개의 시스템 플래그를 가지고 있음
+        - 플래그 하나는 32비트 레지스터의 비트 하나에 해당(예외로 2비트 플래그 존재)
+        - 플래그의 초기값은 00000002H
+        - 1, 3, 5, 15, 22 ~ 31까지의 비트 값은 사용되지 않음
+        - 플래그를 절차 스택 또는 EAX 레지스터로 이동하는 명령어
+            - LAHF, SAHF, PUSHF, PUSHFD, POPF, POPFD
+        - 인터럽트/예외를 다루는 절차에 호출이 이루어지면 프로세서는 자동으로 절차 스택에 EFLAGS 레지스터의 상태 저장
+        ![EFLAGS Register](../image/EFLAGSr.jpg)   
+
+        - Status flags
+            - EFLAGS 레지스터의 상태 플래그(비트 0, 2, 4, 6, 7, 11)는 ADD, SUB, MUL, DIV 명령과 같은 산술 명령의 결과를 나타냄
+            - `CF(비트 0) Carry flag`
+                - 산술 연산에서 결과의 최상위 비트에서 자리올림수 또는 빌림수를 생성할 경우 설정
+                - 부호 없는 정수 산술의 오버플로우 조건을 나타냄
+            - `PF(비트 2) Parity flag`
+                - 결과의 최하위 바이트가 짝수 개의 1비트를 포함할 경우 설정
+            - `AF(비트 4) Adjust flag`
+                - 산술 연산으로 결과의 비트 3에서 자리올림수 또는 빌림수가 발생하면 설정
+                - BCD 산술 연산에서 사용
+            - `ZF(비트 6) Zero flag`
+                - 결과가 0이면 설정
+            - `SF(비트 7) Sign flag`
+                - 부호가 있는 정수에서 부호 비트의 결과의 최상위 비트와 동일하게 설정(0은 양수, 1은 음수)
+            - `OF(비트 11) Overflow flag`
+                - 정수 결과가 너무 큰 양수 또는 음수(부호 비트 제외)라서 대상 피연산자에 들어가지 않으면 설정
+                - 부호 있는 정수 산술의 오버플로우 조건을 나타냄
+            
+            - 상태 플래그 중 CF 플래그만 STC, CLC, CMC 명령을 사용하여 직접 수정할 수 있음
+                - 비트 명령(BT, BTS, BTR, BTC)은 지정된 비트를 CF 플래그에 복사
+            - 상태 플래그를 사용하면 단일 산술 연산으로 부호 없는 정수, 부호 있는 정수 및 BCD 정수의 3가지 데이터 유형에 대한 결과 생성 가능
+            - 조건 명령 Jcc(jump on condition code cc), SETcc(byte set on condition code cc), LOOPcc, CMOVcc(conditional move)는 상태 플래그 중 하나 이상을 조건 코드로 사용하고 분기, 바이트 설정, 종료 루프 조건에 대해 테스트
+        
+        - Direction flag
+            - 방향 플래그(DF, 비트 10)는 문자열 명령(MOVS, CMPS, SCAS, LODS, STOS)을 제어
+            - DF 플래그 설정 시 문자열 명령 자동 감소(높은 주소에서 낮은 주소로 문자열 처리)
+            - DF 플래그 미 설정 시 문자열 명령 자동 증가(낮은 주소에서 높은 주소로 문자열 처리)
+            - STD는 DF 플래그 설정, CLD는 DF 플래그 지우기
+        
+    - Instruction Pointer Register
+        - 명령 포인터(EIP) 레지스터에는 현재 코드 세그먼트에 다음 실행 명령의 오프셋을 포함
+        - JMP, Jcc, CALL, RET, IRET 명령을 실행할 때 한 명령 경계에서 다음 명령 경계로 이동하거나 여러 명령에 의해 앞 또는 뒤로 이동
+        - EIP 레지스터는 소프트웨어에서 직접 접근할 수 없으며, 제어-전송 명령, 인터럽트 및 예외에 의해 암묵적으로 제어
+            - EIP 레지스터를 읽을 수 있는 유일한 방법은 CALL 명령을 실행한 다음 절차 스택에서 반환 명령 포인터의 값을 읽는 것
+        - 절차 스택에서 반환 명령 포인터의 값을 수정하고 반환 명령을 실행함으로써 EIP 레지스터를 간접적으로 로드할 수 있음
+
+![FPU Registers](../image/IA32_FR.jpg)   
+- 부동소수점 연산 명령이 사용하는 전용 레지스터
+- `Floating-Point Data Registers(부동소수점 데이터 레지스터)`: 80비트, 8개
+- `Control Register(제어 레지스터)`: 16비트, 1개
+- `Status Register(상태 레지스터)`: 16비트, 1개
+- `Tag Register(태그 레지스터)`: 16비트, 1개
+- `Opcode Register(연산 코드 레지스터)`: 11비트, 1개
+- `FPU Instruction Pointer Register`: 48비트, 1개
+- `FPU Data(Operand) Pointer Register`: 48비트, 1개
+
+![MMX/XMM Registers](../image/IA32_MR_XR.jpg)   
+- 명령이 사용하는 레지스터
+- MMX Registers: 64비트, 8개
+- XMM Registers: 128비트, 8개
+- MXCSR Registers: 32비트, 1개
+
+#### Modes of Operation
+
+- IA-32 아키텍쳐는 3가지 기본 동작 모드를 지원
+    - 동작 모드는 어떤 명령어와 아키텍쳐 특징에 접근할 수 있는지 결정
+    - 운영 체제가 컴퓨터를 부팅하는 과정에서 선택
+    - 보통 보호 모드와 호환 모드 중 하나 동작
+    - `Protected mode`(보호 모드)
+        - 32비트 모드
+    - `Real-address mode`(리얼 주소 모드, 리얼 모드, 호환 모드)
+        - 16비트 모드
+    - `System management mode`(시스템 관리 모드)
+        - 디버깅 같은 특수한 상황에서 사용
+- IA-32 메모리 모델
+    - Flat memory model
+        - 보호 모드에서 사용할 수 있는 메모리 모델
+    - Segmented memory model
+        - 보호 모드에서 사용할 수 있는 메모리 모델
+    - Real-address memory model
+        - 리얼 모드에서만 사용할 수 있는 메모리 모델
+
+##### IA-32 Memory Models
+
+![Flat Model](../image/IA32MM_FM.jpg)   
+- 32비트 주소 공간(4GB)을 단순하게 1차원적인 플랫한 주소 공간으로 놓고 사용하는 모델
+- linear address space: 4GB 주소 공간을 부르는 공식 용어, 선형 주소 공간
+    - 특정한 위치 어딘가를 지칭할 때 사용하는 주소
+    - 32비트
+    - 가상적인 주소 공간
+    - 페이징을 통해 실제 물리 메모리로 매핑이 됨
+
+![Segmented Model](../image/IA32MM_SM.jpg)   
+- 선형 주소 공간 4GB가 주어짐
+- 여러 개의 세그먼트라고 하는 단위로 나누어서 사용
+    - segment(세그먼트): 하나의 프로그램을 구성하는 논리적 단위, 코드, 데이터, 스택 세그먼트 등이 있음, 최대 크기는 선형 주소 공간의 크기와 같음
+- 프로그램을 세그먼트로 나눈 다음에 선형 주소 공간에 적절히 배치
+- 프로그램이 사용하는 논리 주소가 숫자 2개로 결정(세그먼트 셀렉터, 오프셋)
+
+![Real-Address Mode Model](../image/IA32MM_RAM.jpg)   
+- 16비트 주소 공간(64KB)
+- 전체 주소 공간 외는 세그먼트 모델과 동일
+
+- Segment Registers
+    - 세그먼트 레지스터, CS, DS, ES, SS, FS, GS는 16비트 세그먼트 셀렉터를 보유함
+        - 세그먼트 셀렉터: 메모리에서 세그먼트를 식별하는 특수 포인터
+    - `CS(Code Segment)`
+        - 리얼 모드에서는 64KB 메모리 세그먼트의 시작을 나타냄
+        - 보호 모드에서는 셀렉터를 선택
+    - `DS(Data Segment)`
+        - 데이터 세그먼트에 대해 CS와 비슷한 기능 수행
+    - `ES(Extra Segement)`
+        - 추가적인 데이터 세그먼트에 대해 셀렉터 기능
+        - 몇가지 배열 명령 실행 시 대상 데이터를 담는 기능
+    - `SS(Stack Segment)`
+        - 스택 세그먼트에 대해 CS와 비슷한 기능 수행
+        - ESP와 EBP는 이 세그먼트에 오프셋을 유지
+    - `FS and GS`
+        - 추가의 세그먼트를 사용할 경우 추가된 세그먼트의 셀렉터를 담음
+    - 최대 6개까지의 세그먼트를 정의해서 사용할 수 있다
+
+- Real-Address Memory Model in Real-Address Mode
+    - 8086/8088 및 IA-32 아키텍쳐의 리얼 모드에서만 사용 가능
+        - 프로세서가 처음 1MB의 메모리만 처리할 수 있도록 함
+    - 세그먼트와 오프셋
+        - segment:offset
+        - 유효 주소 = 세그먼트 주소 + 오프셋
+        - 어느 세그먼트에 대한 오프셋이냐에 따라서 그 옵션을 담는 범용 레지스터가 미리 정해져 있음
