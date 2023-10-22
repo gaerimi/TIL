@@ -39,3 +39,149 @@
     - 길이, 무게, 시간
 
 ## Chapter 2 1차원 데이터 정리
+
+- import numpy as np
+    - numpy라는 라이브러리를 np라는 이름으로 가져온다
+- %precision 3
+    - 주피터 노트북에서 실습할 때 출력을 소수점 이하 3자리로 제한한다
+- pd.set_option( ' precision ' , 3)
+    - DataFrame의 출력을 소수점 이하 3자리로 제한
+    - 오류 발생 시 pd.options.display.precision = 3 또는 pd.set_option('display.precision', 3)
+- `df.head()`
+    - df의 처음 5행을 표시
+
+### 데이터 중심의 지표
+
+- 평균값
+    - 데이터를 모두 더한 뒤, 데이터의 개수로 나누어 구한다
+    - sum(scores) / len(scores)
+    - `np.mean(scores)`
+    - `scores.mean()`
+    - `scores_df.mean()`
+
+    ![공식](../image/mean.jpg)
+    - $\bar x$ (엑스 바)
+
+- 중앙값
+    - 데이터를 크기 순서대로 나열할 때 정확하게 중앙에 위치한 값
+    - 이상값에 영향을 덜 받음
+    - 데이터의 개수 n이 홀수라면 $(n + 1) \over 2$
+    - 데이터의 개수 n이 짝수라면 $n \over 2$ 와 $n \over 2 + 1$ 의 평균
+    - `np.median(scores)`
+    - `scores_df.median()`
+
+
+    - 절사평균
+        - 양쪽을 좀 자르고 남은 요소들의 평균
+        - 이상값에 영향을 덜 받음
+        - 정보의 손실이 적음
+
+- 최빈값
+    - 데이터에서 가장 많이 나타나는 값
+    - `pd.Series([배열]).mode()`
+
+### 데이터의 산포도 지표
+
+- 편차
+    - 각 데이터가 평균으로부터 떨어져 있는 정도
+    - 평균 - 데이터 값
+    - mean = np.mean(scores)
+        - deviation = scores - mean
+    - 편차 평균은 항상 0
+
+- 분산
+    - 편차 제곱의 평균
+    - `np.mean(deviation ** 2)`
+    - `np.var(scores)`
+    - `scores_df.var()`
+    - Numpy의 기본 분산은 표본분산
+    - Pandas의 기본 분산은 불편분산
+        - ddor = 1일 경우 불편분산, 0이면 표본분산
+    
+    ![공식](../image/variation.jpg)
+
+- 표준편차
+    - 분산에 제곱근을 취한 것 = 편차 제곱의 평균에 제곱근을 취한 것
+    - `np.sqrt(np.var(scores, ddof = 0))`
+    - `np.std(scores, ddof = 0)`
+
+    ![공식](../image/stddev.jpg)
+
+-----------
+- 범위
+    - 데이터의 최댓값과 최솟값만으로 산포도를 표현하는 방법
+    - `np.max(scores) - np.min(scores)`
+    - $Rg = x_{max} - x_{min}$
+
+- 사분위 범위
+    - 데이터의 상위수%에 위치하는 값과 하위수%에 위치하는 값의 차이를 취하는 방법
+    - 하위 25%: 제1사분위수 Q1
+        - scores_Q1 = np.percentile(scores, 25)
+    - 하위 50%: 제2사분위수 Q2
+        - scores_Q2 = np.percentile(scores, 50)
+    - 하위 75%: 제3사분위수 Q3
+        - scores_Q3 = np.percentile(scores, 75)
+    - 사분위 범위 $IQR = Q3 - Q1$
+        - scores_IQR = scores_Q3 - scores_Q1
+
+------------
+- `pd.Series(scores).describe()`
+    - 데이터 개수
+    - 평균
+    - 표준편차
+    - 최솟값
+    - 하위 25%
+    - 하위 50%
+    - 하위 75%
+    - 최댓값
+
+### 데이터의 정규화
+
+- 표준화
+    - 데이터에서 평균을 빼고 표준편차로 나누는 작업
+    - 표준화된 데이터 = 표준화 변량 = Z 점수
+    - $z_i = \frac{x_i - \bar x}{S}$
+    - z = (scores - np.mean(scores)) / np.std(scores)
+    - 표준화된 데이터의 평균은 0, 표준편차는 1
+
+- 편찻값
+    - 평균이 50, 표준편차가 10이 되도록 정규화한 값
+    - $z_i = 50 + 10 \times \frac{x_i - \bar x}{S}$
+    - z = 50 + 10 * (scores - np.mean(scores)) / np.std(scores)
+
+### 1차원 데이터의 시각화
+
+- 도수분포표
+    - 분할된 구간과 데이터의 개수를 표로 정리한 것
+    - 계급: 구간
+    - 도수: 각 계급에 속한 데이터 수
+    - 계급폭: 각 구간의 폭
+    - 계급수: 계급의 수
+    - `np.histogram(...)`
+        - freq, _ = np.histogram(scores, bins = 10, range = (0, 100))
+        - bins: 계급수
+        - range: 최솟값, 최댓값 지정
+
+
+
+    - 계급값: 계급의 중앙값
+    - 상대도수: 전체 데이터에 대해서 해당 계급의 데이터가 차지하는 비율
+        - $도수 \over 전체 도수$ 
+    - 누적상대도수: 해당 계급까지의 상대도수의 합
+        - `np.cumsum`
+    - 최빈값: 최대가 되는 계급의 계급값
+        - 도수분포표를 만드는 방법에 좌우됨(계급폭이 달라지면 최빈값도 달라짐)
+
+- 히스토그램
+    - 도수분포표를 막대그래프로 나타낸 것
+    - Matplotlib 라이브러리 필요
+        - import matplotlib.pyplot as plt
+            - Matplotlib의 pyplot 모듈을 plt라는 이름으로 가져온다
+        - %matplotlib inline
+            - 그래프가 주피터 노트북 위에 표시된다
+    - `ax.hist(...)`
+
+- 상자그림
+    - 데이터의 분포와 이상값을 시각적으로 파악 가능
+    - 분위수 범위의 Q1, Q2, Q3, IQR 사용
+    - 상자는 IQR을 나타냄, 수염은 Q1 - 1.5IQR부터 Q3 + 1.5IQR을 나타냄
