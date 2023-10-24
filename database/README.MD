@@ -270,3 +270,47 @@
     - unknown or true = true
     - unknown and false = false
     - 나머지는 다 unknown
+
+### Aggregate Functions
+
+- 집계 함수
+    - 관계열의 값들의 다중집합에서 작동하고 값을 반환
+
+- `avg`
+    - 평균
+    - select `avg`(속성)
+    - `as` 사용 가능
+
+- `count`
+    - 튜플 수 찾기
+    - select `count`(속성)
+    - 속성에 * 가능
+    - `distinct` 사용 시 중복 제거
+
+- `max`
+    - 최댓값
+    - select `max`(속성)
+
+- `min` 
+    - 최솟값
+    - select `min`(속성)
+
+- `sum`
+    - 합계
+    - select `sum`(속성)
+
+- `group by`
+    - select 절에서 집계 함수만 사용해야 함
+    - 집계 함수와 속성을 같이 추출하고 싶을 때 사용
+    - 집계 함수와 같이 추출되는 속성이 모두 group by 목록에 나타나야 한다
+    - select A, B, count(*) from ... group by A, B
+
+- 집계 함수는 null의 양을 무시한다
+- 만약 null이 아닌 양의 값이 없다면 결과는 null
+- count(*)를 제외한 모든 집계 함수는 집계된 속성에서 null값이 있는 튜플을 무시한다
+    - null 값만 있는 경우 count는 0 반환 (나머지는 null 반환)
+
+
+- `having`
+    - 튜플이 아닌 그룹에 적용되는 조건을 나타낼 때 사용
+    - where 절은 그룹을 구성하기 전에 적용되고 `having` 절은 그룹을 형성한 후에 적용된다
