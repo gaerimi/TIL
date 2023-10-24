@@ -118,3 +118,91 @@
     - 데이터베이스를 선택
 - `show tables`
     - 데이터베이스 내에 존재하는 테이블들을 보여준다
+
+### Basic Structure of SQL Queries
+
+#### Relational Algebra(관계대수)
+
+- `Selection` - $\sigma$
+    - 선택 연산
+    - 선택 조건을 만족하는 관계의 튜플들을 출력
+    - $\sigma_{condition}(Relation)$
+    - $\wedge$: and, $\vee$: or
+
+- `Projection` - $\sqcap$
+    - 추출 연산
+    - 관계에서 선택된 속성들을 출력
+    - $\sqcap_{attribute-list}(Relation)$
+
+- `Natural Join` - $\Join$
+    - 자연 조인
+    - 같은 이름을 가지고 있는 속성들에서 두 관계가 같은 값을 가지고 있는 튜플의 쌍을 출력
+    - Relation1 $\Join$ Relation2
+
+- `Cartesion product` - $\times$
+    - 카티션 곱
+    - 두 관계로부터 가능한 모든 튜플의 쌍을 출력
+    - Relation1 $\times$ Relation2
+
+- `Union` - $\cup$
+    - 합집합
+    - 두 관계의 튜플에 대하여 합집합 수행
+    - Relation $\cup$ Relation2
+
+- `Intersection` - $\cap$
+    - 교집합
+    - 두 관계의 튜플에 대하여 교집합 수행
+    - Relation1 $\cap$ Relation2
+
+- `Set difference` - -
+    - 차집합
+    - 두 관계의 튜플에 대하여 차집합 수행
+    - Relation1 - Relation2
+
+#### Basic Query Structure
+
+**select** A1, A2, ..., An   
+**from** r1, r2, ..., rm   
+**where** P   
+
+- Ai: 속성
+- ri: 관계
+- P: 서술어
+- SQL 쿼리의 결과는 관계!
+
+#### The select Clause
+
+- 쿼리 결과에서 원하는 속성 나열
+- 관계대수의 추출 연산에 해당
+- `distinct`
+    - 쿼리 결과에서 관계의 중복 제거
+    - select distinct
+- `all`
+    - 쿼리 결과에서 관계의 중복 허용
+    - select all = select
+- `*`
+    - 모든 속성을 나타냄
+
+- select 절에 +, -, *, /와 관련된 산술 식을 포함하여 튜플의 상수 또는 속성에 대해 연산 가능
+
+#### The where Clause
+
+- 결과가 만족해야 하는 조건 지정
+- 관계대수의 선택 연산에 해당
+- **and** 또는 **or** 사용 가능
+
+#### The from Clause
+
+- 쿼리와 관련된 관계 나열
+- 관계대수의 카티션 곱 연산에 해당
+- 카티션 곱은 그다지 유용하지 않지만 ,where절의 조건과 결합하면 유용
+
+#### Join
+
+- select ... from A, B ... where A.att = B.att
+
+#### Natural Join
+
+- 모든 공통 속성에 대해 동일한 값을 갖는 튜플과 일치
+- 각 공통 열에 대해 하나의 복사본만 유지
+- select ... from A `natural join` B
