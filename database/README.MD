@@ -255,3 +255,18 @@
 
 - `except`
     - (select ... from ... where ...) `except` (select ... from ... where ...)
+
+### Null Values
+
+- 튜플은 일부 속성에 대해 null로 표시되는 null 값을 가질 수 있다
+- null을 포함하는 산술식의 결과는 null이다
+
+- `is null`
+    - null 값이 있는지 확인한다
+- `is not null`
+    - null 값이 없는지 확인한다
+
+- null과의 비교는 unknown을 반환한다
+    - unknown or true = true
+    - unknown and false = false
+    - 나머지는 다 unknown
