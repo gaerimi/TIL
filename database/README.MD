@@ -239,3 +239,19 @@
 - `between`
     - where A `between` 90000 and 100000
     - 90000 이상 100000 이하
+
+### Set Operaions
+
+- `union`, `intersect`, `except`
+- 자동으로 중복을 제거한다
+
+- `union`
+    - (select ... from ... where ...) `union` (select ... from ... where ...)
+    - `union all`
+        - 모든 중복을 보존한다
+
+- `intersect`
+    - (select ... from ... where ...) `intersect` (select ... from ... where ...)
+
+- `except`
+    - (select ... from ... where ...) `except` (select ... from ... where ...)
