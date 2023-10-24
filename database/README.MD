@@ -206,3 +206,36 @@
 - 모든 공통 속성에 대해 동일한 값을 갖는 튜플과 일치
 - 각 공통 열에 대해 하나의 복사본만 유지
 - select ... from A `natural join` B
+
+### Additional Basic Operations
+
+#### The Rename Operation
+
+- `as`
+    - 관계 및 속성 이름 변경 가능
+    - select A `as` B
+    - 긴 관계 이름을 사용하기 쉽게 단축할 수 있다
+    - 같은 관계에 있는 튜플을 비교해야 할 때 사용할 수 있다(self join)
+
+#### String Operations
+
+- `like`
+    - %: 부분 문자열과 일치하는 모든 문자
+        - str%: str로 시작하는 문자열
+        - %str%: str이 포함되어 있는 문자열
+    - _: 문자와 일치하는 문자
+    - where A `like` '%str%'
+
+#### Ordering the Display of Tuples
+
+- `order by`
+    - `order by` A
+    - A에 대해 정렬
+    - `desc`: 내림차순
+    - `asc`: 오름차순, 기본값
+
+#### Where Clause Predicates
+
+- `between`
+    - where A `between` 90000 and 100000
+    - 90000 이상 100000 이하
