@@ -433,3 +433,39 @@
     - 두 관계에서 일치하는 튜플과 조인 결과에 존재하는 속성 정의
     - `natural`
     - `on` <서술어>
+
+### Integrity Constraints
+
+- 데이터베이스 변경으로 인해 데이터 일관성이 손실되지 않도록 보장 -> 데이터베이스의 우발적 손상 방지
+
+- `not null`
+    - null값을 가지지 않도록 제약
+
+- `primary key`
+    - 기본키로 지정
+
+- `unique`
+    - 값이 중복되지 않도록 제약
+    - `unique`(A, B): A, B 중 하나만 달라도 unique 만족
+
+- `check(p)`
+    - p: 서술어
+    - p를 만족하는지 검사
+    - p를 만족하지 않는 값이 없도록 제약
+
+#### Referential Integrity
+
+- 특정 특성 집합에 대해 한 관계에 나타나는 값이 다른 관계의 특정 특성 집합에도 나타나도록 함
+    - 기본키에서 삭제(업데이트)하면 외래키에서도 삭제(업데이트)됨
+
+- cascade
+    - `on delete cascade`
+    - `on update cascade`
+    - 외래키 참조할 때 추가
+
+#### 제약 조건 변경
+
+- `show create table` 테이블 이름
+- `alter table` 테이블 이름 `drop foreign key` 제약 조건 이름
+    - 사이클이 있을 때 이 방법을 사용할 수 있음
+- `alter table` 테이블 이름 `add foreign key` 속성 이름 `referenes` 참조할 테이블(속성) `on DELETE CASCADE on UPDATE CASCADE`
