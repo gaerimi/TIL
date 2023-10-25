@@ -363,3 +363,23 @@
 - 단일 속성을 포함하는 하나의 튜플만 반환한다   
 **select** ..., (**select** ... **from** ... **where** ...)   
 **from** ...;
+
+### Modification of the Database
+
+- Deletion
+    - `delete from` (테이블 이름)
+        - 모든 튜플 삭제
+    - where 절 추가 시 조건에 맞는 튜플만 삭제
+    - 다른 곳에서 참조하고 있는 키는 삭제할 수 없다
+
+- Insertion
+    - `insert into` (테이블 이름) `values` (튜플)
+        - 테이블에 새로운 튜플을 추가
+    - `insert into` (테이블 이름) **select** ... **from** ... **where** ...
+        - 쿼리 결과를 테이블에 추가한다
+
+- Updates
+    - `Update` (테이블 이름) `Set` 조건
+        - 테이블을 조건에 맞게 업데이트
+    - `Update` (테이블 이름) `Set` 조건 **where** ...
+        - where 절을 만족하고 조건을 만족하도록 테이블을 업데이트
