@@ -314,3 +314,52 @@
 - `having`
     - 튜플이 아닌 그룹에 적용되는 조건을 나타낼 때 사용
     - where 절은 그룹을 구성하기 전에 적용되고 `having` 절은 그룹을 형성한 후에 적용된다
+
+### Nested Subqueries
+
+- SQL은 하위 쿼리를 중첩시키는 메커니즘을 제공한다
+- 하위 쿼리는 다른 쿼리 내에 중첩되는 select-from-where 형식이다
+
+- `in`
+    - A `in` (...)
+    - ...에 속하는 A
+    - 교집합과 같음
+- `not in`
+    - A `not in` (...)
+    - ...에 속하지 않는 A
+    - 차집합과 같음
+
+- `some`
+    - 최소 하나 이상의 값이 존재
+- `all`
+    - 모든 값이 존재
+
+- `exists`
+    - `exists`(...)
+    - (...)의 값이 존재하면 true 반환
+- `not exists`
+    - `not exists`(...)
+    - (...)의 값이 존재하지 않으면 true 반환
+
+#### Correlated subquery
+
+- 외부 쿼리의 상관 관계 이름을 사용하는 하위 쿼리
+- 예)  
+**select** course_id
+**from** section **as** S
+**where** semester = 'Fall' **and** year = 2009 **and**
+    **exists** (**select** * **from** section **as** T **where** semester = 'Spring' **and** year = 2010 **and** S.course_id = T.course_id);
+
+- exists 뒤의 하위 쿼리에 S.course_id가 사용되고 있는데 이는 하위 쿼리의 외부에 있는 쿼리에서 사용되고 있다
+
+#### Derived Relations
+
+- **from** 절에서 하위 쿼리 식을 사용할 수 있다   
+**select** ...   
+**from** (**select** ... **from** ... )
+
+#### Scalar Subquery
+
+- 단일 속성을 포함하는 하나의 튜플만 반환한다   
+**select** ..., (**select** ... **from** ... **where** ...)   
+**from** ...;
