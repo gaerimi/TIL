@@ -385,3 +385,51 @@
         - where 절을 만족하고 조건을 만족하도록 테이블을 업데이트
 
 ## Chapter 4
+
+### Join Expressions
+
+- Join 연산은 두 개의 관계를 취하고 결과적으로 다른 관계 반환
+- join 연산은 두 관계의 튜플이 (어떤 조건 하에서는) 일치해야 하는 카티션 곱
+
+#### Join Conditions
+
+- select * from A, B where A.id = B.id
+- select * from A natural join B
+- select * from A join B on A.id = B.id
+
+- 위 3개의 쿼리는 모두 동일한 결과를 반환한다
+
+#### Outer Join
+
+- 정보 손실을 방지하는 join 연산의 확장
+- join을 계산한 다음 join의 결과와 다른 관계의 튜플과 일치하지 않는 하나의 관계의 튜플 추가
+- null 값 사용
+
+- Inner Join
+    - from A `inner join` B `on` 조건
+
+- Left Outer Join
+    - from A `left outer join` B `on` 조건
+    - 왼쪽 (A) 관계에 있는 튜플을 보존
+
+- Right Outer Join
+    - from A `right outer join` B `on` 조건
+    - 오른쪽 (B) 관계에 있는 튜플을 보존
+
+- Full Outer Join
+    - from A `full outer join` B `on` 조건
+    - 양쪽 관계에 있는 튜플을 보존
+
+#### Join type and condition
+
+- join type
+    - 조인 조건을 기준으로 다른 관계의 튜플과 일치하지 않는 각 관계의 튜플이 처리되는 방법 정의
+    - `inner join`
+    - `left outer join`
+    - `right outer join`
+    - `full outer join`
+
+- join condition
+    - 두 관계에서 일치하는 튜플과 조인 결과에 존재하는 속성 정의
+    - `natural`
+    - `on` <서술어>
