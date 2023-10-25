@@ -469,3 +469,22 @@
 - `alter table` 테이블 이름 `drop foreign key` 제약 조건 이름
     - 사이클이 있을 때 이 방법을 사용할 수 있음
 - `alter table` 테이블 이름 `add foreign key` 속성 이름 `referenes` 참조할 테이블(속성) `on DELETE CASCADE on UPDATE CASCADE`
+
+### Views
+
+- 경우에 따라서 모든 사용자가 전체 논리 모델(데이터베이스에 저장된 모든 실제 관계)을 보는 것이 바람직하지 않음
+- view는 특정 사용자의 관점에서 특정 데이터를 숨기기 위한 메커니즘 제공
+- 개념적 모델이 아니지만 사용자에게 가상 관계로 보이는 모든 관계
+
+
+- View Definition
+    - `create view` 뷰 이름 `as` <쿼리>
+
+- Using View
+    - select ... from 뷰 이름 where ...
+    - 뷰에 포함되지 않는 속성 사용시 오류
+    - 다른 뷰를 사용해서 뷰를 정의할 수 있음
+
+- Drop View
+    - `drop view` 뷰 이름 [, 뷰 이름]
+    - 1개나 여러 개의 뷰를 삭제할 수 있음
