@@ -673,3 +673,109 @@
 - 대학원생은 한 명의 선임 대학원생이 있고, 선임 대학원생은 여러 명의 대학원생에게 조언을 해줄 수 있으므로 many to one
 - 모든 대학원생은 한 명의 선임 대학원생이 있으므로 대학원생은 전체 참여
 - 조언을 하지 않는 선임 대학원생이 있을 수 있으므로 선임 대학원생은 부분 참여
+
+### Reduction to Relational Schemas
+
+- E-R 데이터베이스 스키마를 관계 스키마로 표현할 수 있다
+- 객체 집합과 관계 집합은 데이터베이스의 내용을 나타내는 관계 스키마로 통일적으로 표현할 수 있다
+- 각 객체 집합 및 관계 집합에는 해당 객체 집합 또는 관계 집합의 이름이 할당되는 고유한 스키마가 있다
+- 각 스키마에는 고유한 이름을 가진 수많은 열(속성)이 있다
+
+- E-R 데이터베이스 스키마 예시   
+![example](../image/ERdiagram_exam.jpg)
+
+#### Representing Entity Sets with Simple Attributes
+
+- 강한 객체 집합은 동일한 특성을 가진 스키마로 줄어든다
+- student(<u>ID</u>, name, tot_cred)
+    - 객체 집합의 기본키 = 관계의 기본 키
+- department(<u>dept_name</u>, building, budget)
+- classroom(<u>building</u>, <u>room_number</u>, capacity)
+- course(<u>course_id</u>, title, credits)
+- student(<u>ID</u>, name, tot_cred)
+- instructor(<u>ID</u>, name, salary)
+
+#### Representing Entity Sets with Complex Attributes
+
+- 복합 속성은 복합 속성을 이룬 단일 속성들로 정의   
+![example](../image/complex_attributes.jpg)
+- instructor(<u>ID</u>, first_name, middle_initial, last_name, street_number, street_name, apt_number, city, state, zip, date_of_birth)
+
+- 파생 속성은 무시한다.
+
+##### Multivalued Attributes
+
+- 객체 E의 다중값 속성 M은 별도의 스키마 EM으로 표현
+- 스키마 EM은 E의 기본 키에 해당하는 속성과 다중값 속성 M에 해당하는 속성을 가짐
+![example](../image/complex_attributes.jpg)
+- instructor(<u>ID</u>, first_name, middle_initial, last_name, street_number, street_name, apt_number, city, state, zip, date_of_birth)
+- inst_phone(<u>ID</u>, <u>phone_number</u>)
+    - ID는 instructor의 기본 키를 참조하는 외래 키
+    - phone_number은 instructor의 다중값 속성
+    - ID와 phone_number을 합쳐 기본 키를 이룬다
+
+
+![example](../image/ERdiagram_exam.jpg)
+- 특수한 경우: 기본 키가 아닌 속성이 하나이며, 그 속성이 다중값 속성인 경우
+    - 다중값 속성에 해당하는 속성을 생성하기만 하면 됨
+    - time_slot_multi(<u>time_slot_id</u>, <u>day</u>, <u>start_time</u>, <u>end_time</u>)
+
+#### Representation of Weak Entity Sets
+
+- 약한 객체 집합은 식별하는 강한 객체 집합의 기본 키에 대한 열을 포함하는 테이블이 된다   
+![example](../image/ERdiagram_exam.jpg)
+- section(<u>course_id</u>, <u>sec_id</u>, <u>semester</u>, <u>year</u>)
+    - course_id는 course의 기본 키를 참조하는 외래 키
+    - sec_id, semester, year은 section의 부분 키
+    - course_id, sec_id, semester, year을 합쳐 기본 키를 이룬다
+
+#### Representing Relationship Sets
+
+- 두 참여 객체 집합의 기본 키에 대한 속성과 관계 집합의 속성을 가진 스키마로 표현
+- 속성: 양 객체 집합의 기본 키 + 관계 집합의 속성
+- many to many
+    - 기본 키: 양 객체 집합의 기본 키를 합친 키
+- one to one
+    - 기본 키: 양 객체 집합의 기본 키 중 아무거나 하나(두 개를 다 기본키로 사용하는 것은 틀림)
+- one to many, many to one
+    - 기본 키: many쪽의 기본 키
+
+#### Redundancy of Schemas
+
+- 중복되는 관계 스키마는 제거한다
+- many to one, one to many는 many쪽이 전체 참여(total)라면 관계 집합을 제거할 수 있다
+    - 관계 집합이 양 객체 집합의 기본 키로 이루어지며 many쪽의 기본 키를 기본 키로 갖는다
+    - 관계 집합의 기본 키가 아닌 키를 many쪽 관계에 추가하여 관계 집합을 제거할 수 있다
+    - many쪽 관계는 one쪽 관계의 기본 키를 참조하는 외래 키를 가진다
+
+- department(<u>dept_name</u>, building, budget)
+- instructor(<u>ID</u>, name, salary)
+- Inst_dept(<u>ID</u>, dept_name)   
+
+    $\downarrow \downarrow \downarrow$ 
+- department(<u>dept_name</u>, building, budget)
+- instructor(<u>ID</u>, name, salary, dept_name)
+    - instructor.dept_name은 department.dept_name을 참조하는 외래 키
+- 만약 one쪽 관계에 추가한다면?
+    - one쪽 관계의 기본 키가 중복되는 문제 발생
+- 만약 부분 참여(partial)의 관계 집합을 제거한다면?
+    - 다른 집합의 기본 키를 참조한 외래 키의 값이 null 값을 갖는 문제 발생
+
+#### Exercise
+
+![example](../image/reduction_schema_exam.jpg)   
+
+- students(<u>std_id</u>, name, department)
+- professors(<u>p_id</u>, name, room, rank)
+- lectures(<u>lec_id</u>, title, credits, p_id)
+    - p_id는 professors.p_id를 참조하는 외래 키
+- assistants(<u>a_id</u>, name, room, p_id)
+    - p_id는 professors.p_id를 참조하는 외래 키
+- attend(<u>std_id</u>, <u>lec_id</u>)
+    - std_id는 students.std_id를 참조하는 외래 키
+    - lec_id는 lectures.lec_id를 참조하는 외래 키
+    - std_id와 lec_id 합쳐서 기본 키
+- is_preconditions(<u>lec_id</u>, <u>pre_id</u>)
+    - lec_id는 lectures.lec_id를 참조하는 외래 키
+    - pre_id는 lectures.lec_id를 참조하는 외래 키
+    - lec_id와 pre_id 합쳐서 기본 키
