@@ -490,3 +490,8 @@
     - 1개나 여러 개의 뷰를 삭제할 수 있음
 
 ## Chapter 7
+
+### Design Phase
+
+- Design Process
+![design process](../image/design_process.jpg)
