@@ -495,3 +495,46 @@
 
 - Design Process
 ![design process](../image/design_process.jpg)
+
+### Modeling
+
+- 데이터베이스는 엔티티(entity)들의 집합과 개체 간의 관계로 모델링 될 수 있다
+    - Entity-relationship(E-R) model
+
+#### Entity
+
+- 엔티티(객체)는 존재하는 객체이며, 다른 객체와 구별 가능한 것
+    - 대학에 있는 각 개인, 대학에 있는 각 수업
+- 객체 집합(entity set)은 동일한 속성을 공유하는 동일한 유형의 객체 집합
+    - 주어진 대학의 교수들, 대학의 학생들
+- 객체는 속성(attributes)을 가지고 있다
+    - 사람들은 이름과 주소를 가지고 있다
+![entity set example](../image/entityset_ex.jpg)
+
+#### Relationship
+
+- 관계는 여러 객체들 사이의 연관
+- 관계 집합(relationship set)은 2개 이상의 사이의 객체들 사이의 수학적 관계이다
+    - $\{(e_1, e_2, ..., e_n) | e_1 \in E_1, e_2 \in E_2, ..., e_n \in E_n \}$
+    - $(e_1, e_2, ..., e_n)$ 은 관계이다
+    - 관계 집합도 속성을 가질 수 있다
+
+- binary relationship(이항 관계)
+    - 두 개의 객체 집합을 포함(또는 두 개의 차수)
+    - 데이터베이스 시스템에서 대부분의 관계 집합은 이항 관계이다
+    - 두 개 이상의 객체 집합 사이의 관계는 드물다
+
+#### Attributes
+
+- 객체는 속성들의 집합으로 표현
+- 도메인(Domain)은 각 속성에 대해 허용된 값의 집합이다
+- 속성 유형
+    - 단순 속성과 복합 속성
+        - simple(단순): 부분으로 나눌 수 없음
+        - composite(복합): 부분으로 나눌 수 있음
+            - 이름 -> 성, 성을 제외한 이름
+    - 단일값 속성(single-valued)과 다중값(multivalued) 속성
+        - 다중값 속성: 전화번호 등
+    - 파생(derived) 속성
+        - 다른 속성으로 부터 계산될 수 있는 속성
+        - 생년월일이 주어졌을 때 나이를 계산할 수 있는 것
