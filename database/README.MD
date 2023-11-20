@@ -488,3 +488,5 @@
 - Drop View
     - `drop view` 뷰 이름 [, 뷰 이름]
     - 1개나 여러 개의 뷰를 삭제할 수 있음
+
+# Chapter 7
