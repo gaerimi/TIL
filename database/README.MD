@@ -538,3 +538,50 @@
     - 파생(derived) 속성
         - 다른 속성으로 부터 계산될 수 있는 속성
         - 생년월일이 주어졌을 때 나이를 계산할 수 있는 것
+
+### Constraints
+
+#### Mapping Cardinality
+
+- 관계 집합을 통해 다른 객체를 연결할 수 있는 객체 수를 표현
+- 이항 관계 집합 설명 시 유용
+- 4가지 유형
+    - 일 대 일 (one to one)   
+    ![one to one](../image/mappingcardi_oto.jpg)
+    - 일 대 다 (one to many)   
+    ![one to many](../image/mappingcardi_otm.jpg)
+    - 다 대 일 (many to one)   
+    ![many to one](../image/mappingcardi_mto.jpg)
+    - 다 대 다 (many to many)   
+    ![many to many](../image/mappingcardi_mtm.jpg)
+- 관계 집합이 모델잉하는 실제 상황에 따라 매핑 카디널리티는 달라진다
+
+#### Keys
+
+- super key(슈퍼 키)
+    - 각 행을 유일하게 식별할 수 있는 하나 또는 그 이상의 속성들의 집합
+    - 유일성만 만족하면 됨
+        - 유일성: 고유한 데이터 속성
+- candidate key(후보 키)
+    - 각 행을 유일하게 식별할 수 있는 최소한의 속성들의 집합
+    - 기본키가 될 수 있는 후보들
+    - 유일성과 최소성을 만족해야 함
+- primary key(기본 키)
+    - 후보키들 중에서 하나를 선택한 키
+    - 유일성과 최소성 만족
+    - 기본 키는 오직 1개만 지정 가능
+    - NULL 값을 가질 수 없고, 중복된 값을 가질 수 없음
+- alternate key(대체 키)
+    - 기본 키로 선정되지 않은 후보 키
+
+
+- 참여하는 객체 집합들의 기본 키들의 조합은 관계 집합의 슈퍼 키를 형성
+- 후보 키가 무엇인지 결정할 때 관계 집합의 매핑 카디널리티를 고려해야 함
+- 후보 키가 두 개 이상일 경우 기본 키를 선택할 때 관계 집합의 의미를 고려해야 함
+
+#### Participation Constraints
+
+- Total participation(전체 참여)
+    - 객체 집합의 모든 객체가 관계 집합에 하나 이상의 관게에 참여
+- Partial participation(부분 참여)
+    - 일부 객체는 관계 집합의 어떤 관계에도 참여하지 않음
