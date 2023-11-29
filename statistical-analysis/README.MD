@@ -540,3 +540,59 @@ def G(y):   //누적분포함수
     - $V(g(X)) = \int_{-\infty}^{\infty} (g(x) - E(g(X)))^2 f(x)dx$
     - 분산의 공식 성립
         - $V(aX + b) = a^2V(X)$
+
+### 2차원 연속형 확률변수
+
+- 결합확률밀도함수
+    - 확률변수가 취할 수 있는 값의 조합: $\{(x,y)|a \le x \le b; c \le y \le d \}$
+    - 위를 정의역으로 하는 함수 f(x,y)에 의해 2차원 연속형 확률변수 (X,Y)가 정의됨
+    - f(x,y)를 결합확률밀도함수라고 함
+    - $P(x_0 \le X \le x_1, y_0 \le Y \le y_1) = \int_{x_0}^{x_1} \int_{y_0}^{y_1} f(x,y)dxdy$
+    - 예) 불공정한 룰렛 A, B에서 A + B = X, A = Y로 한 2차원 확률변수 (X,Y)
+
+- 확률의 성질
+    - $f(x,y) \ge 0$
+    - $\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x,y) = 1$
+
+- 적분 결과가 1인지 확인
+    - `integrate.nquad`(피적분함수, x의 적분구간, y의 적분구간)[0]
+
+- 주변확률밀도함수 (주변밀도함수)
+    - 하나의 확률변수에 대해서만 밀도함수를 알고 싶을 때
+    - 확률변수 X의 밀도함수 $f_X(x)$
+    - $f_X(x) = \int_{-\infty}{\infty} f(x,y)dy$
+    - X의 주변밀도함수는 결합확률밀도함수를 y로 적분하면 구할 수 있음
+        - 하지만 integrate는 2변수 중 1변수만 적분하는 함수가 구현되지 않음
+        - functools의 partial함수 사용
+            - 인수의 일부를 고정한 새로운 함수를 만들 수 있는 함수
+```python
+from functools import partial
+
+def f_X(x):
+    return integrate.quad(partial(f_xy, x), -np.inf, np.inf)[0]
+
+def f_Y(y):
+    return integrate.quad(partial(f_xy, y), -np.inf, np.inf)[0]
+
+X = [x_range, f_X]
+Y = [y_range, f_Y]
+```
+------------
+
+- 2차원 연속형 확률변수의 지표
+
+- 기댓값
+    - $\mu_X = E(X) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} xf(x,y)dxdy$
+    - 기댓값의 선형성 성립
+        - E(2X + 3Y) = 2E(X) + 3E(Y)
+
+- 분산
+    - $V(g(X,Y)) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} (g(x,y) - E(g(X,Y)))^2 f(x,y)dxdy$
+
+- 공분산
+    - $\sigma_{XY} = Cov(X,Y) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} (x - \mu_X)(y - \mu_Y) f(x,y)dxdy$
+    - 분산과 공분산의 공식 성립
+        - $V(aX + bY) = a^2V(X) + b^2V(Y) + 2abCov(X,Y)$
+
+- 상관계수
+    - $\rho_{XY} = \rho(X,Y) = \frac{\sigma_{XY}}{\sigma_X \sigma_Y}$
