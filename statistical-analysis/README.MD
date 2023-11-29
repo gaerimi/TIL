@@ -454,3 +454,5 @@
     - 분산: V(X) = $\lambda$
 
 ![요약 정리](../image/poisummary.jpg)
+
+## Chapter 7 연속형 확률변수
