@@ -917,3 +917,56 @@
     - 사용하고자 하는 외부 심볼들을 콤마(,)로 구분
 
 ## Chapter 5
+
+### Arithmetic & Logic Operations
+
+- Arithmetic Operations
+    - Addition
+    - Subtraction
+    - Multiplication
+    - Division
+    - Comparison
+    - Negation
+    - Increment
+    - Decrement
+
+- Logic Operations
+    - AND
+    - OR
+    - XOR
+    - NOT
+    - shift
+    - rotate
+    - compare(test)
+
+- Arithmetic & Logic Operations
+    - EFLAGS의 몇 개의 비트들은 산술 연산이나 논리 연산에 따라서 바뀔 수 있다
+    - 상태 플래그
+        - Z(결과가 0인 경우)
+            - 0인 경우 1, 0이 아닌 경우 0
+        - S(결과가 양수인 경우)
+            - 결과값의 최상위 비트의 값과 같음
+            - 양수인 경우 0, 음수인 경우 1
+        - C(캐리가 발생할 경우)
+            - 최상위 비트에서 캐리 발생 시 1, 발생하지 않을 시 0
+        - P(결과가 짝수 패리티를 가질 경우)
+        - A(보조 캐리가 발생할 경우)
+        - O(오버플로우가 발생할 경우)
+
+#### Addition
+
+- **add** (addition)
+    - add al, [ARRAY + esi]
+    - 캐리를 포함하지 않은 덧셈
+- **inc** (increment)
+    - inc byte [edi]
+    - 피연산자의 값을 1 증가한다
+- **adc** (add with carry)
+    - adc ecx, ebx
+    - 캐리를 포함한 덧셈
+    - 레지스터의 값들과 캐리 플래그(CF)의 값을 더한다
+    - 64비트 수의 덧셈에 사용된다
+- **xadd** (exchange and add)
+    - xadd ecx, ebx
+    - ecx = ecx + ebx, ebx = original ecx
+    - 첫번째 피연산자에는 첫번째 피연산자와 두번째 피연산자의 덧셈 결과의 값이, 두번째 피연산자에는 덧셈 수행 전의 첫번째 피연산자의 값이 저장된다
