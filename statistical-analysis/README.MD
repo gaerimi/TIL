@@ -456,3 +456,87 @@
 ![요약 정리](../image/poisummary.jpg)
 
 ## Chapter 7 연속형 확률변수
+
+- 적분
+    - SciPy의 integral 모듈 사용
+    - from scipy import integrate
+    - 적분 계산 결과에 문제가 없다는 warning 출력
+        - warnings.filterwarnings('ignore', category=integrate.IntegrationWarning) warning이 출력되지 않도록 함
+
+### 1차원 연속형 확률변수
+
+- 연속형 확률변수
+    - 확률변수가 취할 수 있는 값이 연속적인 확률변수
+    - 예) 룰렛
+
+- 확률밀도함수
+    - 확률변수가 취할 수 있는 값: 구간 [a, b]
+    - 확률은 확률밀도함수(PDF) 또는 밀도함수 f(x)에 의해 정의
+    - 어떤 특정 값을 취하는 확률로는 정의되지 않음
+    - 확률변수 X가 $x_0 \le x_1$ 의 구간에 들어가 확률 $P(x_0 \le X \le x_1)$ 로 정의됨
+    - $P(x_0 \le X \le x_1) = \int_{x_0}^{x_1} f(x)dx$
+    - 밀도함수 f(x)와 x축, 두 직선 $x = x_0$, $x = x_1$ 으로 둘러싸인 영역의 면적
+
+- `integrate.quad`(피적분함수, 적분 시작 범위, 적분 끝 범위)
+    - 적분값과 추정오차 반환 (적분값, 추정오차)
+
+- 확률의 성질
+    - $f(x) \ge 0$
+    - $\int_{-\infty}^\infty f(x)dx = 1$
+
+- 함수의 최솟값
+    - scipy.optimize의 minimize_scalar 사용
+    - from scipy.optimize import minimize_scalar
+    - min = `minimize_scalar`(f)
+    - min.fun
+        - 함수의 최솟값은 fun이라는 인스턴스 변수에
+
+- 확률밀도함수 삼각형의 면적을 적분으로 구하기
+    - integrate.quad(f, -np.inf, np.inf)[0]
+        - `np.inf`: 무한대
+        - 0번째 요소가 적분값이므로 0번째 요소만 확인
+
+---------
+
+- 누적분포함수(분포함수)
+    - 확률변수 X가 x이하가 될 때의 확률을 반환하는 함수
+    - $F(x) = P(X \le x) = \int_{-\infty}^x f(x)dx$
+    - 단조증가함수
+        - x가 증가할 때 y는 감소하지 않는 함수
+
+--------
+
+- 확률변수의 변환
+    - X가 연속형 확률변수이면
+    - Y = 2X + 3인 Y도 연속형 확률변수
+    - Y의 확률밀도함수 g(y)
+    - $g(y) = \{^{\frac{(y - 3)}{2} \quad (3 \le y \le 5)}_{0 \quad (otherwise)}$
+    - 확률분포함수 G(y)
+    - $G(y) = P(Y \le y) = \int_{-\infty}^y g(y)dy$
+    
+```python
+y_range = [3, 5]
+def g(y):   //확률밀도함수
+    if y_range <= y <= y_range[1]:
+        return (y - 3) / 2
+    else:
+        return 0
+
+def G(y):   //누적분포함수
+    return integrate.quad(g, -np.inf, y)[0]
+```
+------------------
+
+- 1차원 연속형 확률변수의 지표
+
+- 기댓값
+    - $\mu = E(X) = \int_{-\infty}^{\infty} xf(x)dx$
+    - $E(g(X)) = \int_{-\infty}^{\infty} g(x)f(x)dx$
+    - 기댓값의 선형성 성립
+        - E(2X + 3) = 2E(X) + 3
+
+- 분산
+    - $\sigma^2 = V(X) = \int_{-\infty}^{\infty} (x - \mu)^2 f(x)dx$
+    - $V(g(X)) = \int_{-\infty}^{\infty} (g(x) - E(g(X)))^2 f(x)dx$
+    - 분산의 공식 성립
+        - $V(aX + b) = a^2V(X)$
