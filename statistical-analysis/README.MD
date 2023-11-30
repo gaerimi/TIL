@@ -596,3 +596,5 @@ Y = [y_range, f_Y]
 
 - 상관계수
     - $\rho_{XY} = \rho(X,Y) = \frac{\sigma_{XY}}{\sigma_X \sigma_Y}$
+
+## Chapter 8 대표적인 연속형 확률분포
