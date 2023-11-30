@@ -598,3 +598,58 @@ Y = [y_range, f_Y]
     - $\rho_{XY} = \rho(X,Y) = \frac{\sigma_{XY}}{\sigma_X \sigma_Y}$
 
 ## Chapter 8 대표적인 연속형 확률분포
+
+- 라이브러리 선언
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats, integrate
+from scipy.optimize import minimize_scalar
+
+%precision 3
+%matplotlib inline
+```
+
+- 연속형 확률분포의 성질 확인을 쉽게 하기 위한 함수 준비
+```python
+linestyles = ['-','--',':']
+
+def E(X, g=lambda x: x):    //기댓값 함수
+    x_range, f = X
+    def integrand(x):
+        return g(x) * f(x)
+    return integrate.quad(integrand, -np.inf, np.inf)[0]
+
+def V(X, g=lambda x: x):    //분산 함수
+    x_range, f = X
+    mean = E(X, g)
+    def integrand(x):
+        return (g(x) - mean) ** 2 * f(x)
+    return integrate.quad(integrand, -np.inf, np.inf)[0]
+
+def check_prob(X):  //확률변수를 인수로 취하여 확률의 성질을 만족하는지 확인 후 기댓값, 분산 반환
+    x_range, f = X
+    f_min = minimize_scalar(f).fun
+    assert f_min >= 0, ' density function is minus value '
+    prob_sum = np.round(integrate.quad(f, -np.inf, np.inf)[0], 6)
+    assert prob_sum == 1, f ' sum of probability is {prob_sum} '
+    print(f ' expected value {E(X):.3f} ')
+    print(f ' variance {V(X):.3f} ')
+
+def plot_prob(X, x_min, x_max):     //확률변수와 구간을 인수로 취하고 밀도함수와 분포함수를 그리는 함수
+    x_range, f = X
+    def F(X):
+        return integrate.quad(f, -np.inf, x)[0]
+    
+    xs = np.linspace(x_min, x_max, 100)
+
+    fig = plt.figure(figsize=(10, 6))
+    ax = fig.add_subplot(111)
+    ax.plot(xs, [f(x) for x in xs],
+            label=' f(x) ' , color=' gray ')
+    ax.plot(xs, [F(x) for x in xs],
+            label=' F(x) ', ls='--', color=' gray ')
+    
+    ax.legend()
+    plt.show()
+```
