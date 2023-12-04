@@ -179,4 +179,129 @@
         |%h|인자의 해시코드를 출력. 주로 참조값을 출력할 때 사용|
         |%b|불린값을 true 또는 false로 출력. %s로 지정해도 같은 결과|
         |%B|불린값을 대문자로 출력|
+
+### 사용자로부터 키보드 입력 받기
+
+- 외부 패키지의 클래스 사용하기
+    - 사용자로부터 입력을 받으려면 java.util 패키지의 Scanner 클래스를 사용해야 함
+    - 클래스 명시 방법
+        - 패키지 이름과 클래스 이름 명시
+        - **패키지_이름.클래스_이름 변수_이름;**
+        - **java.util.Scanner sc = new java.util.Scanner();**
+        - import 키워드를 사용해서 패키지의 클래스 명시
+        - **import 패키지_이름.클래스_이름;**   import java.util.Scanner;
+        - **클래스_이름 변수_이름**     Scanner sc = new Scanner();
+    - 패키지의 모든 클래스 import 하기  **import java.util.*;**
+
+- 사용자로부터 입력 받기
+    - 키보드를 통해서 입력받는다면 Scanner 클래스 객체 생성자에 System.in 전달
+    - Scanner 클래스가 제공하는 입력용 함수
+    
+    |함수|설명|
+    |:---|:---|
+    |String next()|다음 입력을 문자열 형태로 받음. 공백 문자를 만날 때까지 입력된 모든 문자들을 문자열 형태로 반환|
+    |String nextLine()|줄바꿈 문자를 만날 때까지 입력된 모든 문자들을 있는 그대로 문자열 형태로 반환(줄바꿈 문자 제거)|
+    |byte nextByte()|다음 입력을 byte형 정수로 받음|
+    |short nextShort()|다음 입력을 short형 정수로 받음|
+    |int nextInt()|다음 입력을 int형 정수로 받음|
+    |long nextLong()|다음 입력을 long형 정수로 받음|
+    |float nextFloat()|다음 입력을 float형 실수로 받음|
+    |double nextDouble()|다음 입력을 double형 실수로 받음|
+
+    - 실습 문제 1: 단어와 숫자 입력 받기
+        - 사용자로부터 문자열과 정수를 순차적으로 입력 받고, 그 내용을 바로 화면에 출력하는 프로그램 작성
+        - 문자열을 입력 받고 화면에 출력, 정수를 입력 받고 출력
+        - 문자열은 1개 단어로 구성, 정수는 int형 범위 내의 값
+        ```java
+        import java.util.Scanner;
+
+        class Scanner1{
+            public static void main(String[] args){
+                Scanner sc = new Scanner(System.in);
+                String s = sc.next();
+                System.out.println(s);
+                int num = sc.nextInt();
+                System.out.println(num);
+            }
+        }
+        ```
+ 
+    - 실습 문제 2: nextLine() 메소드로 입력 받기
+        - 문자열을 문장 단위로 입력 받고 화면에 출력하는 프로그램 작성
+        - "hello 1"과 "   hello   1"의 차이 확인
+        - Scanner 클래스의 nextLine() 이용
+        - 프로그램의 이름은 ReadLine
+        ```java
+        import java.util.Scanner;
+
+        class ReadLine{
+            public static void main(String[] args){
+                Scanner sc = new Scanner(System.in);
+                String s = sc.nextLine();
+                System.out.println(s);
+            }
+        }
+        ```
+ 
+- 입력 버퍼
+    - 키보드로 입력할 때 입력 버퍼가 사용됨
+    - 입력 버퍼: 사용자가 입력한 내용을 임시로 저장해두는 메모리 공간
+    - next~() 함수들이 실행되고 입력을 기다릴 때 사용자가 입력한 내용은 모두 입력 버퍼에 저장됨
+    - 입력 버퍼에서는 어떤 글자까지 처리했는지 파악하기 위해 입력 포인터 사용
+    - 입력 포인터: 입력 버퍼에서 다음에 사용하게 될 글자의 시작 위치를 나타내는 주소값
+    - 실습 문제 3: 온도 변환, 화씨 온도를 섭씨 온도로 변환해보기
+        - 화씨 23도를 섭씨 온도로 변환하는 프로그램 작성
+        - 결과 값은 소수 둘 째 자리까지 출력
+        - 화씨 = 섭씨 * (9 / 5) + 32
+        - 섭씨 = (5 / 9) * (화씨 - 32)
+        ```java
+        public class ConvertF23toC{
+            float fahrenheit = 23;
+            float celsius = ((float) 5 / 9) * (fahrenheit - 32);
+            System.out.printf("%.2f \n", celsius);
+        }
+        ```
+ 
+    - 실습 문제 4: 사용자에게 입력 값을 받아서 더하기
+        - 두 개의 숫자를 입력 받아서 합을 구하는 프로그램 작성
+        - 사용자는 두 개의 숫자를 입력
+        - 정수일 수도 실수일 수도 있음
+        - 문자열로 입력 받고 Integer 클래스의 parseInt() 또는 Float 클래스의 parseFloat() 함수 사용해 문자열을 숫자로 변환해서 사용
+        ```java
+        import java.util.Scanner;
+
+        public class Add2Nums{
+            public static void main(String[] args){
+                Scanner sc = new Scanner(System.in);
+
+                String s = sc.next();
+                float num1 = Float.parseFloat(s);
+                s = sc.next();
+                float num2 = Float.parseFloat(s);
+                System.out.println(num1 + num2);
+            }
+        }
+        ```
+ 
+        - 기본형 중에서 숫자형을 포장하는 클래스들과 Boolean 클래스는 문자열을 값으로 변환해주는 함수들을 포함
+            - parseType() 형태로 구성
+            - 객체를 생성하지 않고 **클래스이름.parseType()** 형태로 사용
+    
+    - 실습 문제 5: 사용자에게 화씨 온도를 입력 받아 섭씨 온도로 변환하기
+        - 사용자로부터 화씨 온도를 입력 받고, 섭씨 온도로 변환한 후에 화면에 출력하는 프로그램 작성
+        - 사용자가 입력하는 화씨 온도는 실수 값
+        - 변환된 섭씨 온도는 소수 첫 째 자리까지만 출력
+        - 사용자는 화씨 온도를 제대로 입력할 것이라고 가정
+        ```java
+        import java.util.Scanner;
+
+        public class FtoC{
+            public static void main(String[] args){
+                Scanner sc = new Scanner(System.in);
+                float fahrenheit = sc.nextFloat();
+                float celsius = ((float)5 / 9) * (fahrenheit - 32);
+                System.out.printf("%.1f \n", celsius);
+            }
+        }
+        ```
  
