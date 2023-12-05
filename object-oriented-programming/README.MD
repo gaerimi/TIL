@@ -667,3 +667,61 @@ public class Prac2 {
         - **객체_변수_이름.멤버_변수_이름;**
         - **객체_변수_이름.멤버_함수_이름();**
     - 점 연산자를 사용해도 클래스에서 허용된 범위 내에서만 접근 가능
+
+### 문자열과 String 클래스
+
+- 문자열 상수
+    - 문자열: 한 개 이상의 문자, 숫자(문자로 취급), 기호 등을 나열해 놓은 것
+    - 큰 따옴표 두 개 사이에 문자들을 넣어 표현
+    - 문자열 상수(문자열 값): 코드에서 사용된 따옴표에 둘러싸인 문자열, 문자와 구별
+
+- String 클래스와 문자열 변수
+    - 자바에서 문자열을 저장하려면 String 자료형(참조형)을 사용
+    - 변수를 정의할 때 초기값을 지정하는 것이 좋음
+    - 덧셈 연산자(+)는 피연산자로 문자열을 취할 수 있음
+        - 문자열과 숫자, 문자, 불린 값들과 더해지면 새로운 문자열 생성
+        - 결합 순서는 왼쪽 -> 오른쪽
+    - String 변수가 참조하는 문자열 내용은 바꿀 수 없음
+        - 다른 문자열들이 저장될 수 있지만, 참조하는 문자열의 내용은 변경 불가
+        - 수정하고 싶다면 새로 만들어서 저장(참조)해야 함
+
+- 문자열 배열 만들기
+    - **String[] 변수명 = {초기값1, 초기값2, ..., 초기값n};**
+    - **String[] 변수명 = new String[배열 크기];**
+    - 문자열 배열은 참조값을 저장하는 배열
+
+- String 클래스의 대표적 메소드
+
+|메소드|설명|
+|:---|:---|
+|int length()|문자열의 길이를 반환|
+|char charAt(int index)|주어진 index 위치의 글자 반환|
+|int compareTo(String aStr)|객체의 문자열과 aStr을 비교. 글자 단위로 비교해서 같으면 0, aStr리 사전적으로 뒤에 나오면 음수, 앞에 나오면 양수 반환. 대문자와 소문자 구별|
+|int compareToIgnoreCase|객체의 문자열과 aStr을 비교. 글자 단위로 비교해서 같으면 0, aStr리 사전적으로 뒤에 나오면 음수, 앞에 나오면 양수 반환. 대문자와 소문자 구별하지 않음|
+|String concat(String str)|객체의 문자열에 str을 붙인 새로운 문자열을 생성해서 반환|
+|boolean contains(CharSequence seq)|seq로 주어진 문자열이 객체 문자열 내에 존재하면 true 반환, 없으면 false 반환|
+|boolean endsWith(String suffix)|객체 문자열이 suffix로 주어진 문자열로 끝나면 true, 아니면 false|
+|int indexOf(int ch)|객체의 문자열에서 ch로 주어진 문자가 처음 등장하는 위치의 인덱스 반환. 없으면 -1 반환|
+|int indexOf(String str)|객체의 문자열에서 str로 주어진 문자열이 처음 등장하는 위치의 인덱스 반환. 없으면 -1 반환|
+|String substring(int index)|index로 주어진 인덱스 글자부터 문자열 끝까지 복사해서 새로운 문자열로 반환|
+|String substring(int start, int end)|문자열에서 start부터 end - 1 인덱스까지의 문자열을 복사해서 새로운 문자열로 반환|
+|boolean isEmpty()|빈 문자열("")인지 확인 후 true 또는 false 반환|
+|String trim()|객체 문자열의 시작 부분과 끝 부분에 있는 공백 문자들을 제거한 새로운 문자열 반환|
+|String[] split(String regex)|regex로 구분해서 문자열을 분리해주는 함수|
+|String[] split(String regex, int limit)|regex로 구분해서 문자열을 분리하는데 limit 개수까지만 분리|
+
+- 수정할 수 있는 문자열 클래스
+
+|메소드|설명|
+|:---|:---|
+|StringBuilder append(String str)|객체 문자열에 str에 주어진 문자열을 추가(연결시킴)|
+|char charAt(int index)|주어진 index 위치의 글자 반환|
+|StringBuilder delete(int start, int end)|인덱스 번호 start부터 end - 1까지 삭제(end에 있는 문자는 삭제 안됨)|
+|char deleteCharAt(int index)|주어진 index 위치의 글자 삭제|
+
+    - StringBuilder는 반드시 new 연산자를 이용해서 객체를 생성한 후에 사용해야 함
+
+- 문자열로부터 정수, 실수 등 입력 받기
+    - 기본형의 래퍼 클래스는 숫자들로 구성된 문자열로부터 숫자값을 추출하는 메소드 제공
+        - 문자열이 숫자로만 구성되어야 함
+    - Scanner 클래스를 이용해서 입력 버퍼를 통해서 입력 받는 것처럼 문자열에서 입력 받는 것이 가능
