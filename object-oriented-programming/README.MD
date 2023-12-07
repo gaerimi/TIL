@@ -1747,3 +1747,34 @@ classDiagram
         }
     }
     ```
+
+### 재귀 호출
+
+- 재귀 호출: 함수가 자기 자신을 다시 호출하는 것
+- 재귀 함수: 함수 코드 내부에서 자기 자신을 다시 호출하는 함수
+
+- 재귀 호출과 종료 조건
+    - 재귀 함수에는 반드시 종료 조건이 포함되어야 함
+    - 스택 오버플로우 발생 가능성이 있기 때문
+
+- 실습 문제 5: 재귀 호출
+    - 1~100까지의 합을 구하는 코드를 재귀 호출을 이용해서 처리한다.
+    - 매개 변수는 int, 반환 자료형은 long으로 작성한다.
+    - 1~n까지의 합을 구하는 함수를 작성하고 이를 이용해 1~100까지의 합을 구한다.
+    ```java
+    class TestRecursiveSum{
+        long sum(int n){
+            if(n == 1){
+                return 1;
+            }
+            else{
+                return n + sum(n - 1);
+            }
+        }
+
+        public static void main(String[] args){
+            TestRecursiveSum sum = new TestRecursiveSum();
+            System.out.println(sum.sum(100));
+        }
+    }
+    ```
