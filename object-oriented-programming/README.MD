@@ -1071,3 +1071,206 @@ int index = sum % 10;//index = 5;
 
     return (조건식) ? 표현식1: 표현식2;
     ```
+
+### 반복
+
+- 반복문: 같은 작업 또는 비슷한 작업을 반복시키는 것을 처리하는 방법
+
+- 반복문의 구성
+    - 반복 조건: 반복시키는 또는 반복을 종료시키는 조건, 조건식으로 표현됨
+    - 반복 명령어
+        - while: 반복 작업 전 반복 조건 확인
+            - 조건이 만족될 때까지 반복하고 싶을 때
+            - 조건이 맞지 않아 반복 작업이 시작되지 않을 수 있음
+        - do...while: 반복 작업 후 반복 조건 확인
+            - 조건이 만족될 때까지 반복하고 싶을 때
+            - 반복 작업을 최소한 한 번 실행
+        - for: 반복 작업 전 반복 조건 확인
+            - 정해지 횟수만큼 반복할 때
+
+- while 문
+    ```
+    while(조건식){
+        명령문;
+    }
+    ```
+
+- 실습 문제 4: 단어 입력 받고 화면에 출력하기
+    - 사용자로부터 단어를 입력 받고 화면에 출력하는 프로그램을 작성해본다. 단 사용자가 "quit"라는 단어를 입력하면 프로그램을 종료한다.
+    - "quit"이 입력 되면 화면에 출력하지 않고 프로그램을 종료한다. 또한 사용자가 숫자를 입력해도 문자열로 취급한다.
+    ```java
+    import java.util.Scanner;
+
+    public class InputWord{
+        public static void main(String[] args){
+            Scanner sc = new Scanner(System.in);
+            String word;
+
+            System.out.print("단어를 입력하세요(quit을 입력하면 종료): ");
+            word = sc.next();
+            while(!word.equals("quit")){
+                System.out.println(word);
+                System.out.print("단어를 입력하세요(quit을 입력하면 종료): ");
+            word = sc.next();
+            }
+        }
+    }
+    ```
+
+- do...while 문
+    ```
+    do{
+        명령문;
+    } while(조건식);
+    ```
+
+- 실습 문제 5: 사용자가 0을 입력할 때까지 지속적으로 정수를 입력 받고 화면에 출력하기
+    - 사용자로부터 지속적으로 정수를 한 개씩 입력 받아 출력하는 프로그램을 작성한다. 단 사용자가 0을 입력하면 프로그램을 종료한다.
+    - 0을 입력하면 그 값을 화면에 출력하고 프로그램이 종료된다. 사용자가 정수만을 입력하는 것을 가정한다.
+    ```java
+    import java.util.Scanner;
+
+    public class InputInt1{
+        public static void main(String[] args){
+            Scanner sc = new Scanner(System.in);
+            int num;
+
+            do{
+                System.out.print("정수 한 개를 입력하세요(0이 입력되면 종료): ");
+                num = sc.nextInt();
+                System.out.println(num);
+            } while(num != 0);
+        }
+    }
+    ```
+
+- for 문
+    - 정해진 횟수만큼 반복하는 내용을 작성할 때 while보다 for을 사용하면 더 짧게 작성할 수 있다
+    ```
+    for(변수_초기화; 조건_확인; 변수_증감_연산){
+        반복될 명령문;
+    }
+    ```
+
+- 중첩 반복문
+    - 반복 코드에 또 다른 반복문이 있는 것
+
+- break
+    - break문 뒤에 남아 있는 코드를 더 이상 실행하지 않고 반복문을 빠져 나가고, 다음에 다른 명령문이 있다면 그 부분부터 순차적으로 실행
+
+- 실습 문제 6: 정수 입력 받고 화면에 출력하기
+    - 사용자로부터 정수 한 개를 입력 받아서 출력하는 프로그램을 작성한다. 단 사용자가 0을 입력하면 프로그램이 종료된다.
+    - 0이 입력되면 화면에 출력하지 않고 프로그램을 종료한다. 강제 종료가 아닌 break문을 이용해 반복문을 빠져나가도록 한다. 사용자가 정수만을 입력하는 것을 가정한다.
+    ```java
+    import java.util.Scanner;
+
+    public class InputInt2{
+        public static void main(String[] args){
+            Scanner sc = new Scanner(System.in);
+            int num;
+
+            do{
+                System.out.print("정수 한 개를 입력하세요(0이 입력되면 종료): ");
+                num = sc.nextInt();
+                if(num != 0)
+                    System.out.println(num);
+                else
+                    break;
+            } while(true);
+        }
+    }
+    ```
+
+- continue
+    - continue 다음에 있는 반복문 코드는 실행되지 않고, 다시 반복문의 첫 부분부터 실행된다
+
+- 실습 문제 7: 정수 입력 받고 화면에 출력하되 0이면 다시 입력 받고, 100이상이면 종료
+    - 사용자로부터 정수 한 개를 입력 받고 화면에 출력하는 프로그램을 작성한다. 0이 입력되면 값을 출력하지는 않고 다시 입력 받는다. 만약 100이상의 정수가 입력되면 프로그램을 종료시킨다.
+    - 사용자가 정수만을 입력하는 것을 가정한다.
+    ```java
+    import java.util.Scanner;
+
+    public class InputInt3{
+        public static void main(String[] args){
+            Scanner sc = new Scanner(System.in);
+            int num;
+
+            do{
+                System.out.print("0이 아닌 정수 한 개를 입력하세요(100이상이 입력되면 종료): ");
+                num = sc.nextInt();
+                if(num != 0)
+                    continue;
+                else
+                    System.out.println(num);
+            } while(num < 100);
+        }
+    }
+    ```
+
+- 실습 문제 8: 배열과 반복문 사용 1
+    - 배열을 1.1, 2.3, 4.7, 7.5로 초기화시켜 생성하고, 배열의 크기 및 각 요소를 화면에 출력하라.
+    - 반복문을 사용해서 처리한다.
+    ```java
+    class Array6{
+        public static void main(String[] args){
+            double arr[] = {1.1, 2.3, 4.7, 7.5};
+
+            System.out.println(arr.length);
+            for(int i = 0; i < arr.length; i++){
+                System.out.printf("arr[%d] = %f\n", i, arr[i]);
+            }
+        }
+    }
+    ```
+
+- for each문과 배열
+    - for each문은 배열 또는 자료구조와 반복문을 사용할 때 코드를 단순화
+    ```
+    for(자료형 변수_이름 : 배열_이름){
+        명령문;
+    }
+    ```
+    - 인덱스 번호가 불필요할 때
+    - 배열의 각 요소에 반복적인 작업을 할 때
+    - 배열 요소의 값을 변경하지 않고 사용만 할 때
+
+- 실습 문제 9: 배열에서 문자열 검색
+    - "New York", "Beijing", "Seoul"을 요소로 표함한 문자열 배열을 생성하고, 그 중에서 "Seoul"이라는 단어를 가진 요소가 있으면 화면에 출력
+    - "인덱스번호 문자열 형태로" 출력한다. 문자열이 배열에 없으면, 해당 문자열을 찾을 수 없다고 출력한다. 문자열이 검색되면 반복을 멈추고 종료한다.
+    ```java
+    class FindStringWithFor{
+        public static void main(String[] args){
+            String[] cities = {"New York", "Beijing", "Seoul"};
+            boolean found = false;
+            for(int i = 0; i < cities.length; i++){
+                if(cities[i].equals("Seoul")){
+                    System.out.printf("%d %s\n", i, cities[i]);
+                    found = true;
+                    break;
+                }
+            }
+            if(found == false){
+                System.out.println("Seoul을 찾을 수 없습니다.");
+            }
+        }
+    }
+
+    class FindStringWithForEach{
+        public static void main(String[] args){
+            String[] cities = {"New York", "Beijing", "Seoul"};
+            boolean found = false;
+            int i = 0;
+            for(String city : cities){
+                if(city.equals("Seoul")){
+                    System.out.printf("%d %s\n", i, cities[i]);
+                    found = true;
+                    break;
+                }
+                i++;
+            }
+            if(found == false){
+                System.out.println("Seoul을 찾을 수 없습니다.");
+            }
+        }
+    }
+    ```
