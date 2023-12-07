@@ -1523,3 +1523,148 @@ classDiagram
 ```
 
 ## Chapter 4
+
+### 함수
+
+- 함수: 특정 작업을 처리할 수 있도록 만들어진 코드의 묶음
+- 함수 구현
+    - 여러 가지 명령문들을 조합해서 특정 작업을 처리할 수 있도록 코드를 작성하고 이름을 붙이는 것
+    - 프로그램에서 함수를 사용한다는 것은 해당 함수가 할 수 있는 작업을 의뢰하는 것이며 "함수를 호출한다"라기도 함
+    - 자바에서는 클래스 내부에서만 함수를 구현할 수 있고 호출할 수 있음
+    - 예외적으로 JShell에서는 클래스 없이 함수만 구현하고 호출 가능
+
+- 함수의 필요성
+    - 문제를 작게 나누어서 해결
+    - 코드의 재사용
+    - 코드 수정의 편의성
+    - 검증된 코드 사용
+    - 코드의 단순화와 가독성
+
+- 함수는 머리와 몸체로 구성됨
+    - 함수 머리: **반환자료형 함수이름(매개변수리스트)**
+    - 함수 몸체: 함수에서 실행할 코드
+    - 반환 자료형: 함수에서 반환하는 결과 값의 자료형을 명시
+    - 함수 시그니처: 함수를 구별하는데 사용됨 **함수이름(매개변수리스트)**
+    - 구현: 함수에서 처리해야 하는 작업을 코드로 작성한 부분
+
+- 함수 이름을 식별자 이름을 짓는 규칙을 따름
+    - 하는 일이 무엇인지 알 수 있게 단어 조합
+    - 소문자 영문 알파벳으로 시작하고 영문자와 숫자의 조합 사용
+    - 카멜 표기법을 이용
+    - 매개변수 리스트에는 메소드에 입력으로 전달될 값을 저장할 변수 정의, 두 개 이상인 경우 ','로 분리
+
+- 함수에 매개변수를 사용하면 융통성과 재사용성을 높일 수 있음
+- 함수에 인자를 전달할 때 자동 형 변환 발생 가능
+
+- 클래스의 멤버 함수와 멤버 변수
+    - 함수가 클래스 내부에 있을 때와 독립적으로 존재할 때 매개변수의 사용법이 다를 수 있음
+        - 컴파일러를 이용할 때 함수는 클래스 내부에만 구현 가능
+        - JShell에서는 함수만 독립적으로 존재 가능
+    - 독립적으로 함수를 만들 때에는 함수에 대한 모든 입력을 매개변수를 통해 전달
+    - 클래스 내부에 만들어지는 멤버 함수들을 같은 클래스에 있는 모든 멤버 변수에 직접 처리하고 사용 가능
+
+- 클래스 내에서 함수 구현 순서 또는 위치
+    - 같은 클래스 내부에 구현된 함수들은 서로 호출 가능
+    - 함수의 위치와 순서에 상관없음
+
+- JShell에서 함수 구현 순서
+    - 클래스 내부에 함수를 구현할 수도 있고, 클래스 없이 함수를 구현하고 호출도 가능
+    - 독립적으로 만들어지는 함수들은 미리 정의된 함수만 호출 가능
+
+- 실습 문제 1: 함수를 이용해서 정수 출력하기
+    - 1~100 이내의 정수를 입력 받아 화면에 출력하는 프로그램을 작성한다. 만약 범위 밖의 정수가 입력되었다면 "1~100 범위 밖 정수가 입력되었습니다."라는 문다열을 대신 출력한다. 정수를 입력 받아 화면에 출력하는 함수와 주어진 정수가 일정 범위 안에 있는지 확인하는 함수를 구현하고 사용한다.
+    ```java
+    import java.util.Scanner;
+
+    class PrintNumInRange{
+        int value;
+        Scanner sc;
+
+        PrintNumInRange(Scanner sc){
+            this.sc = sc;
+        }
+        boolean isInRange(int min, int max){
+            return (value >= min && value <= max) ? true : false;
+        }
+        void printInt(){
+            System.out.println(value);
+        }
+        void readInt(){
+            System.out.print("정수를 입력하세요: ");
+            value = sc.nextInt();
+        }
+    }
+
+    class TestPrintNumInRange{
+        public static void main(String[] args){
+            Scanner sc = new Scanner(System.in);
+            PrintNumInRange printNumInRange = new PrintNumInRange(sc);
+            
+            printNumInRange.readInt();
+            if(printNumInRange.isInRange(1, 100)){
+                printNumInRange.printInt();
+            }
+            else{
+                System.out.println("1~100 범위 밖 정수가 입력되었습니다.");
+            }
+        }
+    }
+    ```
+
+- 리턴문
+    - 값이나 참조를 반환할 수 있고, 함수 내부의 코드 실행을 중단시키고 실행 흐름을 함수를 호출한 곳으로 되돌림
+    - **return 값;**
+    - **return ;**
+
+- 실습 문제 2: 값이 100보다 작은지 확인하는 함수 구현
+    - 함수에 전달된 정수형 값이 100보다 작으면 true를 아니면 false를 반환하는 함수를 구현한다.
+    - 함수를 구현하고 해당 함수를 사용하는 main()함수를 같은 클래스에 구현한다.
+    ```java
+    class NumLessThan100{
+        boolean isLessThan100(int num){
+            return (num < 100) ? true : false;
+        }
+
+        public static void main(String[] args){
+            NumLessThan100 numLessThan100 = new NumLessThan100();
+            System.out.println(numLessThan100.isLessThan(50));
+        }
+    }
+    ```
+
+- 실습 문제 3: 입력된 숫자의 범위에 따라 다른 일 하기
+    - 함수가 호출될 때마다 전달된 정수의 범위에 따라 다음에서 설명한 것처럼 동작하는 프로그램을 작성한다.
+    - 값이 100보다 크면 멤버 변수에 있던 값에 더해서 합을 구하고 다시 멤버 변수에 저장한 훙 화면에 결과를 출력한다.
+    - 값이 50보다 크고 100보다 작거나 같으면 현대 멤버 변수에 저장되어 있는 값을 화면에 출력한다.
+    - 값이 50보다 작거나 같을 때에는, 아무것도 하지 않고 함수를 종료한다.
+    ```java
+    class Sum1{
+        int sum = 0;
+        int getSum(){
+            return sum;
+        }
+        int add(int num){
+            if(num <= 50){
+                return sum;
+            }
+            else if(num > 100){
+                sum += num;
+            }
+            printSum();
+            return sum;
+        }
+        void printSum(){
+            System.out.println(getSum());
+        }
+    }
+
+    class TestSum1{
+        public static void main(String[] args){
+            Sum1 s = new Sum1();
+            s.add(101);
+            s.add(51);
+            s.add(50);
+            s.printSum();
+        }
+    }
+    ```
