@@ -1274,3 +1274,66 @@ int index = sum % 10;//index = 5;
         }
     }
     ```
+
+### switch 문
+
+- if-else if문과 유사
+- switch문이 효율적인 코드를 생성하지만 if-else if문에서는 다양한 종류의 조건식이 가능하다
+- switch문은 값이 동일한지만 비교 가능하다
+    - 같음을 비교하는 조건식들이 ||(or)로 묶일 수 있음
+    - 비교 대상은 문자, 정수형, enum, 문자열
+```
+switch(비교값){
+    case 값1:
+        실행코드1;
+        break;
+    case 값2:
+    case 값3:
+        실행코드2;
+        break;
+    
+    default:
+        실행코드3;
+        break;
+}
+```
+- 비교값을 case와 비교해서 같으면 해당 영역의 코드 실행
+- break문을 수행하면 switch문 종료 후 다음 명령문부터 순차적 실행
+- 비교값이 case와 다르다면 다음 case와 비교
+- 모든 case들과 비교값이 다르다면 default에 있는 코드 실행
+
+- 실습 문제 10: 극장 표 값 알아보기
+    - 사용자로부터 원하는 종류의 극장 좌석("prime", "standard", "economy" 중 1)을 입력 받고, 해당 영역의 가격을 화면에 출력한다.
+    - switch문을 사용한다. 사용자는 문자열을 단어 형태로 입력한다. 사용자가 다른 단어도 입력할 수 있다고 가정하며, 다른 단어 입력 시 "좌석 종류를 잘못 입력했습니다"를 출력한다.
+    
+    |좌석 영역|이코노미|스탠다드|프라임|
+    |:---|:---|:---|:---|
+    |가격|9000|10000|11000|
+
+    ```java
+    import java.util.Scanner;
+    
+    public class MovieTicketPriceWithSwitch{
+        public static void main(String[] args){
+            Scanner sc = new Scanner(System.in);
+
+            System.out.print("원하는 극장 좌석을 입력해주세요: ");
+            String zone = sc.next();
+
+            switch(zone){
+                case "prime":
+                    System.out.println("프라임존 표 값은 11000원입니다.");
+                    break;
+                case "standard":
+                    System.out.println("스탠다드존 표 값은 10000원입니다.");
+                    break;
+                case "economy":
+                    System.out.println("이코노미존 표 값은 9000원입니다.");
+                    break;
+                default:
+                    System.out.println("좌석 종류를 잘못 입력했습니다.");
+                    break;
+            }
+        }
+    }
+    ```
