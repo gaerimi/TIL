@@ -1337,3 +1337,63 @@ switch(비교값){
         }
     }
     ```
+
+### enum
+
+- enum
+    - 특별한 형태의 클래스 자료형
+    - 열거형이라고도 함
+    - 연관된 상수들을 멤버로 포함, 메소드도 포함 가능
+    - 기억하기 쉬운 이름을 이용해서 잘못 사용하는 오류를 줄일 수 있음
+    - 별도의 자바 파일로 저장할 수도 있고, 클래스 안 또는 밖에서 만들 수 있음
+    - 접근 제어자 지정 가능
+
+- enum 선언
+    - **enum 열거형_이름 {상수1, 상수2, ..., 상수n};**
+    - 상수 사용은 **열거형_이름.상수**
+    - 상수를 문자열로 변환은 **열거형_이름.상수.toString()**
+
+- enum 변수
+    - **열거형_이름 변수_이름;**
+    - "열거형_이름"이라는 새로운 자료형을 만든다
+    - 다른 자료형 값을 함수에 전달하면 올가 발생한다
+
+- enum 상수는 동일한지 비교가 가능하다
+- switch문에서 case 값을 지정할 때 사용 가능
+    - case값에 상수만 사용
+
+- enum과 for each문
+    - for each문과 enum 자료형의 values() 메소드 이용 시 각 열거형 값에 대해서 특정 코드 실행 가능
+
+- enum과 valueOf() 메소드
+    - enum의 valueOf() 메소드는 매개변수로 전달된 문자열에 해당되는 상수 반환
+
+- enum에 멤버 변수와 함수 추가하기
+    - enum에 멤버 변수와 함수를 추가하면 enum 상수를 특정 값과 연동시켜 사용 가능
+    - enum 자료형을 선언할 때 생성자와 멤버 함수들을 포함시키면 enum에 있는 상수의 멤버 변수와 함수가 됨
+
+- 실습 문제 11: 교통 신호등을 enum 자료형으로 표현하기
+    - 세 가지 색상(빨강(RED), 주황(AMBER), 초록(GREEN))에 해당되는 교통 신호등을 나타내는 enum 자료형을 만든다.
+    - 해당 색상들이 켜져서 유지되는 시간을 각 색상 정보와 함계 저장할 수 있도록 한다. 클래스를 생성한 후에는 각 색상의 이름과 켜져 있는 시간 정보를 각 요소별로 화면에 출력한다.
+    - 각 색상별 신호등이 켜져 있는 시간은 정수로 표현하고, 초 단위로 저장한다. 빨강색과 초록색은 30초씩, 주황색 신호등은 10초가 유지된다고 가정한다.
+    ```java
+    class TrafficLightClass{
+        enum TrafficLight{
+            RED(30), AMBER(10), GREEN(30);
+            int seconds;
+
+            TrafficLight(int seconds){
+                this.seconds = seconds;
+            }
+            int getSeconds(){
+                return seconds;
+            }
+        }
+
+        public static void main(String[] args){
+            for(TrafficLight light : TrafficLight.values()){
+                System.out.printf("%s: 유지 시간: %d\n", light, light.getSeconds());
+            }
+        }
+    }
+    ```
