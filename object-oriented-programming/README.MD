@@ -888,3 +888,186 @@ int index = sum % 10;//index = 5;
     |순차|순서에 따라 작업이 실행되는 기본적인 실행 방법|continue, break를 제외한 모든 명령문|
     |분기|조건 표현식의 값에 따라 분기하므로 의사 결정이라고 한다|if, else, switch|
     |반복|조건에 따라 혹은 일정 횟수만큼 반복한다.|for, while, do...while|
+
+### 조건문(분기문)
+
+- if 문
+    ```
+    if (조건식)
+        명령문
+    
+    if(조건식)
+        코드_블록
+    ```
+    - 조건식 만족 시 명령문 또는 코드_블록의 코드 실행
+
+- 비교 연산과 논리 연산
+    - 조건식의 결과 값은 불린형으로 나옴
+    - 비교 연산자
+        - >, >=, <=, <, ==, !=
+    - 문자열 비교
+        - 문자열 같은 참조형 변수에 비교 연산자를 사용하면 메모리 주소를 비교
+    - 논리 연산자
+        - 논리 연산의 결과값은 참 또는 거짓
+        - &&, ||, !
+        - 평가 순서: 왼쪽 -> 오른쪽
+        - 단축 평가 방법 사용
+            - 논리 연산자의 왼쪽 피연산자 값만으로 전체 논리 연산의 결과 값을 유추할 수 있다면 오른쪽 피연산자 값을 평가하지 않음
+            - 예외 상황을 미리 막을 수 있으며 효율적임
+
+- 실습 문제 1: 장학생 선발하기
+    - 어떤 학생이 이번 학기에 장학생 후보가 되는지 확인하는 프로그램을 작성한다. 학교에서 정한 장학생 후보는 학기 평점 3.5 이상과 소득분위 5 이하여야 한다. 다음 표에 있는 학생들의 평점과 소득분위를 확인해서 학생이 장학생 후보인지 아닌지 출력하는 프로그램을 작성한다.
+
+    |이름|평점|소득분위|
+    |:---|:---|:---|
+    |서유리|4.1|3|
+    |권혜린|3.71|5|
+    |문오성|3.93|7
+
+    - 학생 이름, 평점, 소득분위를 데이터로 가지고 있고, 이름, 평점, 소득분위 등을 결과 값으로 반환하는 메소드를 포함하는 클래스를 구성한다. 객체를 생성하면서 표에 있는 자료들을 바탕으로 초기값을 지정한다.
+
+    ```java
+    class Student{
+        String name;
+        double gpa;
+        int incomeLevel;
+
+        Student(String name, double gpa, int incomeLevel){
+            this.name = name;
+            this.gpa = gpa;
+            this.incomeLevel = incomeLevel;
+        }
+
+        String getName(){
+            return name;
+        }
+        double getGPA(){
+            return gpa;
+        }
+        int getIncomeLevel(){
+            return incomeLevel;
+        }
+    }
+
+    class TestStudent{
+        public static void main(String[] args){
+            Student s1 = new Student("서유리", 4.1, 3);
+            Student s2 = new Student("권혜린", 3.71, 5);
+            Student s3 = new Student("서유리", 3.93, 7);
+
+            if(s1.getGPA() >= 3.5 && s1.getIncomeLevel() <= 5){
+                System.out.printf("%s 학생은 장학생 후보입니다.\n", s1.getName());
+            }
+            if(s2.getGPA() >= 3.5 && s2.getIncomeLevel() <= 5){
+                System.out.printf("%s 학생은 장학생 후보입니다.\n", s2.getName());
+            }
+            if(s3.getGPA() >= 3.5 && s3.getIncomeLevel() <= 5){
+                System.out.printf("%s 학생은 장학생 후보입니다.\n", s3.getName());
+            }
+        }
+    }
+
+    ```
+
+- 조건이 만족될 때와 만족되지 않을 때 다른 코드 실행하기
+    - if-else 문
+    ```
+    if(조건식)
+        코드_블록_1 //조건식이 true일 때 실행되는 코드 블록
+    
+    else
+        코드_블록_2 //조건식이 false일 때 실행되는 코드 블록
+    ```
+
+- 실습 문제 2: 약수인지 확인하고 출력하기
+    - 사용자로부터 정수 2개를 입력 받고, 첫번째 숫자가 두번째 숫자의 약수인지 확인해서 출력하는 프로그램을 작성한다. 약수이면 "숫자1은 숫자2의 약수입니다"를 출력하고, 약수가 아니면 "숫자1은 숫자2의 약수가 아닙니다"를 화면에 출력한다. 사용자는 정수만을 입력할 것이라고 가정한다.
+
+    ```java
+    import java.util.Scanner;
+    
+    public class Divisor1{
+        Scanner sc = new Scanner(System.in);
+
+        int num1, num2;
+
+        System.out.println("정수 2개를 입력하세요: ");
+        num1 = sc.nextInt();
+        num2 = sc.nextInt();
+
+        if((num2 % num1) == 0){
+            System.out.printf("%d는 %d의 약수입니다.\n", num1, num2);
+        }
+        else{
+            System.out.printf("%d는 %d의 약수가 아닙니다.\n", num1, num2);
+        }
+    }
+    ```
+
+- 여러 가지 조건 중 한 가지만 선택하기
+    - if-else if-else 문
+    ```
+    if(조건식1)
+        코드_블록_1
+    else if(조건식2)
+        코드_블록_2
+    ...
+    else    //생략 가능
+        코드_블록_n;
+    ```
+
+- 실습 문제 3: 극장 표 값 알아보기
+    - 사용자로부터 원하는 종류의 극장 좌석을 입력 받고, 해당 영역의 가격을 화면에 출력하는 프로그램을 작성한다.
+    - 사용자로부터의 입력은 키보드로 받고, 사용자는 prime, standard, economy 또는 다른 단어를 입력할 수 있다고 가정한다. 다른 단어를 입력한 경우, "좌석 종류를 잘못 입력했습니다"라고 출력한다.
+
+    |좌석 영역|이코노미|스탠다드|프라임|
+    |:---|:---|:---|:---|
+    |가격|9000|10000|11000|
+
+    ```java
+    import java.util.Scanner;
+    
+    public class MovieTicketPrice{
+        public static void main(String[] args){
+            Scanner sc = new Scanner(System.in);
+
+            System.out.print("원하는 극장 좌석을 입력해주세요: ");
+            String zone = sc.next();
+
+            if(zone.compareTo("prime") == 0){
+                System.out.println("프라임존 표 값은 11000원입니다.");
+            }
+            else if(zone.compareTo("standard") == 0){
+                System.out.println("스탠다드존 표 값은 10000원입니다.");
+            }
+            else if(zone.compareTo("economy") == 0){
+                System.out.println("이코노미존 표 값은 9000원입니다.");
+            }
+            else{
+                System.out.println("좌석 종류를 잘못 입력했습니다.");
+            }
+        }
+    }
+    ```
+
+- 중첩 조건문
+    - 조건문에서 실행시키는 명령문에 또 다른 조건문이 들어 있음
+    ```
+    if(조건식 1){
+        if(조건식 2){
+            명령문;
+        }
+    }
+    ```
+
+- 삼항 조건 연산자
+    - ?과 :로 구성된 연산자
+    - 조건식과 표현식에 해당되는 피연산자를 3개 취함
+    - 값을 반환하는 간단한 형태의 if-else 문 대체 가능
+    - 결과값이 존재하며 조건식이 아닌 피연산자와 같은 자료형이 도출됨
+    ```
+    (조건식) ? 표현식1: 표현식2;
+
+    변수 = (조건식) ? 표현식1 : 표현식2;
+
+    return (조건식) ? 표현식1: 표현식2;
+    ```
