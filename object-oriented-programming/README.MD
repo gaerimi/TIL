@@ -1704,3 +1704,46 @@ classDiagram
 
 - 유효 범위의 우선 순위
     - 유효 범위는 안쪽에서 바깥쪽으로 확장
+
+### 메소드 오버로딩
+
+- 오버로딩은 동일한 클래스 내에서 메소드의 이름은 같게, 매개변수는 다르게 구현
+    - 함수의 이름과 매개변수가 같고, 반환 자료형만 다른 경우 오버로딩이 될 수 없음
+
+- 함수가 오버로딩 되었을 때 전달되는 인자를 취할 수 있는 시그니처를 가지는 함수가 없다면 컴파일 오류 발생
+
+- 오버로딩과 자동 형 변환
+    - 오버로딩 된 함수들을 사용할 때에도 인자와 매개변수 사이에 자동 형 변환 발생 가능
+    - 오버로딩 된 함수를 호출하는 방법의 우선 순위
+        - 인자의 자료형과 매개변수의 자료형이 정확하게 일치
+        - 자동 형 변환을 통해 전달 가능
+    - 작은 범위에서 큰 범위의 자료형으로 값이 자동으로 변환되어 오버로딩된 함수가 호출되는 것을 프로모션(promotion)되었다고 함
+
+- 실습 문제 4: int, double, String 형 인자 두 개를 전달 받아 합(또는 연결된 문자열)을 반환
+    - Add라는 클래스를 만들면서 int, double, String형 인자 두 개를 전달 받아 두 숫자의 합 또는 두 문자열을 연결해서 새로운 문자열을 반환하는 함수들을 오버로딩을 이용해서 만든다.
+    - 오버로딩된 함수들의 이름은 add()로 만든다.
+    - 함수들을 사용하는 main()함수를 같은 클래스 안에 함께 구현한다.
+    - 문자열을 연결할 때에는 중간에 공백 문자를 한 개 삽입한다.
+    ```java
+    class Add{
+        String add(String s1, String s2){
+            return s1 + ' ' + s2;
+        }
+        int add(int n1, int n2){
+            return n1 + n2;
+        }
+        double add(double d1, double d2){
+            return d1 + d2;
+        }
+
+        public static void main(String[] args){
+            Add a = new Add();
+            String newStr = a.add("hello", "world");
+            int sumInt = a.add(5, 3);
+            double sumDouble = a.add(5.1, 3.5);
+            System.out.printf("newStr = %s\n", newStr);
+            System.out.printf("sumInt = %d\n", sumInt);
+            System.out.printf("sumDouble = %f\n", sumDouble);
+        }
+    }
+    ```
