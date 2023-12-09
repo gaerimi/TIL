@@ -3140,3 +3140,5 @@ class StringComparator implements Comparator{
     int compare(Object o1, Object o2);
 }
 ```
+
+## Chapter 7
