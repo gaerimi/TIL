@@ -3171,3 +3171,142 @@ class StringComparator implements Comparator{
     - 서로 자료과 연관되어 있을 때, 동일한 변수 이름 사용
         - 변수를 여러 개 사용할 때보다 가독성이 높고 코드 이해의 용이성
     - 자료 항목 각각에 동일한 연산 또는 비슷한 연산을 처리하는 경우 반복문을 사용해서 코드를 줄이기 쉬움
+
+### 자바 컬렉션 프레임워크
+
+- 컬렉션 구조
+    - 여러 개 객체 데이터를 묶어서 저장하고 처리할 수 있도록 해주는 자료 구조 클래스나 라이브러리 함수들을 통칭해서 컬렉션 또는 컨테이너라고 부름
+    - 자바에서는 자료 구조에 해당되는 클래스들을 묶어서 자바 컬렉션 프레임워크(Java Collections Framework, JCF)라고 부름
+
+- 3가지 분류의 컬렉션
+    - 리스트
+        - 자료를 순서대로 저장하고 저장된 순서에 따라 자료를 가져올 수 있음
+        - 종류에 따라 중간에 데이터를 삽입하거나 삭제 가능
+    - 맵
+        - 키를 사용해서 값을 저장하거나 읽음
+        - 정수 뿐만 아니라 다양한 자료형(참조형 포함)을 키로 사용 가능
+    - 세트
+        - 수학의 집합과 유사한 자료 구조
+        - 순서 없고 중복된 자료 허용 안됨
+
+    |자료 구조|구현 클래스|특징|
+    |:---|:---|:---|
+    |리스트(List)|ArrayList, LinkedList|리스트는 순서가 있어서 인덱스를 사용해서 읽거나 수정 가능. 큐(Queue)는 링크드 리스트(linked list)로 구현되어 있으며, 먼저 들어가 자료가 먼저 나옴. 순서가 정해지면 수정 불가|
+    |세트(Set)|HashSet, TreeSet, LinkedHashSet|세트는 순서가 없어 인덱스 사용 불가. 자료 중복이 없다는 점에서 맵의 키와 같은 의미가 됨(키로만 구성된 맵이라고 가정해도 됨)|
+    |맵(Map)|HashMap, TreeMap, LinkedHashMap|키(key)-값(value)이 1:1 형태의 쌍으로 구성됨. 세트와 마찬가지로 순서가 없어 인덱스를 이용해서 접근 불가|
+
+- 클래스 API
+
+    |자료 구조|데이터 추가|데이터 사용(접근)|수정|삭제|크기|
+    |:---|:---|:---|:---|:---|:---|
+    |ArrayList|add()|get(index)|set(index, new value)|remove(index)|size()|
+    |Queue|add(), offer()|peek()|우선순위이기 때문에 remove and reinsert|poll(), remove()|size()|
+    |Set|add()|유일한 값이므로 순서대로 읽지 못함|remove and insert|remove()|size()|
+    |Map|put()|get(key), values()|put(key, new value)|remove(key)|size()|
+
+- 배열과 컬렉션 비교
+    - 배열은 컬렉션 프레임워크에 속하지 않음
+        - 기본형 저장 및 사용 가능
+    - 자바의 컬렉션 클래스는 객체만을 요소로 가지는 자료 구조
+        - 기본형을 사용할 수 없음
+    
+    |구분|컬렉션|배열|
+    |:---|:---|:---|
+    |기본형|기본형 사용 불가. 객체만 저장 및 사용 가능|기본형과 객체 모두 사용 가능|
+    |크기|실행 중에 늘어날 수 있음|생성될 때 미리 정해짐. 크기 변경 불가|
+    |사용성|정렬, 반복자 기능 등이 제공되는 것은 편리. 접근과 저장에 메소드를 이용하는 것은 불편|인덱스로 접근 가능은 편리. 정렬, 반복자 사용 불가(JCF의 Arrays를 사용해야 함)|
+    |성능|메모리는 적게 쓸 수 있지만, 성능은 상대적으로 떨어짐|메모리는 많이 쓰지만(불필요하게 공간 할당되는 경우가 많음), 성능은 상대적으로 좋음|
+
+- Arrays와 Collections 클래스
+    - 배열과 컬렉션은 자체적으로 정렬, 복사, 검색 같은 작업을 할 수 없음
+    - 자바의 컬렉션 프레임워크는 Arrays와 Collections 클래스에서 이러한 유틸리티 기능을 정적 함수 형태로 제공
+
+    |클래스 구분|설명|
+    |:---|:---|
+    |Arrays|배열을 정렬, 복사, 검색하는 기능 제공|
+    |Collections|리스트, 큐, 세트 등 자바 컬렉션 클래스를 정렬, 복사, 검색하는 기능 제공|
+
+- 다차원 배열
+    - 2차원 이상의 배열
+    - 2차원 배열은 행과 열로 구성된 표
+    - 행 별로 열의 개수가 동일함
+    - 각 행을 열의 개수에 해당되는 크기를 갖는 1차원 배열로 볼 수 있으므로, 2차원 배열은 궁극적으로 1차원 배열을 요소로 취하는 배열
+    - 배열 생성 시 중괄호 '{}'를 중첩시켜 요소들을 초기값을 지정해서 초기화
+    - 초기값 없이 공간만 확보할 경우 **자료형 [][] 변수명 = new 자료형[행_개수][열_개수];**
+    - 2차원 배열의 요소에 접근하는 방법
+        - []를 한 개만 붙이면 행에 해당되는 배열
+        - 중첩 반복문이나 중첩 for each문 사용
+
+- 페럴렐 배열
+    - 같은 크기의 서로 다른 배열이 연관된 데이터를 가지고 있는 것
+    - 구조체나 클래스처럼 데이터를 묶어서 새로운 자료형으로 취급할 수 있도록 해주는 기능이 없는 언어에서 사용하던 방법
+    - 자바에서는 클래스나 맵을 이용해서 구현하는 것이 더 나음
+
+- 실습 문제 1: 문장 생성하기
+    - 매우 단순한 영어 문장을 무작위로 만들어보자.
+    - 다음에 보인 것처럼 주어, 동사, 기타(목적어 또는 조동사) 등에 해당되는 단어 또는 문구를 제공하고, 여기서 한 개씩 무작위로 추출해서 문장으로 구성하는 프로그램을 작성한다.
+    - 주어: "I", "You", "We", "A friend of mine"
+    - 동사: "play", "love", "eat"
+    - 기타: "a football", "to cook"
+    - StringBuilder 클래스를 이용해서 문자열을 추가하는 형태로(append() 함수 사용) 구현한다.
+    ```java
+    class TestStringBuilder{
+        StringBuilder build(){
+            StringBuilder sb = new StringBuilder();
+            String[] subjects = {"I", "You", "We", "A friend of mine"};
+            String[] verbs = {"play", "love", "eat"};
+            String[] objects = {"a football", "to cook"};
+
+            int rand1 = (int)(Math.random() * subjects.length);
+            int rand2 = (int)(Math.random() * verbs.length);
+            int rand3 = (int)(Math.random() * objects.length);
+
+            sb.append(subjects[rand1]);
+            sb.append(" ");
+            sb.append(verbs[rand2]);
+            sb.append(" ");
+            sb.append(objects[rand3]);
+            return sb;
+        }
+
+        public static void main(String[] args){
+            TestStringBuilder builder = new TestStringBuilder();
+
+            System.out.println(builder.build());
+            System.out.println(builder.build());
+            System.out.println(builder.build());
+        }
+    }
+    ```
+
+- 실습 문제 2: 문자열 "hello" 뒤집기
+    - 문자열을 거울에 비추는 것처럼 거꾸로 뒤집는 문제이다. 주어진 문자열을 뒤집어서 새로운 문자열을 생성한다.
+    - 첫 번째는 String 클래스에서 정해진 위치에 있는 문자를 추출하는 charAt() 함수를 사용하는 방법이 있다.
+    - 두 번째는 문자열을 아예 문자 배열로 만들어서 마찬가지로 거꾸로 뒤집는 방법이다. index를 사용해서 뒤집어서 저장한다.
+    - 새로운 문자열은 StringBuilder의 append() 함수를 이용해 한 개씩 추가한다.
+    ```java
+    public class TestStringMirroring{
+        String mirror1(String hello){   //방법 1
+            StringBuilder olleh = new StringBuilder();
+            for(int i = hello.length() - 1; i >= 0; i--){
+                olleh.append(hello.charAt(i));
+            }
+            return olleh.toString();
+        }
+
+        String mirror2(String hello){   //방법 2
+            char[] chArr = hello.toCharArray();
+            StringBuilder olleh = new StringBuilder();
+            for(int i = chArr.length - 1; i >= 0; i--){
+                olleh.append(chArr[i]);
+            }
+            return olleh.toString();
+        }
+
+        public static void main(String[] args){
+            TestStringMirroring t = new TestStringMirroring();
+            System.out.println(t.mirror1("sangmyung"));
+            System.out.println(t.mirror2("university"));
+        }
+    }
+    ```
