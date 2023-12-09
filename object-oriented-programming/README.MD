@@ -2027,3 +2027,21 @@ int getDigit(int placeNumber);
     - P: private, protected, public
     - S: static, abstract
     - F: final
+
+### 다시 보는 main() 함수와 명령행 인자
+
+- 자바에서 컴파일된 클래스를 실행시키고 싶으면 main() 함수가 있어야 하고, 자바 프로그램은 main() 함수 내에 있는 코드를 실행시키는 것
+
+- main() 함수의 헤더
+    - **public static void main(String[] args)**
+
+- Main 클래스 실행
+    - **java Main**
+
+- 자바 시스템에서 호출
+    - Main.main(args);
+
+- 명령행 인자에 따옴표를 넣으려면 이스케이프 시퀀스 사용
+- 인자에 공백 문자가 들어가면 따옴표 사용
+- 인텔리제이 IDEA에서 명령행 인자 지정
+    - 메뉴에서 Run|Edit configurations...를 실행 한 후 "Program arguments" 부분에 내용 입력
