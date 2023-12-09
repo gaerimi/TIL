@@ -3012,3 +3012,35 @@ int getDigit(int placeNumber);
         }
     }
     ```
+
+### Object 클래스
+
+- 궁극적으로 자바으 ㅣ모든 클래스는 Object로부터 상속 받음
+
+|메소드|설명|
+|:---|:---|
+|public final Class getClass()|객체가 어느 클래스에서 만들어졌는지 반환|
+|public int hashCode()|해시 코드 반환. 일종의 고유 코드이지만 완벽한 고유 번호를 반환하지는 않음|
+|public boolean equals(Object obj)|객체가 주어진 객체와 같은지 비교|
+|protected Object clone() throws CloneNotSupportedException|객체를 복사해서 반환|
+|public String toString()|객체를 문자열 표현으로 반환. 주로 오버라이딩해서 객체에 대한 정보를 문자열로 반환
+
+- 해시코드
+    - 객체에서 다른 객체와 자신을 비교할 수 있는 고유 번호
+    - 자바 가상 기계(JVM)이 부여하는 정수값(기본적으로 메모리 주소에 기반해서 만들어짐)
+
+    - 해시코드 값 확인 방법
+
+    |함수|설명|
+    |:---|:---|
+    |System.identityHashCode(객체_변수)|해시코드를 10진수로 출력|
+    |객체_변수.hashCode()|해시코드를 10진수로 출력|
+
+    - 해시 코드와 equals() 메소드
+        - Object 클래스의 equals() 메소드는 두 개 객체가 동일한 것인지 확인
+        - 자바에서 객체를 비교하는 방법은 "=="(또는 "!=") 연산자와 equals() 함수
+            - "=="는 단순하게 참조값만 비교
+            - equals() 함수도 참조값 비교
+            - 상속 받는 클래스에서는 equals()를 오버라이딩 해서 속성이 같은지 검사 가능
+        - String 클래스에서는 equals() 함수를 오버라이딩해서 단순히 참조값을 비교하지 않고 문자열의 내용을 비교
+        - String 클래는 hashCode() 함수도 오버라이딩해서 같은 문자열에 대해서 같은 값을 반환
