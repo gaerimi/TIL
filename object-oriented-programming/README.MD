@@ -2485,3 +2485,109 @@ int getDigit(int placeNumber);
         }
     }
     ```
+
+### 패키지
+
+- 패키지
+    - 관련된 클래스들을 묶어서 관리
+    - 소스 코드와 클래스 파일들을 폴더로 나누어서 관리
+    - 클래스 이름이 같아 충돌하는 것을 막기 위해 사용
+    - 패키지 이름은 폴더 구조와 관련되어 있음
+    - 패키지 이름은 단어를 '.'으로 구분
+    - 단어는 폴더 이름, '.'은 폴도를 구분하는 '\' 또는 '/'
+
+- 자바의 패키지
+    - java로 시작되는 패키지들은 기본 제공 패키지
+    - javax는 확장 개념
+    - time, util은 서브 그룹 개념
+
+- 패키지 이름 결정 방법
+    - 충돌하지 않게 자유롭게 정할 수 있음
+    - 관례적으로 URL을 거꾸로 씀
+
+- 패키지 사용법
+    - 패키지의 클래스를 사용하려면 어떤 패키지에 속한 클래스인지 정확하게 코드에 표기해야 함
+    - '*' 기호를 사용하면 패키지 내 전체 클래스를 한 번에 import 가능
+
+- 패키지 만들기
+    - 소스 코드와 클래스 파일들을 적절한 폴더 구조를 구성해서 넣어야 함
+    - 자바 소스 코드에 "package 패키지_이름"을 적고 코드 구현
+
+- 실습 문제 5: 지정된 패키지로 코드 작성, 컴파일, 실행하기
+    - Hello 클래스를 com.my.hello 패키지로 만들고 이 클래스를 사용하는 com.my.app 패키지의 Main 클래스를 만들어 보자.
+    ```java
+    package com.my.hello;
+
+    public class Hello{
+        String toWhom = "world";
+        public Hello(){ }
+        public Hello(String toWhom){
+            this.toWhom = toWhom;
+        }
+        public void sayHello(){
+            System.out.print("hello %s!", toWhom);
+        }
+    }
+    ```
+    ```java
+    package com.my.app;
+
+    import com.my.hello.Hello;
+
+    public class Main{
+        public static void main(String[] args){
+            Hello hm = new Hello("cho");
+
+            hm.sayHello();
+        }
+    }
+    ```
+    - 프로젝트 디렉토리는 "C:\code\java\05"로 정한다
+        - 소스 코드 저장: "C:\code\java\05\PackageTest\src"
+        - 클래스 파일 저장: "C:\code\java\05\PackageTest\classes"
+    - 패키지 이름에 맞게 소스 코드 폴더에 서브 디렉토리 구성
+        - C:\code\java\05\PackageTest\src\com\my\hello
+        - C:\code\java\05\PackageTest\src\com\my\app
+    - 컴파일
+        - C:\code\java\05\PackageTest>javac -d classes -sourcepath src src\com\my\hello\Hello.java
+        - C:\code\java\05\PackageTest>javac -d classes -cp .;classes; src\com\my\app\Main.java
+    - 실행
+        - C:\code\PackageTest>java -cp .;./classes com.my.app.Main
+
+- 패키지와 접근 제어자
+    - 디폴트 또는 package private
+        - 패키지 내부에서 private
+        - 패키지 내부에 있는 다른 클래스에서는 자유롭게 접근하고 사용 가능
+        - 패키지 외부에 있는 클래스에서는 접근 불가
+    - 클래스에도 public이 없으면 다른 패키지에서 접근 불가
+
+- jar 파일: 자바 파일들을 zip 파일 형태로 압축하고 확장자를 다르게 붙인 파일
+    - 클래스 파일들이 많을 때 다수의 파일을 배포하고 다운로드 하는 것보다 한 개의 파일이 편함
+    - 패키지 사용 시 폴더 안에 또 다른 서브 폴더가 만들어지는 구조인데 파일 배포시 똑같은 파일 구조를 만들어줘야 하기 때문에 번거로움, jar 파일 사용 시 압축 파일 내부에 폴더 구조 유지 가능으로 배포 쉬움        - 압축을 풀지 않고도 바로 실행 시킬 수 있음(main() 함수가 지정하는 내용이 포함되어 있어야 함)
+    - 생성 및 실행
+        - 실행용 jar 파일을 만들려면 매니페스트 파일을 작성해야 함
+            - Main-Class: com.my.app.Main
+            - com.my.app.Main 클래스에 있는 main() 함수를 실행시키라는 의미
+            - 위처럼 작성하고 manifest.txt 파일로 저장
+        - jar파일 생성 시 jar 명령 실행
+
+        |선택 사항|설명|
+        |:---|:---|
+        |c(reate)|새로운 jar 파일을 생성|
+        |v(erbose)|자세한 정보를 출력함|
+        |f(ile name of jar)|생성할 jar 파일의 이름을 지정|
+        |m(anifest)|manifest 파일의 이름을 지정|
+        |C(hange dir)|지정된 디렉토리로 변경하고 파일 또는 폴더를 포함시킴. 서브 디렉토리가 있으면 재귀적으로 파일을 포함시킴|
+        |t(list table of contents)|f 옵션과 함께 사용되어 주어진 jar 파일의 내용을 화면에 출력|
+
+        - java -jar executable_jar_file_name
+            - 실행용 jar 파일임을 알림
+    - 파일 내용 확인
+        - jar -tf file_name.jar
+    - 파일 실행
+        - java -jar file_name.jar
+
+- 클래스 라이브러리 경로: classpath
+    - import 키워드를 이용해서 클래스를 사용하겠다고 표시하면, 클래스 라이브러리 경로로 지정된 폴더에서 클래스를 찾게 됨
+    - 패키지가 사용된다면 해당 폴더 구조가 classpath로 지정된 폴더 안에 있어야 함
+    - jar 파일도 경로에 지정 가능
