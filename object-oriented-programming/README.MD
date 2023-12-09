@@ -2921,3 +2921,94 @@ int getDigit(int placeNumber);
         - 상수를 제외한 일반 멤버 변수를 넣을 수 없음
     - 추상 클래스는 속성을 넣을 수 있음
     - 속성의 필요성을 고민해서 인터페이스와 추상 클래스 중에서 결정
+
+### 다형성
+
+- 다형성이란?
+    - 한 가지 모양의 코드가 여러 가지 방법으로 동작하는 것
+    - 변수나 객체 등에 여러 자료형이 할당될 수 있는 것
+    - 한 개의 인터페이스(또는 추상 클래스)로 되어 있는 코드가 실제 실행될 때 다양한 형태로 실행될 수 있는 것
+    - int x라고 선언하면 x에는 정수값만 허용됨 -> 단형적
+    - Object x라고 선언하면 어떤 객체라도 저장 가능
+
+- 다형성을 사용하기 위한 조건
+    - 객체들이 상속 관계에 있어야 함
+        - 인터페이스와 인터페이스를 구현하는 클래스도 포함
+    - 하위 클래스에서 오버라이딩 된 함수가 있어야 함
+    - 상위 클래스로 선언된 변수를 사용할 때 하위 클래스에서 오버라이딩 된 메소드가 호출되는 동적 바인딩이 가능해야 함
+
+- 다형성 정리
+    - 부모 클래스의 참조가 자식 클래스를 가리키고 있을 때, 자식 클래스의 함수 호출 가능 (인터페이스 참조가 구현 클래스를 가리키고 있을 때, 실제 함수를 구현한 코드 호출 가능)
+    - 실행 중에 어떤 클래스의 메소드가 호출될지 결정하는 동적 바인딩이 사용됨
+
+- 동적 바인딩 동작 원리
+    - 동적 바인딩을 구현하는 것은 가상 메소드(함수) 표를 이용
+    - 자바에서 생성되는 모든 객체들은 가상 메소드 표를 가지고 있음
+        - 표는 클래스마다 한 개씩 존재하고, 같은 클래스에서 생성된 모든 객체들은 이 표를 공유
+    - 가상 메소드 표는 메소드 이름과 메소드 코드의 주소를 쌍으로 묶어서 나열
+
+- final과 오버라이딩
+    - 메소드 헤더에 final을 붙이면 자식 클래스에서 오버라이딩 할 수 없음을 나타냄
+
+- 실습 문제 1: 여러 나라 언어로 sayHello 하기
+    - 여러 나라 말로 구현된 sayHello()를 호출한다. 프랑스어("Bonjour"), 스페인어("Hola a todos"), 한국어("안녕하세요")로 인사하는 클래스(Hello)를 만들고 다형성을 이용해서 문제를 풀어본다. 클래스에는 인사를 하는 대상(toWhom)이 속성으로 포함된다.
+    - Hello 클래스는 추상 클래스로 만들고, 각 언어로 인사하는 클래스들을 자식 클래스로 구현한다.
+    ```java
+    abstract class Hello{
+        private String toWhom;
+
+        public Hello(String whom){
+            toWhom = whom;
+        }
+        public String getWhom(){
+            return toWhom;
+        }
+        public abstract void sayHello();
+    }
+
+    class HelloFrench extends Hello{
+        public HelloFrench(String toWhom){
+            super(toWhom);
+        }
+
+        @Override
+        public void sayHello(){
+            System.out.println("Bonjour " + getWhom());
+        }
+    }
+
+    class HelloSpanish extends Hello{
+        public HelloSpanish(String toWhom){
+            super(toWhom);
+        }
+
+        @Override
+        public void sayHello(){
+            System.out.println("Hola a todos " + getWhom());
+        }
+    }
+
+    class HelloKorean extends Hello{
+        public HelloKorean(String toWhom){
+            super(toWhom);
+        }
+
+        @Override
+        public void sayHello(){
+            System.out.println("안녕하세요 " + getWhom());
+        }
+    }
+
+    class TestHello{
+        public static void main(String[] args){
+            Hello[] harr = new Hello[3];
+            harr[0] = new HelloFrench("js1");
+            harr[1] = new HelloSpanish("js2");
+            harr[2] = new HelloKorean("js3");
+
+            for(Hello hello : harr){
+                hello.sayHello();
+            }
+        }
+    }
+    ```
