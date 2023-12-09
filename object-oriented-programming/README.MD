@@ -2045,3 +2045,443 @@ int getDigit(int placeNumber);
 - 인자에 공백 문자가 들어가면 따옴표 사용
 - 인텔리제이 IDEA에서 명령행 인자 지정
     - 메뉴에서 Run|Edit configurations...를 실행 한 후 "Program arguments" 부분에 내용 입력
+
+### 클래스들의 관계
+
+- 클래스 또는 객체 사이의 관계
+    - 연관(association)
+        - 두 클래스 사이가 연결되어 있다
+        - 클래스 간에 참조가 사용됨
+        - 클래스의 멤버 변수로 다른 클래스가 저장됨
+        - UML에서 실선과 화살표를 이용
+    - 의존(dependency)
+        - 한 클래스가 변경되었을 때 그 클래스를 사용하는 다른 클래스도 변경해야 한다
+        - 참조를 사용하는 시기가 짧음
+        - 한 클래스 메소드가 다른 클래스 객체를 인자로 전달 받아 메소드 호출
+        - 메소드 내부에서 다른 클래스 객체를 생성해서 메소드 호출
+        - 한 클래스의 메소드에서 반환되는 다른 클래스 객체의 메소드를 사용
+        - UML에서 점선 또는 점선으로 구성된 화살표를 이용
+    - 집합(aggregation)
+        - 집합과 구성은 전체와 부분을 나타내는 관계
+            - 한 클래스가 다른 클래스를 포함하는 관계
+        - 집합은 전체와 부분의 생명 주기가 다름
+        - 주로 생성자 등을 통해 참조를 전달 받아서 멤버 변수에 저장
+        - UML에서는 실선으로 표시하되 전체를 나타내는 쪽에 마름모 모양이 붙음
+            - 마름모 모양은 비어있는 상태
+    - 구성(composition)
+        - 전체와 부분의 생명 주기가 일치
+        - 주로 부분에 해당되는 객체를 전체를 담당하는 클래스의 생성자 등에서 생성
+        - UML에서는 실선으로 표시하되 전체를 나타내는 쪽에 마름모 모양이 붙음
+            - 마름모 모양이 채워진 상태
+
+- 실습 문제 1: 수강 신청하는 프로그램 작성
+    - 이번 학기에 개설되는 실습 과목인 객체 지향 강좌를 수강 신청하는 프로그램을 작성한다. 최대 인원은 30명이고, 강사는 김갑돌, 강의실은 GB111이다.
+    ```java
+    class Student{
+        private String stNo;
+        private String name;
+
+        public Student(String stNo, String name){
+            this.stNo = stNo;
+            this.name = name;
+        }
+
+        public String getStNo(){
+            return stNo;
+        }
+        public String getName(){
+            return name;
+        }
+        public String toString(){
+            return "Name: " + name + " , Student Number: " + stNo;
+        }
+    }
+
+    class Lecturer{
+        private String email;
+        private String name;
+        private String room;
+
+        public Lecturer(String name, String room, String email){
+            this.name = name;
+            this.room = room;
+            this.email = email;
+        }
+        public String getEmail(){
+            return email;
+        }
+        public String getName(){
+            return name;
+        }
+        public String getRoom(){
+            return room;
+        }
+    }
+
+    class Book{
+        private String name;
+        private String author;
+
+        public Book(String name, String author){
+            this.name = name;
+            this.author = author;
+        }
+        public String getName(){
+            return name;
+        }
+        public String getAuthor(){
+            return author;
+        }
+    }
+
+    class Course{
+        private final static int MAX_STUDENTS = 30;
+        private int numEnrolled = 0;
+        private Lecturer lecturer;
+        private String room;
+        private Book ref;
+        private Student[] students = new Student[MAX_STUDENTS];
+
+        Course(Lecturer lecturer, String room){
+            this.lecturer = lecturer;
+            this.room = room;
+        }
+        
+        public void setRoom(String room){
+            this.room = room;
+        }
+        public void setBook(Book r){
+            ref = r;
+        }
+        public void enroll(Student s){
+            if(numEnrolled < MAX_STUDENTS){
+                students[numEnrolled] = s;
+                numEnrolled++;
+            }
+        }
+        public void drop(Student s){
+            if(numEnrolled > 0){
+                for(int i = 0; i < students.length; i++){
+                    if(students[i] == s){
+                        for(int j = i + 1; j < students.length; j++){
+                            students[j - 1] = students[j];
+                        }
+                        numEnrolled--;
+                        break;
+                    }
+                }
+            }
+        }
+        public int getNumEnrolled(){
+            return numEnrolled;
+        }
+        public void printEnrolled(){
+            for(int i = 0; i < numEnrolled; i++){
+                System.out.println(students[i]);
+            }
+        }
+    }
+
+    class TestCourse{
+        public static void main(String[] args){
+            Lecturer lecturer = new Lecturer("김갑돌", "GB112", "gd32@ac.kr");
+            Course oo1 = new Course(lecturer, "GB111");
+            Student s1 = new Student("202011111", "jsl");
+            Student s2 = new Student("202011112", "bdk");
+            Student s3 = new Student("202011113", "cho");
+
+            oo1.enroll(s1);
+            System.out.printf("Num of Students: %d\n", oo1.getNumEnrolled());
+            oo1.enroll(s2);
+            System.out.printf("Num of Students: %d\n", oo1.getNumEnrolled());
+            oo1.enroll(s3);
+            System.out.printf("Num of Students: %d\n", oo1.getNumEnrolled());
+            oo1.drop(s3);
+            System.out.printf("Num of Students: %d\n", oo1.getNumEnrolled());
+        }
+    }
+    ```
+
+- 실습 문제 2: 약속
+    - 누군가와 약속을 정해서 특정 장소에서 만나는 것을 약속이라는 클래스로 만들어보자.
+    - 약속 객체를 1개 만들과 화면에 출력한다. 이 문제에서 구현하는 모든 클래스에 toString() 함수를 구현하고 이를 이용해서 화면에 출력한다.
+    ```java
+    class Person{
+        private String name;
+        private String phone;
+
+        public Persom(String n, String ph){
+            name = n;
+            phone = ph;
+        }
+        public String getName(){
+            return name;
+        }
+        public String getPhoneNumber(){
+            return phone;
+        }
+        public String toString(){
+            return "Name: " + name + " Phone: " + phone;
+        }
+    }
+
+    class Place{
+        private String name;
+        private String phone;
+
+        public Place(String n, String ph){
+            name = n;
+            phone = ph;
+        }
+        public String getName(){
+            return name;
+        }
+        public String getPhoneNumber(){
+            return phone;
+        }
+        public String toString(){
+            return "Name: " + name + " Phone: " + phone;
+        }
+    }
+
+    import java.time.LocalDateTime;
+
+    class Appointment{
+        private LocalDateTime time;
+        private Person person;
+        private Place place;
+
+        Appointment(LocalDateTime time, Person person, Place place){
+            this.time = time;
+            this.person = person;
+            this.place = place;
+        }
+
+        public String toString(){
+            return "DateTime: " + time.toString() + "\nPerson: " + person.toString() + "\nPlace: " + place.toString();
+        }
+    }
+
+    public class TestAppointment{
+        public static void main(String[] args){
+            Appointment appt = new Appointment(LocalDateTime.of(2020, 5, 19, 16, 30, 0), new Person("cho", "111-1111-1111"), new Place("jongno", "222-2222-2222"));
+
+            System.out.println(appt);
+        }
+    }
+    ```
+
+- 실습 문제 3: 병원 약속
+    - 병원 약속 클래스를 만들어본다. 병원 약속 클래스는 의사와 환자, 시간 등을 지정해서 객체를 생성하도록 한다.
+    - 의사의 클래스는 의사의 아이디와 이름을 지정해서 객체를 생성하고 이러한 속성들을 확인할 수 있다. 의사는 이미 병원에 속해 있으므로 의사의 아이디는 이미 정해져 있는 값을 사용한다고 가정한다. 다만 그 값이 상수로 지정되는 것은 아니고, 의사 객체를 생성할 때 숫자값 형태로 부여된다.
+    - 환자 클래스는 객체를 생성할 때 환자의 이름을 지정한다. 환자 클래스의 객체가 생성될 때 환자의 고유 아이디를 만들어서 부여하고, 이를 확인할 수 있는 멤버 함수를 제공한다.
+    - 병원 약속의 객체들을 생성해서 배열에 추가하고 화면에 이를 출력해본다.
+    - 모든 클래스에 toString() 함수를 구현하고 이를 이용해서 화면에 출력한다.
+    ```java
+    class Doctor{
+        private int id;
+        private String name;
+
+        public Doctor(int id, String name){
+            this.id = id;
+            this.name = name;
+        }
+
+        public int getId(){
+            return id;
+        }
+        public String getName(){
+            return name;
+        }
+        public String toString(){
+            return "Doctor: name: " + name + " id: " + id;
+        }
+    }
+
+    import java.util.Date;
+
+    class Patient{
+        private String id;
+        private String name;
+
+        public Patient(String name){
+            this.name = name;
+            Date d = new Date();
+            id = d.getTime() + name;
+        }
+        public String getName(){
+            return name;
+        }
+        public String getId(){
+            return id;
+        }
+        public String toString(){
+            return "Patient: name: " + name + " id: " + id;
+        }
+    }
+
+    import java.time.LocalDateTime;
+
+    class HospitalAppointment{
+        private Doctor doctor;
+        private Patient patient;
+        private LocalDateTime date;
+
+        public HospitalAppointment(Doctor doctor, Patient patient, LocalDateTime date){
+            this.doctor = doctor;
+            this.patient = patient;
+            this.date = date;
+        }
+        public String toString(){
+            return "HospitalAppointment: " + date.toString() + "\n" + doctor.toString() + "\n" + patient.toString();
+        }
+    }
+
+    class TestHospitalAppointment{
+        public static void main(String[] args){
+            Doctor d = new Doctor(10, "Dr. Lim");
+            Patient p = new Patient("cho");
+
+            LocalDateTime d1 = LocalDateTime.of(2020, 5, 20, 13, 30, 0);
+            LocalDateTime d2 = LocalDateTime.of(2020, 6, 20, 13, 30, 0);
+            LocalDateTime d3 = LocalDateTime.of(2020, 7, 20, 13, 30, 0);
+
+            HospitalAppointment[] has = new HospitalAppointment[3];
+            has[0] = new HospitalAppointment(d, p, d1);
+            has[1] = new HospitalAppointment(d, p, d2);
+            has[2] = new HospitalAppointment(d, p, d3);
+
+            for(HospitalAppointment apnt : has){
+                System.out.println(apnt);
+            }
+        }
+    }
+    ```
+
+- 실습 문제 4: 커피 주문
+    - 커피를 주문하는 프로그램을 작성하려고 한다. 좋은 커피 집이 어디 있는지 업소명, 위치, 전화번호를 찾는다. "좋아요"가 많은 곳을 고른다.
+    - 같은 곳에서 10회 이상 주문하면 커피를 한 잔 무료로 받을 수 있다고 가정한다.
+    ```java
+    class Customer{
+        private String name;
+        private String phoneNo;
+        private int visit;
+
+        Customer(String name, String phNo){
+            this.name = name;
+            phoneNo = phNo;
+            visit = 0;
+        }
+
+        public String getName(){
+            return name;
+        }
+        public String getPhoneNo(){
+            return phoneNo;
+        }
+        public int increaseVisit(){
+            visit++;
+            return visit;
+        }
+        public void resetVisit(){
+            visit = 0;
+        }
+    }
+
+    class Coffee{
+        private String name;
+        private int price;
+
+        public Coffee(String name, int price){
+            this.name = name;
+            this.price = price;
+        }
+        public String getName(){
+            return name;
+        }
+        public String gerPrice(){
+            return price;
+        }
+    }
+
+    import java.time.LocalDateTime;
+
+    class Order{
+        private static final int MAX_NVISIT = 10;
+        private Customer customer;
+        private LocalDateTime orderDateTime;
+        private Coffee coffee;
+        private int quantity;
+
+        public void takeOrder(Customer customer, Coffee coffee){
+            this.customer = customer;
+            this.coffee = coffee;
+            quantity++;
+            orderDateTime = LocalDateTime.now();
+            int v = customer.increaseVisit();
+            if(v >= MAX_NVISIT){
+                System.out.printf("%d ordered. So you get free coffee!\n", v);
+                customer.resetVisit();
+            }
+        }
+
+        public int charge(){
+            int total = coffee.getPrice() * quantity;
+            System.out.printf("You charge will be %d\n", total);
+            return total;
+        }
+    }
+
+    class CoffeeHouse{
+        private static final int MAX_ORDER = 100;
+        private String name;
+        private String phoneNo;
+        private String address;
+        private int nLike;
+        private Order[] orders;
+        private int nOrder;
+
+        public CoffeeHouse(String name, String phone, String addr){
+            this.name = name;
+            phoneNo = phone;
+            address = addr;
+            orders = new Order[MAX_ORDER];
+            nOrder = 0;
+            nLike = 0;
+        }
+        public String getAddress(){
+            return address;
+        }
+        public String getPhoneNo(){
+            return phoneNo;
+        }
+        public int getLike(){
+            return nLike;
+        }
+        public int increaseLike(){
+            nLike++;
+            return nLike;
+        }
+        public void addOrder(Order order){
+            if(nOrder < MAX_ORDER){
+                orders[nOrder] = order;
+                nOrder++;
+            }
+        }
+    }
+
+    class TestCoffeeHouse{
+        public static void main(String[] args){
+            CoffeeHouse ch = new CoffeeHouse("SMUCoffee", "02-1111-1111", "Jongnogu 111, Seoul");
+            Customer v = new Customer("js", "010-2222-2222");
+            Coffee c = new Coffee("americano", 5000);
+            Order o = new Order();
+
+            for(int i = 0; i < 12; i++){
+                o.takeOrder(v, c);
+            }
+            ch.addOrder(o);
+            o.charge();
+        }
+    }
+    ```
