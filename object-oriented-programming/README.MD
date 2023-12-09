@@ -3064,3 +3064,79 @@ int getDigit(int placeNumber);
         //클래스 코드
     }
     ```
+
+### 연습 문제
+
+1. 다음에 보인 Vehicle 인터페이스와 Sedan 클래스를 완성한다. 자동차 시동을 거는 것은 start(), 시동을 끄는 것은 stop(), 그리고 속도를 변경하는 메소드는 changeSpeed()이다. Sedan의 signalOn 변수는 자동차 시동이 걸린 상태를 나타낸다 (true면 시동이 걸린 것, false면 꺼진 상태). Directioin은 LEFT와 RIGHT로 구성된 열거형이다.
+    - start() 함수를 호출하면 "starting..."을 화면에 출력한다.
+    - 속도 변경 함수 changeSpeed() 를 호출해서 속도를 10으로 변경하면 "changing speed now at 10"을 출력한다.
+    - 속도를 10에서 20으로 변경해서 "changing speed now at 20"을 출력해본다.
+    - 속도를 20에서 30으로 변경해본다.
+    - stop() 함수를 호출해서 "stopping..."을 출력한다.
+```java
+interface Vehicle{
+    void signalTurn(Direction direction, boolean signalOn);
+    void changeSpeed(int newSpeed);
+    void start();
+    void stop();
+}
+
+class Sedan implements Vehicle{
+    boolean power;
+    int speed;
+}
+```
+
+2. 면적과 둘레를 계산해서 반환하는 함수를 포함하는 Shape 클래스를 구현한다. 그리고 Shape에서 상속 받는 Rectangle과 Circle 클래스를 구현한다. 사각형은 왼쪽 위 좌표가 (x1, y1), 오른쪽 아래 좌표가 (x2, y2)이며 원은 중심의 좌표가 (x, y), 반지름의 길이가 r이다. 특정 좌표계를 지정하지 않으므로 x1과 x2, y1과 y2 중에 어떤 것이 더 큰지 알 수 없다. 따라서 면적과 둘레를 계산할 때에는 절대값을 사용해야 한다.
+```java
+    
+```
+
+3. 컴퓨터 기기 중에서 저장 장치(Storage Device)를 나타내는 클래스를 만든다. 저장 장치 클래스에는 장치의 이름(ModelName, 문자열), 용량(Capacity, 정수) 속성들이 있고, 이를 초기화시키는 생성자와 속성들을 문자열로 구성해서 반환하는 toString() 함수가 있다. StorageDevice 클래스는 Connection 인터페이스를 구현한다.
+```
+interface Connection{
+    default void connected(){
+        System.out.println("Not Connected");
+    }
+}
+```
+StorageDevice로부터 상속 받는 하드 디스크(HDD) 클래스를 구현한다. HDD는 회전 속도(RPM, 5400 또는 7200)와 크기 정보(2.5 또는 3.5) 속성을 갖는다. 외장형 하드인 ExternalHDD는 HDD로부터 상속 받으며, Connection 인터페이스를 오버라이딩해서 "USB로 연결됨"이라는 문자열을 출력한다. 내장형 하드인 InternalHDD도 역시 HDD로부터 상속 받으며, Connection 인터페이스를 오버라이딩해서 "SATA로 연결됨"이라는 문자열을 출력한다.USB 메모리를 나타내는 USBMemory 클래스도 StorageDevice로부터 상속 받으며, Connection 인터페이스를 구현한다. 이 클래스는 USB 메모리를 구성하는 메모리칩의 종류(MemoryType)로 SLC, MLC, TCLC, QLC라는 enum 자료형의 값 중 한가지를 멤버 변수에 저장한다(생성자에서 지정된다). USBMemory 클래스도 Connection 인터페이스를 구현하며 "USB로 연결됨"이라는 문자열을 출력한다.
+이러한 메모리 장치들을 사용하는 컴퓨터(Computer) 클래스를 구현한다. 컴퓨터 클래스에는 SATA 연결 장치가 최대 4대까지, USB 연결 장치가 최대 3대까지 지원된다고 가정한다. main() 함수에서 SATA 연결 장치 두 개와 USB 연결 장치 두 개를 생성해서 컴퓨터에 연결한 후에, 컴퓨터에 연결된 모든 저장 장치의 이름, 용량을 출력한다. 만약 있다면 디스크의 크기나 회전 속도도 출력한다.
+```java
+    
+```
+
+4. 문자열형으로 이름, 전화번호, 주소를 멤버 변수로 포함하는 Address 클래스 코드를 작성하고, hashCode()와 equals() 함수를 오버라이딩한다. 이 함수들이 제대로 동작하는지 확인하는 프로그램을 작성한다.
+```java
+    
+```
+
+5. 컴퓨터 부품 관련 인터넷 쇼핑몰 프로그램을 개선하려 한다. 처음에는 CPU만 전문으로 파는 쇼핑몰로 시작하였다. 판매되는 CPU는 아이템 번호(itemNumber), 이름(name), 제조업체(manufacturer), 가격(price), 재고 개수(numInStock), 코어 개수(numCores), 속도(speed), 모델 번호(modelNumber), 일련 번호(serialNumber)라는 속성들이 포함되었다. 그러다가 그래픽 카드(GPU)도 함께 판매하기로 결정되었고 쇼핑몰 관리 프로그램을 수정해야 한다. GPU는 아이템 번호(itemNumber), 이름(name), 제조업체(manufacturer), 가격(price), 재고 개수(numInStock), 코어 개수(numCores), 속도(speed), 그래픽 칩셋(chipset), 메모리 속도(memorySpeed), 메모리 종류(GDDR6X, GDDR6, GDDR5, GDDR4, GDDR3), 메모리 용량(memorySize), 모델 번호(modelNumber), 일련 번호(serialNumber)라는 속성이 포함된다. CPU와 GPU를 함께 판매하게 되면서 중복되는 부분을 정리해서 부모 클래스로 만들고 달라지는 부분만 CPU와 GPU 클래스로 남기는 리팩토링 작업을 하려고 한다. 다음 요구 사항을 만족시키는 프로그램을 작성한다.
+    - CPU와 GPU의 공통 부분을 정리해서 새로운 부모 클래스 구현
+    - CPU와 GPU에 각각 공통 부분에 포함되지 않는 부분을 정리해서 넣어서 클래스 구현
+    - 각 클래스별로 멤버 변수의 속성들을 초기화시킬 수 있는 생성자 구현
+    - get() 함수 구현
+    - 각 클래스의 멤버 변수 정보들을 화면에 출력할 수 있는 함수 구현
+    - 상속 관계로 구성된 클래스들을 사용하는 main() 함수 작성
+```java
+    
+```
+
+6. 다음에 보인 StringComparator, Comparator, Sorter, Problem6 클래스를 구현하고, 이를 이용해서 국내 광역시 이름 6개(Busan, Daegu, Incheon, Gwangju, Daejeon, Ulsan)를 정렬하는 프로그램을 완성한다. 정렬된 도시 이름을 화면에 출력한다. 필요하면 다른 메소드와 멤버 변수들을 추가해서 작성한다.
+```java
+class Problem6{
+    void main(String[] args);
+}
+
+class Sorter{
+    static void sort(Object[] data, Comparator comp);
+}
+
+interface Comparator{
+    int compare(Object o1, Object o2);
+}
+
+class StringComparator implements Comparator{
+    int compare(Object o1, Object o2);
+}
+```
