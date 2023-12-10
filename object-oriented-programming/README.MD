@@ -4151,3 +4151,18 @@ class Problem03_Tour{
         }
     }
     ```
+
+### 텍스트 파일과 부호화 방식
+
+- 컴퓨터의 문자 처리 방법
+    - 사람이 사용하는 문자를 컴퓨터가 이해할 수 있는 숫자(이진수) 형태로 변환하는 표를 만들어놓고 양방향으로 변환할 때 사용
+    - 아스키 코드
+    - 그 외 UTF-16, CP949(MS949), UTF-8 등 존재
+    - 자바는 내부적으로 UTF-16을 사용
+    - 자바는 기본적으로 시스템의 운영체제에서 사용하는 부호화 방식을 이용해서 파일을 읽거나 쓰도록 되어 있음
+        - 플랫폼이 달라지면 문제가 될 수 있음
+        - 자바 18부터 변경됨(디폴트로 utf-8 사용)
+
+- 특정 부호화 방식으로 입출력 처리하기
+    - InputStreamReader(InputStream in, String charsetName)
+    - OutputStreamReader(OutputStream out, String charsetName)
