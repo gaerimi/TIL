@@ -3310,3 +3310,37 @@ class StringComparator implements Comparator{
         }
     }
     ```
+
+### ArrayList 클래스
+
+- 자바 컬렉션 프레임워크에서 가장 자주 사용하는 클래스
+
+- ArrayList
+    - 배열과 비슷하게 인덱스를 이용해서 요소에 접근할 수 있는 자료 구조
+    - 생성될 때 크기가 고정되는 배열과는 달리, ArrayList는 저장할 수 있는 요소의 개수가 가변적
+    - 배열은 기본형과 객체 저장 가능, ArrayList는 객체만 가능
+    - 배열과 ArrayList 모두 순서대로 자료를 저장하고 인덱스를 통해 접근 (단 ArrayList는 [] 대신 메소드 사용)
+
+    |기능|ArrayList|배열(Array)|
+    |:---|:---|:---|
+    |생성|ArrayList<자료형> 변수 = new ArrayList<자료형>(); ArrayList 변수 = new ArrayList();|자료형[] 변수 = new 자료형[개수];|
+    |크기 변경|실행 중 자동으로 크기 변경|실행 중 크기 변경 불가|
+    |저장 대상|객체만 가능, 기본형 사용 불가|기본형, 객체 모두 가능|
+    |사용|size(), get(index)(함수 방식), 인덱스는 요소에 접근할 때만 사용 가능|length, [index](속성과 인덱스 방식), 인덱스는 자료를 저장할 때와 요소에 접근할 때 모두 사용 가능|
+    |요소 종류|ArrayList<자료형> 형태로 생성 시 자료형 요소만 저장 가능, ArrayList 형태로 생성 시 어떤 객체라도 저장 가능|자료형[]으로 생성 시 자료형 요소만 저장 가능, Object[] 형으로 생성 시 어떤 객체라도 저장 가능|
+    |정렬 방법|Collections.sort()|Arrays.sort()|
+
+- 생성
+    - 자료형이 없는 ArrayList 생성
+        - **ArrayList 변수명 = new ArrayList();**
+
+- 자료 저장
+    - 자료형 없이 ArrayList를 생성하고 객체를 추가하면 경고 발생 가능, 하지만 자료 추가에는 문제 없음
+    - add() 함수를 이용해 자료를 추가하거나 삽입
+
+- 자료 접근 및 사용
+    - 자료에 접근하려면 get() 함수 이용
+    - 저장되어 있는 요소 개수를 확인하려면 size() 함수 사용
+
+- 정렬 방법
+    - **Collections.sort(ArrayList 객체);**
