@@ -3448,3 +3448,364 @@ class StringComparator implements Comparator{
         }
     }
     ``` 
+
+### 맵(Map)
+
+- 해시맵(HashMap)
+    - 키와 값으로 구성되는 자료 구조 중 하나
+    - 키를 이용해서 검색하면 해당 키에 연결된 값을 구하거나 바꿀 수 있음
+    - 키는 자료 구조에서 유일한 값
+    - 같은 키에 다른 값을 저장하려고 하면 이전 값이 변경됨
+    - 자바스크립트 언어의 JSON, 파이썬의 딕셔너리 등이 해시맵과 유사
+    - 키-값은 숫자, 문자, 문자열 모두 가능
+    - 자료가 필드, 값으로 구성된 경우
+    - 자료의 갯수를 세는 경우
+
+- 생성
+    - **Map<객체_자료형, 객체_자료형> 변수_이름 = new HashMap<객체_자료형, 객체_자료형>();**
+    - < >의 첫 번째는 키, 두 번째는 값의 자료형
+
+- 자료 추가
+    - put() 함수 사용
+    - 첫 번재는 키, 두 번째는 값에 해당되는 두 개 매개 변수를 취함
+
+- 키 확인
+    - containsKey(키) 함수 이용
+    - 해시맵에 키가 있는지 확인
+
+- 값 접근
+    - get(키) 함수 이용
+    - 맵에서 키에 해당되는 값에 접근
+
+- Map에서 각 요소에 접근하기
+    - Map의 키를 세트(Set)로 받을 수 있고, 세트에는 반복자가 있음
+        - **Iterator<키_자료형> 변수 = Map.keySet().iterator();**
+        - 전체 키를 받아서 한 개씩 반복하면서 값을 추출 가능
+    - for each 문 사용
+        - Map.entrySet() 함수를 사용하면 맵에 있는 모든 요소를 세트 형태로 받을 수 있음
+        - Map.Entry<키_객체_자료형, 값_객체_자료형> 자료형 변수를 for each 문에서 사용하면 Map에 있는 각 요소에 접근 가능
+        - Map.Entry에서 키에 접근하려면 getKey(), 값에 접근하려면 getValue() 함수 사용
+            ```
+            for(Map.Entry<키_자료형, 값_자료형> 엔트리_변수 : 맵_변수.entrySet()){
+                엔트리_변수.getKey();
+                엔트리_변수.getValue();
+            }
+            ```
+        - Map.ketSet() 함수를 이용하면 키로 구성된 세트를 얻을 수 있음
+            ```
+            for(키_자료형 키_변수 : 맵_변수.keySet()){
+                맵_변수.get(키_변수);
+            }
+            ```
+
+- 실습 문제 4: 문자열에서 문자를 세기
+    - 영문 문자열을 입력 받고, 문자열에 있는 알파벳 문자별로 개수를 화면에 출력하는 프로그램을 작성한다. 문자열에 존재하지 않는 알파벳은 출력하지 않는다.
+    - toCharArray() 함수를 이용해서 문자열을 문자 배열로 변환한 후에 문자열 개수를 센다.
+    ```java
+    import java.util.Map;
+    import java.util.HashMap;
+
+    class TestCountDigitsAndLetters{
+        private String str;
+
+        public TestCountDigitsAndLetters(String s){
+            str = s;
+        }
+
+        public Map<Character, Integer> countDigitsAndLetters(){
+            Map<Character, Integer> wc = new HashMap<Character, Integer>();
+            char[] letters = str.toCharArray();
+
+            for(char c : letters){
+                if(wc.containsKey(c)){   //만약 문자가 맵에 존재하면
+                    wc.put(c, wc.get(c) + 1)    //값을 추출해서 1 증가시키고 다시 저장
+                }
+                else{
+                    wc.put(c, 1)    //처음 나타난 문자이므로 1 저장
+                }
+            }
+            return wc;  //최종 해시맵 반환
+        }
+
+        public static void main(String[] args){
+            TestCountDigitsAndLetters tcc = new TestCountDigitsAndLetters("sangmyung university");
+            Map<Character, Integer> map = tcc.countDigitsAndLetters();
+            System.out.println(map);
+        }
+    }
+    ```
+
+- 실습 문제 5: 문자열에 포함된 문자와 숫자의 개수 세기
+    - "sangmyung1 university2" 문자열에서 숫자와 문자를 구분하여 각각 개수를 출력하는 프로그램을 작성한다. 이전 문제에서는 알파벳의 빈도를 구했지만, 여기서는 단순히 문자열에서 숫자에 해당되는 문자들의 개수와 그렇지 않은 문자들의 개수를 구한다.
+    - 숫자를 확인하는 것은 isDigit() 함수를 사용한다. 객체를 생성하지 않고 사용한다.
+    - 문자를 확인하는 함수는 isLetter() 함수이다.
+    ```java
+    import java.util.Map;
+    import java.util.HashMap;
+
+    class TestCountDigitsAndLetters{
+        private String str;
+
+        public TestCountDigitsAndLetters(String s){
+            str = s;
+        }
+
+        public Map<String, Integer> countDigitsAndLetters(){
+            Map<String, Integer> wc = new HashMap<String, Integer>();
+            char[] letters = str.toCharArray();
+            String keyName;
+
+            for(char ch : letters){
+                if(Character.isDigit(ch)){
+                    keyName = "DIGITS";
+                }
+                else{
+                    keyName = "LETTERS";
+                }
+                if(wc.containsKey(keyName)){
+                    wc.put(keyName, wc.get(keyName) + 1);
+                }
+                else{
+                    wc.put(keyName, 1);
+                }
+            }
+            return wc;
+        }
+
+        public static void main(String[] args){
+            String str = "sangmyung1 university2";
+            TestCountDigitsAndLetters tcdl = new TestCountDigitsAndLetters(str);
+            Map<String, Integer> wc = tcdl.countDigitsAndLetters();
+            System.out.println(wc);
+        }
+    }
+    ```
+
+- 실습 문제 6: 문자열에서 대문자와 소문자 구별하기
+    - 문자열 "hello123with456 HELLO"에서 대문자와 소문자를 구별하여 개수를 출력하는 프로그램을 작성한다.
+    - 매개 변수를 통해 전달된 문자열에서 대문자와 소문자 개수를 저장한 맵을 반환하는 함수를 구현하고 이를 사용하는 코드를 작성한다.
+    ```java
+    import java.util.Map;
+    import java.util.HashMap;
+
+    class CountsOfUpperAndLowerChars{
+        private String str;
+
+        public CountsOfUpperAndLowerChars(String str){
+            this.str = str;
+        }
+
+        public Map<String, Integer> getCountsOfUpperAndLowerChars(){
+            Map<String, Integer> wc = new HashMap<String, Integer>();
+            char[] letters = str.toCharArray();
+            String keyName;
+
+            for(char ch : letters){
+                if(Character.isUpperCase(ch)){
+                    keyName = "UPPER";
+                }
+                else if(Character.isLowerCase(ch)){
+                    keyName = "LOWER";
+                }
+                else{
+                    keyName = "OTHERS";
+                }
+                if(wc.containsKey(keyName)){
+                    wc.put(keyName, wc.get(keyName) + 1);
+                }
+                else{
+                    wc.put(keyName, 1);
+                }
+            }
+            return wc;
+        }
+    }
+
+    class TestCountsOfUpperAndLowerChars{
+        public static void main(String[] args){
+            String str = "hello123with456 HELLO";
+            CountsOfUpperAndLowerChars culcs = new CountsOfUpperAndLowerChars(str);
+            Map<String, Integer> wc = culcs.getCountsOfUpperAndLowerChars();
+            System.out.println(wc);
+        }
+    }
+    ```
+
+- 실습 문제 7: 서울 경복궁 입구에서 제일 가까운 지하철 역 찾기
+    - 서울 경복궁 주차장 입구에서 가장 가까운 지하철 역을 찾아서 출력하는 프로그램을 작성한다. 구글 지도를 이용해서 경복궁 근처에 있는 지하철 역 네 개를 파악하고 위도, 경도를 이용해서 거리를 측정한다(여기서는 역과 경복궁 사이의 직선 거리를 계산한다). 그리고 그 거리가 가장 짧은 역을 골라서 화면에 출력하는 프로그램을 작성한다.
+
+    |장소|위도|경도|
+    |:---|:---|:---|
+    |경복궁 주차장 입구|37.577413|126.978946|
+    |경복궁역|37.575840|126.973580|
+    |안국역|37.576560|126.985472|
+    |광화문역|37.572028|126.977505|
+    |독립문역|37.574461|126.957921|
+
+    - 위도와 경도로 표현되는 두 점 사이의 거리를 계산하는 Harversine 공식
+    - deltaLatitude = lat2 - lat1
+    - deltaLongitude = longt2 - longt1
+    - $a = sin^2 (\frac{deltaLatitude}{2}) + cos(lat1) \times cos(lat2) \times sin^2 (\frac{deltaLongitude}{2})$
+    - $c = 2 \times atan2(\sqrt{a}, \sqrt{1 - a})$
+    - distance = Radius * c
+
+    - R은 지구의 평균 반지름으로 약 6371km 정도 (6371000m)
+    - lat1, lat2는 각각 두 점의 위도, longt1, longt2는 두 점의 경도를 라디안으로 나타낸 것
+    - 자바에서 라디안은 Math.toRadians(Degree)로 구할 수 있다.
+
+    ```java
+    import java.awt.geom.Point2D;
+    import java.util.HashMap;
+
+    class FindNearestStation{
+        private HashMap<String, Point2D.Double> locations;
+        private Point2D.Double startPoint;
+        private HashMap<String, Double> distances;
+
+        private String[] stations = {"경복궁역", "안국역", "광화문역", "독립문역"};
+
+        public FindNearestStation(){
+            locations = new HashMap<String, Point2D.Double>();
+            locations.put("경복궁역", new Point2D.Double(128.973580, 37.575840));
+            locations.put("안국역", new Point2D.Double(128.985472, 37.576560));
+            locations.put("광화문역", new Point2D.Double(128.977505, 37.572028));
+            locations.put("독립문역", new Point2D.Double(128.957921, 37.574461));
+
+            startPoint = new Point2D.Double(128.978946, 37.577413);
+
+            distances = new HashMap<String, Double>();
+        }
+
+        //위도 경도를 이용해서 거리를 측정하는 함수
+        public double distanceGPS(Point2D.Double startPoint, Point2D.Double endPoint){
+            final int R = 6371000;  //지구 반지름
+
+            double longt1Rad = Math.Radians(startPoint.getX());
+            double lat1Rad = Math.Radians(startPoint.getY());
+            double longt2Rad = Math.Radians(endPoint.getX());
+            double lat2Rad = Math.Radians(endPoint.getY());
+
+            double deltaLongt = longt2Rad - longt1Rad;  //경도
+            double deltaLat = lat2Rad - lat1Rad;    //위도
+            double a = Math.pow(Math.sin(deltaLat / 2.0), 2) + Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.pow(Math.sin(deltaLongt / 2.0), 2);
+            double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+            return R * c;
+        }
+
+        public void findNearestStation(){
+            //첫 번째 역을 최소 거리의 역으로 먼저 지정
+            String minDistanceName = stations[0];
+            double minDistance = distances.get(stations[0]);
+
+            //두 번째 역부터 최소 거리와 비교해서 더 짧으면 최소 거리와 역 이름 교체
+            for(String station : stations){
+                if(distances.get(station) < minDistance){
+                    minDistance = distances.get(station);
+                    minDistanceName = station;
+                }
+            }
+
+            //최소 거리의 역 이름과 거리 출력
+            System.out.printf("최소 거리 역 이름: %s, 최소 거리: %f\n", minDistanceName, minDistance);
+        }
+
+        public void calcDistances(){
+            //각 역에 대해 거리를 계산한 후에 distances 해시맵에 추가
+            for(String name : stations){
+                Point2D.Double loc = locations.get(name);
+                double distance = distanceGPS(startPoint, loc);
+                distances.put(name, distance);
+            }
+        }
+
+        public static void main(String[] args){
+            FindNearestStation f = new FindNearestStation();
+            f.calcDistances();
+            f.findNearestStation();
+        }
+    }
+    ```
+
+- 실습 문제 8: 주어진 텍스트에서 3회 이상 나타나는 단어들을 출력하는 프로그램 작성
+    - 다음은 에드거 앨런 포의 시 "The Bells"의 일부 내용을 보인 것이다. 여기서 3회 이상 나타나는 단어들을 출력하는 프로그램을 작성한다.
+    ```
+    Hear the sledges with the bells
+    Silver bells!
+    What a world of merriment their melody foretells!
+    How they tinkle, tinkle, tinkle,
+    In the icy air of night!
+    While the stars that oversprinkle
+    All the heavens, seem to twinkle
+    With a crystalline delight;
+    Keeping time, time, time,
+    In a sort of Runic rhyme,
+    To the tintinabulation that so musically wells
+    From the bells, bells, bells, bells,
+    Bells, bells, bells
+    From the jingling and the tinkling of the bells.
+    ```
+    ```java
+    import java.util.Map;
+    import java.util.HashMap;
+    import java.util.ArrayList;
+
+    class CountWordsInText{
+        private String[] doc;
+        private Map<String, Integer> wordsMap;
+        private ArrayList<Strint> wordsList;
+
+        public CountWordsInText(String[] doc){
+            this.doc = doc;
+            wordsMap = new HashMap<String, Integer>();
+            wordsList = new ArrayList<String>();
+        }
+
+        public void countWords(){
+            for(String sentence : doc){
+                String[] words = sentence.split("(\\,|\\!|\\;|''.|\\s+)+");
+                for(String word : words){
+                    if(wordsMap.containsKey(word)){
+                        wordsMap.put(word, wordsMap.get(word) + 1);
+                    }
+                    else{
+                        wordList.add(word);
+                        wordsMap.put(word, 1);
+                    }
+                }
+            }
+        }
+
+        public void printWordsShownMoreThan(int n){
+            for(String word : wordsList){
+                int num = wordsMap.get(word);
+                if(num >= n){
+                    System.out.printf("%s : %d\n", word, num);
+                }
+            }
+        }
+
+        public static void main(String[] args){
+            String doc[] = {
+                "Hear the sledges with the bells",
+                "Silver bells!",
+                "What a world of merriment their melody foretells!",
+                "How they tinkle, tinkle, tinkle,",
+                "In the icy air of night!",
+                "While the stars that oversprinkle",
+                "All the heavens, seem to twinkle",
+                "With a crystalline delight;",
+                "Keeping time, time, time,",
+                "In a sort of Runic rhyme,",
+                "To the tintinabulation that so musically wells",
+                "From the bells, bells, bells, bells,",
+                "Bells, bells, bells",
+                "From the jingling and the tinkling of the bells."
+            };
+
+            CountWordsInText countWords = new CountWordsInText(doc);
+            countWords.countWords();
+            countWords.printWordsShownMoreThan(3);
+        }
+    }
+    ```
