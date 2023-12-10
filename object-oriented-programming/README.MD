@@ -3373,3 +3373,78 @@ class StringComparator implements Comparator{
                 - 크기 변경 가능한 리스트로 변환하려면 결과물을 ArrayList의 생성자로 전달
             - get(), contains(), size() 등은 있지만 데이터 추가 함수 없음
         - 리스트 -> 배열: **List.toArray()**
+
+### 반복자
+
+- ArrayList를 비롯한 컬렉션 클래스를 사용하다 보면 각 요소에 접근해서 작업하는 경우가 있음
+- 컬렉션 클래스의 요소에 접근하는 함수들이 다를 수 있음
+- 컬렉션이 바뀌면 각 요소에 대해서 처리하는 코드도 바뀌어야 함
+
+- 반복자
+    - 자바의 컬렉션 클래스에서 같은 방법을 통해 각 요소에 대한 작업을 할 수 있도록 함
+    - 컬렉션 클래스를 교체해도 반복자 코드는 수정 안하고 사용 가능
+    ```
+    변수 = 컬렉션의 반복자를 받음
+    while(반복자를 이용해서 만약 컬렉션에 아직 처리 안된 요소가 남아 있다면){
+        반복자를 이용해서 컬렉션의 다음 요소 접근
+        접근해서 추출한 요소에 대해서 처리 작업
+    }
+    ```
+
+    |함수|설명|
+    |:---|:---|
+    |iterator()|반복자에 대한 참조(Iterator 자료형)를 반환|
+    |hasNext()|요소가 더 존재하는지 확인. true 또는 false 반환|
+    |next()|다음 요소 가져오기. Object를 반환하므로 변환해서 사용
+
+- 반복자와 for each 구문
+    - 반복자 대신 for each 구문 사용 가능
+    ```
+    for(자료형 변수_이름 : 자료_구조_객체){
+        //각 요소에 대한 작업 코드
+    }
+    ```
+    - for each는 요소 삭제 또는 요소를 변경하는 작업에서는 사용 불가
+
+- 실습 문제 3: 1~100 사이의 정수 중에 4로 나누어지고 5로 나누어지지 않는 정수의 합계 구하기
+    - 1~100 범위의 정수 중에서 4로 나누어지고 5로 나누어지지 않는 값의 합계를 계산한다. 범위에 있는 정수 한 개씩 판단해서 적합하면 리스트에 추가한다. 그리고 최종적으로 리스트에 있는 모든 정수의 합계를 계산한다.
+    - ArrayList를 사용한다.
+    ```java
+    import java.util.ArrayList;
+
+    class Numbers{
+        private ArrayList<Integer> myList = new ArrayList<Integer>();
+        private int min;
+        private int max;
+
+        public Numbers(int min, int max){
+            this.min = min;
+            this.max = max;
+        }
+
+        public void setNumbers(){
+            for(int x = min; x <= max; x++){
+                if(x % 4 == 0 && x % 5 != 0){
+                    myList.add(x);
+                }
+            }
+        }
+        
+        public int sumList(){
+            int sum = 0;
+            for(int i : myList){
+                System.out.printf("%d\t", i);
+                sum += i;
+            }
+            return sum;
+        }
+    }
+
+    class TestNumbers{
+        public static void main(String[] args){
+            Numbers n = new Numbers(1, 100);
+            n.setNumbers();
+            System.out.println("\nSum: " + n.sumList());
+        }
+    }
+    ``` 
