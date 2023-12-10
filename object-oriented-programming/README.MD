@@ -4322,3 +4322,103 @@ DISPLAY IIS="web display"
 - Throwable에는 printStackTrace() 함수가 있음
 - 예외 클래스들은 다수의 패키지에 분산되어 있음
     - 각각 다른 패키지들을 import 해야 함
+
+### 예외 처리
+
+- 예외 처리 방법
+    - 예외를 위임
+    - 특정 예외가 발생했을 때 다른 예외로 바꿔서 전달
+    - 직접 처리 코드를 실행
+
+- 예외를 위임
+    - 예외를 발생시키는 함수 코드 예
+    ```
+    void printElement(int[] arr, int index) {
+        System.out.print(arr[index]); 
+    }
+    ```
+    - 예외를 위임시키는 코드
+    ```
+    void printElement(int[] arr, int index) throws 
+        ArrayIndexOutOfBoundsException {
+        System.out.print(arr[index]); 
+    }
+    ```
+    - 함수 내부에서 여러 개 예외 발생 시 콤마로 분리
+
+- 예외를 변환해서 전달
+    - 예외를 위임시키는데 다른 예외로 바꿔서 전달
+    ```
+    public void printElement2(int[] arr, int index) throws IllegalArgumentException {
+        try {
+            System.out.print(arr[index]); 
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            // 새로운 예외로 변경해서 발생시킴
+            throw new IllegalArgumentException(); 
+        }
+    }
+    ```
+
+- 예외 처리 코드 작성
+    - 예외 처리 코드는 "try", "catch", "finally" 같은 키워드를 이용해서 코드 블록을 지정
+    - try 블록에는 반드시 한 개 이상의 catch 코드 블록이 있어야 함
+        - 실행 중에 예외가 발생할 수 있는 코드 삽입
+        - 예외가 발생하지 않는 코드와 함께 넣어도 됨
+    - catch 블록
+        - 어떤 예외를 처리할 것인지 지정(예외 클래스를 명시)
+        - 예외 발생 시 처리할 코드 삽입
+        - try 블록에서 여러 가지 예외가 발생할 수 있다면, 각각에 대응하는 catch 블록 사용 가능
+            - 또는 부모 예외 클래스를 사용해서 일괄적인 처리 가능
+    - finally 블록
+        - 예외의 발생 여부와 관계없이 무조건 실행시켜야 하는 코드 삽입
+        - 생략 가능
+    ```
+    try {
+        // 예외가 발생할 수 있는 코드
+    }
+    catch (예외클래스 변수_이름) {
+        // 예외클래스에 해당되는 예외가 발생했을 때 실행될 코드
+    }
+    finally { // 생략 가능
+        // 예외 발생 여부와 관계없이 항상 실행되어야 하는 코드
+    }
+    ```
+
+    - finally 블록 사용 예제
+
+        |예외 종류|설명|
+        |:---|:---|
+        |InputMismatchException|다음에 읽을 데이터가 정수가 아니거나 정수형의 범위를 벗어날 때 발생|
+        |NoSuchElementException|더 이상 읽을 수 있는 데이터가 없을 때 발생|
+        |IllegalStateException|Scanner가 닫혔을 때(close() 함수가 실행된 후에 읽을 때) 발생|
+
+    - 한 개의 catch 블록에서 여러 개 예외 처리
+        - 자바 7부터 catch 블록 한 개에서 여러 개 예외 처리 가능
+        ```
+        try{
+            //예외가 발생할 수 있는 코드
+        }
+        catch(예외클래스1 | 예외클래스2 | 예외클래스3 변수_이름){
+            //예외클래스1, 예외클래스2, 예외클래스3
+            //예외가 발생했을 때 실행될 코드
+        }
+        finally{ //생략 가능
+            //예외 발생 여부와 관계없이 항상 실행되어야 하는 코드
+        }
+        ```
+    
+    - 예외 처리와 자동 리소스 닫기
+        - 자바 7부터 예외 처리 코드에서 사용되는 리소스를 자동으로 닫아주는 기능 추가
+        - Scanner를 사용할 때 close()를 부르는 것과 같은 경우
+        ```
+        try(자동으로 닫을 리소스 객체 생성 후 참조 변수에 저장){
+            //리소스 객체 참조 변수 사용 코드
+        }
+        catch(예외 변수){
+            //예외가 발생했을 때 실행할 코드
+        }
+        ```
+
+        - 리소스를 여러 개 사용하면 세미콜론으로 분리
+        - 리소스 객체가 java.lang.AutoCloseable 인터페이스를 구현해야 함
