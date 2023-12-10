@@ -3961,3 +3961,18 @@ class Problem03_Tour{
 
 - java.io.Writer
     - 문자와 문자열을 출력하는 write() 함수 제공
+
+### I/O 스트림
+
+- System.out
+    - PrintStream 객체를 참조하는 변수
+    - 서식에 맞춰 출력하기
+        - printf()
+        - format()
+        - StringBuilder를 이용하는 방법도 있음
+        - String에도 비슷한 format() 함수가 있음
+            - 화면에 출력하는 것이 아니라 문자열 생성
+
+- System.in
+    - InputStream 객체를 참조하는 변수
+    - System.in은 표준 입력 장치(키보드)를 나타냄
