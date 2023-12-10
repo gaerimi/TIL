@@ -3976,3 +3976,178 @@ class Problem03_Tour{
 - System.in
     - InputStream 객체를 참조하는 변수
     - System.in은 표준 입력 장치(키보드)를 나타냄
+
+### 파일 입출력
+
+- 파일에서 데이터 읽기
+    - Scanner
+        - Scanner 객체 생성
+        - 문자열 변수 = scanner.nextLine()
+        - 변수 출력
+        - scanner.close()
+            - 파일 닫기
+    - FileInputStream
+        - FileInputStream 객체 생성
+        - read() 함수 반환값의 자료형은 int
+        - 바이트 단위로 데이터를 읽음
+        - 파일의 끝에 도달하면 -1 반환
+        - (char) 형변환
+    - FileReader
+        - 문자 단위로 읽어 반환
+        - 오류 발생 시 -1 반환
+    - BufferedReader
+        - 버퍼에 내용을 채웠다가 한 문자씩 반환
+        - 독립적으로 사용 불가, FileReader와 연결해서 사용
+        - readLine() 함수 제공
+            - 한 줄의 문장 읽기에 사용
+            - 파일을 제대로 읽지 못하면 null 반환
+
+- 파일에 데이터 저장하기
+    - FileOutputStream
+        - write() 함수 사용
+            - write(int b): b로 주어진 바이트 저장
+            - write(byte[] b): b로 주어진 바이트 배열의 모든 내용을 저장
+            - write(byte[] b, int off, int len): b로 주어진 바이트 배열에서 off 인덱스부터 len 바이트만큼 저장
+    - FileWriter
+        - 문자, 문자 배열 또는 문자열 저장 가능
+    - BufferedWriter
+        - 버퍼를 사용하는 것을 제외하면 FileWriter를 사용할 때와 동일한 결과
+
+- 실습 문제 1: 텍스트 파일에서 내용을 모두 읽어서 화면에 출력하기
+    - "hello.txt" 파일의 내용을 모두 읽어서 화면에 출력하는 프로그램을 작성한다. 파일에서 한 문장씩 읽고 화면에 출력한다.
+    - "hello.txt" 파일은 적절한 폴더에 존재한다고 가정한다.
+    ```java
+    import java.util.Scanner;
+    import java.io.File;
+
+    public class ReadHelloFile{
+        public static void main(String[] args){
+            try{
+                Scanner sc = new Scanner(new File("hello.txt"));
+                while(sc.hasNext()){
+                    String line = sc.nextLine();
+                    System.out.println(line);
+                }
+                sc.close();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+    ```
+
+- 실습 문제 2: 파일에서 내용을 읽어서 소문자로 출력하기
+    - "hello.txt" 파일에 있는 내용을 읽어서 화면에 출력하는데 영문 대문자는 소문자로 변환해서 출력한다.
+    - "hello.txt" 파일은 적절한 폴더에 있다고 가정한다.
+    ```java
+    import java.io.FileReader;
+    import java.io.BufferedReader;
+
+    public class LowerCaseConversion{
+        public static void main(String[] args){
+            try{
+                FileReader fr = new FileReader("hello.txt");
+                BufferedReader f = new BufferedReader(fr);
+                int data;
+
+                while((data = f.read()) != -1){
+                    char ch = Character.toLowerCase((char) data);
+                    System.out.print(ch);
+                }
+                f.close();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+    ```
+
+- 실습 문제 3: 파일에서 내용을 읽어서 새로운 파일에 복사하기
+    - 파일을 복사하는 프로그램을 작성한다. "hello.txt"를 복사해서 "hello2.txt"를 만들어본다.
+    - "hello.txt"와 "hello2.txt"는 현재 디렉토리에 있다고 가정한다.
+    - InputStream과 OutputStream을 각각 매개 변수로 취하고 InputStream에서 읽은 데이터를 OutputStream으로 저장해서 파일을 복사하는 함수를 구현한다. 이 함수에 FileInputStream, FileOutputStream을 전달해서 파일을 복사해본다.
+    ```java
+    import java.io.*;
+
+    class Copyfile{
+        public static void copyFile(InputStream src, OutputStream dest){
+            try{
+                int data;
+                
+                while((data = src.read()) != -1){
+                    dest.write(data);
+                }
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        public static void main(String[] args){
+            try{
+                String srcFileName = "hello.txt";
+                String destFileName = "hello2.txt";
+
+                FileInputStream src = new FileInputStream(srcFileName);
+                FileOutputStream dest = new FileOutputStream(destFileName);
+                copyFile(src, dest);
+                src.close();
+                dest.close();
+
+                FileReader fr = new FileReader(destFileName);
+                BufferedReader src3 = new BufferedReader(fr);
+                String line;
+                while((line = src3.readLine()) != null){
+                    System.out.println(line);
+                }
+                src3.close();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+    ```
+
+- 실습 문제 4: 파일에 쓰기
+    - 파일에 다음 내용을 저장한다. 파일 이름은 "travel.txt"로 저장하고 들여쓰기 부분은 탭(tab) 문자를 이용한다.
+    ```
+    I love to travel.
+    The cities I have visited:
+        - Seoul
+        - New York
+        - Sydney
+    ```
+    - 파일을 저장할 때에는 BufferedWriter를 사용한다.
+    ```java
+    import java.io.*;
+
+    class TestBufferedWriter{
+        public static void main(String[] args){
+            String fileName = "travel.txt";
+
+            try{
+                BufferedWriter bf = new BufferedWriter(new FileWriter(fileName));
+                bf.write("I love to travel.\r\n");
+                bf.write("The cities I have visited:\r\n");
+                bf.write("\t- Seoul\r\n");
+                bf.write("\t- New York\r\n");
+                bf.write("\t- Sydney\r\n");
+                bf.close();
+
+                FileReader fr = new FileReader(fileName);
+                BufferedReader br = new BufferedReader();
+                String line;
+
+                while((line = br.readLine()) != null){
+                    System.out.println(line);
+                }
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+    ```
