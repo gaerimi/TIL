@@ -480,55 +480,178 @@ public class Prac2 {
     }
 }
 ```
-3. 예전 운영체제에서 시간을 측정할 때 32비트 정수를 사용해서, 2038년도 일정 시점이 지나면 오버플로우가 발생하는 문제가 있었다. 오버플로우가 발생하는 시각이 UTC 기준으로 언제인지 구한다. 윤년은 고려하지 않고, 1년은 365일로 월은 30일로 계산한다.
-**Year: 2038 Month: 2 Day: 5 Time: 3:14:7 UTC**
-```java
 
+3. 사용자로부터 a, b, c에 해당되는 세 개의 int형 정수를 입력 받고 $ax^2 + bx + c = 0$ 이라는 이차방정식의 해를 구해서 출력하는 프로그램을 작성한다. 해를 구하는 것은 근의 공식을 이용한다. $b^2 - 4 \times a \times c >= 0$ 조건을 만족하는 정수 a, b, c 값을 사용자가 입력한다고 가정하고, 제곱근은 Math.sqrt() 함수를 사용해서 구한다.
+```java
+import java.util.Scanner;
+
+public class Prac3 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("3개의 정수를 입력해주세요: ");
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        int c = sc.nextInt();
+
+        double x1, x2;
+        x1 = (-1 * b + Math.sqrt((b * b) - 4 * a * c)) / (2 * a);
+        x2 = (-1 * b - Math.sqrt((b * b) - 4 * a * c)) / (2 * a);
+
+        System.out.printf("이차 방정식의 해는 %.2f,%.2f 입니다.\n", x1, x2);
+    }
+}
 ```
 
-4. 사용자로부터 a, b, c에 해당되는 세 개의 int형 정수를 입력 받고 $ax^2 + bx + c = 0$ 이라는 이차방정식의 해를 구해서 출력하는 프로그램을 작성한다. 해를 구하는 것은 근의 공식을 이용한다. $b^2 - 4 \times a \times c >= 0$ 조건을 만족하는 정수 a, b, c 값을 사용자가 입력한다고 가정하고, 제곱근은 Math.sqrt() 함수를 사용해서 구한다.
+4. 사용자로부터 R1, R2, Height 값을 double형으로 입력 받고, R1을 윗면, R2를 밑면, Height를 높이로 하는 원뿔대의 부피를 구해서 출력하는 프로그램을 작성한다. 원주율 값은 3.14로 계산한다. ($V = \frac{1}{3} \times \pi \times (R1^2 + R1R2 + R2^2) \times Height $)
 ```java
+import java.util.Scanner;
 
+public class Prac4 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("윗면, 밑면, 높이를 입력해주세요: ");
+        double r1 = sc.nextDouble();
+        double r2 = sc.nextDouble();
+        double height = sc.nextDouble();
+
+        double pi = 3.14;
+        double v;
+        v = 1.0 / 3.0 * pi * (r1 * r1 + r1 * r2 + r2 * r2) * height;
+
+        System.out.println("원뿔대의 부피는 " + v + " 입니다.");
+    }
+}
 ```
 
-5. 사용자로부터 R1, R2, Height 값을 double형으로 입력 받고, R1을 윗면, R2를 밑면, Height를 높이로 하는 원뿔대의 부피를 구해서 출력하는 프로그램을 작성한다. 원주율 값은 3.14로 계산한다. ($V = \frac{1}{3} \times \pi \times (R1^2 + R1 + R2 + R2^2) \times Height $)
-```java
-
-```
-
-6. 사용자로부터 온도(화씨)와 풍속(m/s)을 입력 받고, 체감 온도를 계산하고 화면에 출력하는 프로그램을 작성한다.
+5. 사용자로부터 온도(화씨)와 풍속(m/s)을 입력 받고, 체감 온도를 계산하고 화면에 출력하는 프로그램을 작성한다.
 (체감 온도 = $13.12 + 0.6215 \times T - 11.37 \times V^{0.16} + 0.3965 \times V^{0.16} \times T$ (T는 기온 V는 풍속))
 ```java
+import java.util.Scanner;
 
+public class Prac5 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("온도와 풍속을 입력해주세요: ");
+
+        double t = sc.nextDouble();
+        double v = sc.nextDouble();
+
+        double st;
+        st = 13.12 + 0.6215 * t - 11.37 * Math.pow(v, 0.16) + 0.3965 * Math.pow(v, 0.16) * t;
+
+        System.out.println("체감온도는 " + st + "도 입니다.");
+    }
+}
 ```
 
-7. 사용자로부터 문자 5개를 입력 받고 배열에 저장한 후에 해시 값을 구해서 화면에 출력하는 프로그램을 작성한다. 해시 값은 소수 둘째 자리까지 출력한다. 만약 문자들을 저장한 배열이 s라고 가정할 때 아래 공식에 따라 해시 값을 계산한다. 첫 번째로 입력한 문자가 s[0], 두 번째는 s[1]에, 그리고 나머지 문자들도 순서대로 저장된다고 가정한다. 승수 계산은 Math.pow(x, y)함수를 사용한다.
+6. 사용자로부터 문자 5개를 입력 받고 배열에 저장한 후에 해시 값을 구해서 화면에 출력하는 프로그램을 작성한다. 해시 값은 소수 둘째 자리까지 출력한다. 만약 문자들을 저장한 배열이 s라고 가정할 때 아래 공식에 따라 해시 값을 계산한다. 첫 번째로 입력한 문자가 s[0], 두 번째는 s[1]에, 그리고 나머지 문자들도 순서대로 저장된다고 가정한다. 승수 계산은 Math.pow(x, y)함수를 사용한다.
 ($s[0] \times 31^{(n-1)} + s[1] \times 31^{(n-2)} + ... + s[n-1] \times 31^0$)
 ```java
+import java.util.Scanner;
 
+public class Prac6 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        char[] s = new char[5];
+
+        System.out.println("문자를 입력해주세요: ");
+        s[0] = sc.next().charAt(0);
+        System.out.println("문자를 입력해주세요: ");
+        s[1] = sc.next().charAt(0);
+        System.out.println("문자를 입력해주세요: ");
+        s[2] = sc.next().charAt(0);
+        System.out.println("문자를 입력해주세요: ");
+        s[3] = sc.next().charAt(0);
+        System.out.println("문자를 입력해주세요: ");
+        s[4] = sc.next().charAt(0);
+
+        double hashValue;
+
+        hashValue = s[0] * Math.pow(31, 4) + s[1] * Math.pow(31, 3) + s[2] * Math.pow(31, 2) + s[1] * Math.pow(31, 1) + s[0] * Math.pow(31, 0);
+
+        System.out.printf("해시 값은 %.2f입니다.\n", hashValue);
+    }
+}
 ```
 
-8. 사용자에게서 5개 정수를 입력 받을 때까지 프로그램을 실행시키면서, 매 숫자 입력 후에 그때까지 입력된 모든 정수값들의 합을 계산해서 출력하는 프로그램을 작성한다.(반복문 사용 없이)
+7. 사용자에게서 5개 정수를 입력 받을 때까지 프로그램을 실행시키면서, 매 숫자 입력 후에 그때까지 입력된 모든 정수값들의 합을 계산해서 출력하는 프로그램을 작성한다.(반복문 사용 없이)
 ```java
+import java.util.Scanner;
 
+public class Prac7 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int sum = 0;
+        System.out.println("정수를 입력해주세요: ");
+        int n = sc.nextInt();
+        sum += n;
+        System.out.println("정수를 입력해주세요: ");
+        n = sc.nextInt();
+        sum += n;
+        System.out.println("정수를 입력해주세요: ");
+        n = sc.nextInt();
+        sum += n;
+        System.out.println("정수를 입력해주세요: ");
+        n = sc.nextInt();
+        sum += n;
+        System.out.println("정수를 입력해주세요: ");
+        n = sc.nextInt();
+        sum += n;
+
+        System.out.println("정수들의 합은 " + sum + "입니다.\n");
+    }
+}
 ```
 
-9. 사용자로부터 두 개의 double형 실수를 입력 받고, 두 수의 덧셈, 뺄셈, 곱셈, 나눗셈 연산 결과를 출력하는 프로그램을 작성하라.
+8. 사용자로부터 두 개의 double형 실수를 입력 받고, 두 수의 덧셈, 뺄셈, 곱셈, 나눗셈 연산 결과를 출력하는 프로그램을 작성하라.
 ```java
+import java.util.Scanner;
 
+public class Prac8 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("두 개의 실수를 입력해주세요: ");
+        double d1 = sc.nextDouble();
+        double d2 = sc.nextDouble();
+
+        System.out.printf("두 수의 덧셈 결과: %f\n", d1 + d2);
+        System.out.printf("두 수의 뺄셈 결과: %f\n", d1 - d2);
+        System.out.printf("두 수의 곱셈 결과: %f\n", d1 * d2);
+        System.out.printf("두 수의 나눗셈 결과: %f\n", d1 / d2);
+
+    }
+}
 ```
 
-10. 배열을 1, 3, 5, 7, 9로 초기화하고 배열 요소의 합과 평균을 구하는 프로그램을 작성한다.(반복문 사용 없이)
+9. 배열을 1, 3, 5, 7, 9로 초기화하고 배열 요소의 합과 평균을 구하는 프로그램을 작성한다.(반복문 사용 없이)
 ```java
+public class Prac9 {
+    public static void main(String[] args) {
+        int[] arr = {1, 3, 5, 7, 9};
+        int sum = arr[0] + arr[1] + arr[2] + arr[3] + arr[4];
+        double avg = sum / 5.0;
 
+        System.out.printf("합: %d, 평균: %f\n", sum, avg);
+    }
+}
 ```
 
-11. 배열을 문자열 "one", "two", "three"로 초기화시키고, 각 문자열을 화면에 순서대로 출력하는 프로그램을 작성한다.(반복문 사용 없이)
+10. 배열을 문자열 "one", "two", "three"로 초기화시키고, 각 문자열을 화면에 순서대로 출력하는 프로그램을 작성한다.(반복문 사용 없이)
 ```java
+public class Prac10 {
+    public static void main(String[] args) {
+        String[] sarr = {"one", "two", "three"};
 
+        System.out.println(sarr[0]);
+        System.out.println(sarr[1]);
+        System.out.println(sarr[2]);
+    }
+}
 ```
 
-12. 다음 표는 특정 시기 서울의 미세먼지 현황을 보인다. 7일 동안의 PM2.5와 PM10의 평균을 계산해서 화면에 출력한다. 단 PM2.5와 PM10 데이터를 각각 배열에 초기화시킨 후에 평균을 구한다.(반복문 사용 없이)
+11. 다음 표는 특정 시기 서울의 미세먼지 현황을 보인다. 7일 동안의 PM2.5와 PM10의 평균을 계산해서 화면에 출력한다. 단 PM2.5와 PM10 데이터를 각각 배열에 초기화시킨 후에 평균을 구한다.(반복문 사용 없이)
 
 | | | | | | | | |
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -536,31 +659,134 @@ public class Prac2 {
 |PM10(미세먼지)|44|44|32|60|84|112|41|
 
 ```java
+public class Prac11 {
+    public static void main(String[] args) {
+        int[] pm2_5 = {29, 21, 18, 34, 67, 79, 18};
+        int[] pm10 = {44, 44, 32, 60, 84, 112, 41};
 
+        int sum2_5 = pm2_5[0] + pm2_5[1] + pm2_5[2] + pm2_5[3] + pm2_5[4] + pm2_5[5] + pm2_5[6];
+        int sum10 = pm10[0] + pm10[1] + pm10[2] + pm10[3] + pm10[4] + pm10[5] + pm10[6];
+
+        double avg2_5 = sum2_5 / 7.0;
+        double avg10 = sum10 / 7.0;
+
+        System.out.printf("PM2.5의 평균: %f, PM10의 평균: %f\n", avg2_5, avg10);
+
+    }
+}
 ```
 
-13. 사용자로부터 (x1, y1), (x2, y2)에 해당되는 정보를 double형으로 입력 받고 두 점 사이의 거리를 계산해서 출력하는 프로그램을 작성한다. 거리는 두 점 사이의 거리를 계산하는 공식을 이용한다.
+12. 사용자로부터 (x1, y1), (x2, y2)에 해당되는 정보를 double형으로 입력 받고 두 점 사이의 거리를 계산해서 출력하는 프로그램을 작성한다. 거리는 두 점 사이의 거리를 계산하는 공식을 이용한다.
 ($두 점 사이의 거리 = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$ )
 ```java
+import java.util.Scanner;
 
+public class Prac12 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("첫 번째 좌표를 입력해주세요: ");
+        double x1 = sc.nextDouble();
+        double y1 = sc.nextDouble();
+
+        System.out.println("두 번째 좌표를 입력해주세요: ");
+        double x2 = sc.nextDouble();
+        double y2 = sc.nextDouble();
+
+        double distance;
+        distance = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+
+        System.out.printf("두 점사이의 거리: %f\n", distance);
+    }
+}
 ```
 
-14. 헤론의 공식은 세 변의 길이만으로 삼각형의 넓이를 구하는 공식이다. 세변의 길이를 각각 a, b, c라고 할 때 사용자로부터 세 변의 길이를 입력 받고 삼각형의 면적을 계산해서 출력하는 프로그램을 작성한다.
+13. 헤론의 공식은 세 변의 길이만으로 삼각형의 넓이를 구하는 공식이다. 세변의 길이를 각각 a, b, c라고 할 때 사용자로부터 세 변의 길이를 입력 받고 삼각형의 면적을 계산해서 출력하는 프로그램을 작성한다.
 ($area = \sqrt{(s \times (s-a) \times (s-b) \times (s-c))}$ ) ( $s = \frac{a + b + c}{2}$ )
 ```java
+import java.util.Scanner;
 
+public class Prac13 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("세 변의 길이를 입력해주세요(a b c): ");
+        double a = sc.nextDouble();
+        double b = sc.nextDouble();
+        double c = sc.nextDouble();
+
+        double area;
+        double s = (a + b + c) / 2;
+        area = Math.sqrt((s * (s - a) * (s - b) * (s - c)));
+
+        System.out.println("삼각형의 면적은 " + area + "입니다.");
+    }
+}
 ```
 
-15. 사용자로부터 삼각형을 이루는 세 점의 좌표를 입력 받고 면적을 구해서 출력하는 프로그램을 작성한다. 좌표는 정수로 입력 받는다.
+14. 사용자로부터 삼각형을 이루는 세 점의 좌표를 입력 받고 면적을 구해서 출력하는 프로그램을 작성한다. 좌표는 정수로 입력 받는다.
 ```java
+import java.util.Scanner;
 
+public class Prac14 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("첫 번째 점의 좌표를 입력해주세요:");
+        int x1 = sc.nextInt();
+        int y1 = sc.nextInt();
+
+        System.out.println("두 번째 점의 좌표를 입력해주세요:");
+        int x2 = sc.nextInt();
+        int y2 = sc.nextInt();
+
+        System.out.println("세 번째 점의 좌표를 입력해주세요:");
+        int x3 = sc.nextInt();
+        int y3 = sc.nextInt();
+
+        double a = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+        double b = Math.sqrt((x3 - x2) * (x3 - x2) + (y3 - y2) * (y3 - y2));
+        double c = Math.sqrt((x1 - x3) * (x1 - x3) + (y1 - y3) * (y1 - y3));
+
+        double area;
+        double s = (a + b + c) / 2;
+        area = Math.sqrt((s * (s - a) * (s - b) * (s - c)));
+
+        System.out.println("삼각형의 면적은 " + area + "입니다.");
+    }
+}
 ```
 
-16. 한 달에 x원씩 연 이율 r%인 적금을 넣는다고 가정해보자. 이자 소득세율이 t%라고 가정할 때 1년 만기 후 내가 받을 수 있는 금액이 얼마인지 계산해서 출력하는 프로그램을 작성한다. 불입한 원금에 대한 이자만 계산하는 단리 계산 방식은 다음 공식에 따른다. 이자에 대한 소득세는 전체 이자 금액에 대해서 일정 비율 차감한다.
-($interest = monthlyPayment \times n \times \frac{(n+1){2}} \times \frac{r}{12}$) (monthlyPayment: 월 납입액, n 개월, r = 연 이율(%) / 100)
+15. 한 달에 x원씩 연 이율 r%인 적금을 넣는다고 가정해보자. 이자 소득세율이 t%라고 가정할 때 1년 만기 후 내가 받을 수 있는 금액이 얼마인지 계산해서 출력하는 프로그램을 작성한다. 불입한 원금에 대한 이자만 계산하는 단리 계산 방식은 다음 공식에 따른다. 이자에 대한 소득세는 전체 이자 금액에 대해서 일정 비율 차감한다.
+($interest = monthlyPayment \times n \times \frac{(n+1)}{2} \times \frac{r}{12}$) (monthlyPayment: 월 납입액, n 개월, r = 연 이율(%) / 100)
 사용자로부터 한 달에 넣는 납입액(원), 연 이율(%단위), 이자 소득 세율(%단위)을 입력 받고 사용자가 최종으로 받을 수 있는 금액을 계산해서 출력하는 프로그램을 작성한다.
 ```java
+import java.util.Scanner;
 
+public class Prac15 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("한 달에 넣는 납입액을 입력해주세요: ");
+        int monthlyPayment = sc.nextInt();
+
+        System.out.println("연 이율을 입력해주세요: ");
+        double r = sc.nextDouble();
+
+        System.out.println("이자 소득 세율을 입력해주세요: ");
+        double t = sc.nextDouble();
+
+        int n = 12;
+
+        double interest;
+        interest = monthlyPayment * n * ((n + 1) / 2.0) * (r / 12.0);
+        interest = interest * (1 - t / 100);
+        double total = monthlyPayment * n + interest;
+
+        System.out.println("총 받을 수 있는 금액은 " + total +"원 입니다.");
+
+    }
+}
 ```
 
 ## Chapter 2
