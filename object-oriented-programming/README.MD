@@ -1807,7 +1807,28 @@ switch(비교값){
     - 년도가 4로 나눠지면서 100으로도 나눠지면 윤년이 아님
     - 년도가 400으로 나눠지면 윤년
 ```java
+import java.util.Scanner;
 
+public class Prac1 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("년도를 입력해주세요: ");
+        int year = sc.nextInt();
+
+        if(year <= 0){
+            System.out.println("제대로 된 년도가 아닙니다.");
+        }
+        else{
+            if((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)){
+                System.out.println("윤년입니다.");
+            }
+            else{
+                System.out.println("윤년이 아닙니다.");
+            }
+        }
+    }
+}
 ```
 
 2. 사용자로부터 년도, 월, 일에 해당되는 정수 세 개를 입력 받고(년도(year), 월(month), 일(day)은 범위 내에 있는 값을 입력할 것이라고 가정), 통일(day of year, 그 해 1월 1일부터 통틀어 계산한 수)을 구하는 프로그램을 작성한다. 다음은 통일을 구하는 알고리즘을 보인다.
@@ -1815,62 +1836,334 @@ switch(비교값){
     - 달이 3~12월이면 앞에서 계산된 dayOfYear에서 ((4 * 월 + 23) / 10)을 뺌, 단 년도가 윤년이면 1을 더함
     - 달이 1 또는 2월이면 앞에서 계산된 dayOfYear가 통일이 됨
 ```java
+import java.util.Scanner;
+
+public class Prac2 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("년도를 입력해주세요: ");
+        int year = sc.nextInt();
+        System.out.print("월을 입력해주세요: ");
+        int month = sc.nextInt();
+        System.out.print("일을 입력해주세요: ");
+        int day = sc.nextInt();
+
+        int dayOfYear;
+
+        if(month == 1 || month == 2){
+            dayOfYear = 31 * (month - 1) + day;
+        }
+        else{
+            dayOfYear = 31 * (month - 1) + day;
+            dayOfYear = dayOfYear - ((4 * month + 23) / 10);
+            if((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)){
+                dayOfYear += 1;
+            }
+        }
+
+        System.out.println("통일: " + dayOfYear);
+    }
+}
 
 ```
 
-3. 온라인이 아닌 일반 상점에 가서 컴퓨터를 사는데 필요한 전체 비용을 비교하는 프로그램을 작성한다. 예를 들ㅇ어 8km 떨어진 A 상점에서는 컴퓨터를 99만원에 팔고 있고, 5km 떨어진 B 쇼핑몰에서는 100만원에 팔고 있다면, 어떤 쇼핑몰로 가는 것이 더 나은지 비교해서 알려준다. 전체 비용에는 컴퓨터 가격뿐만 아니라 자동차 유류비와 시간에 대한 비용이 포함된다. 자동차는 가솔린 1리터당 10km를 갈 수 있다고 가정하고, 가솔린 가격은 1리터당 1400원이다. 그리고 자동차로 이동할 때 평균 속도는 시간당 40km로 운행하고 시간당 임금은 10000원으로 계산한다. 사용자로부터 두 쇼핑몰까지의 거리(단위: km)와 컴퓨터 가격(단위: 원)을 입력 받고, 더 싸게 구입할 수 있는 쇼핑몰을 화면에 출력하는 프로그램을 구현한다.
+3. 온라인이 아닌 일반 상점에 가서 컴퓨터를 사는데 필요한 전체 비용을 비교하는 프로그램을 작성한다. 예를 들어 8km 떨어진 A 상점에서는 컴퓨터를 99만원에 팔고 있고, 5km 떨어진 B 쇼핑몰에서는 100만원에 팔고 있다면, 어떤 쇼핑몰로 가는 것이 더 나은지 비교해서 알려준다. 전체 비용에는 컴퓨터 가격뿐만 아니라 자동차 유류비와 시간에 대한 비용이 포함된다. 자동차는 가솔린 1리터당 10km를 갈 수 있다고 가정하고, 가솔린 가격은 1리터당 1400원이다. 그리고 자동차로 이동할 때 평균 속도는 시간당 40km로 운행하고 시간당 임금은 10000원으로 계산한다. 사용자로부터 두 쇼핑몰까지의 거리(단위: km)와 컴퓨터 가격(단위: 원)을 입력 받고, 더 싸게 구입할 수 있는 쇼핑몰을 화면에 출력하는 프로그램을 구현한다.
 ```java
+import java.util.Scanner;
+
+public class Prac3 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("A 상점까지의 거리(km): ");
+        double distanceA = sc.nextDouble();
+        System.out.print("B 상점까지의 거리(km): ");
+        double distanceB = sc.nextDouble();
+
+        System.out.print("A상점의 컴퓨터 가격(원): ");
+        int priceA = sc.nextInt();
+        System.out.print("B상점의 컴퓨터 가격(원): ");
+        int priceB = sc.nextInt();
+
+        //유류비 및 시간
+        double fuelA = (distanceA / 10) * 1400;
+        double timeA = (distanceA / 40) * 10000;
+
+        double fuelB = (distanceB / 10) * 1400;
+        double timeB = (distanceB / 40) * 10000;
+
+        //총 비용
+        double totalA = priceA + fuelA + timeA;
+        double totalB = priceB + fuelB + timeB;
+
+        if(totalA < totalB){
+            System.out.printf("더 싼 상점: A, 가격: %f\n", totalA);
+        }
+        else{
+            System.out.printf("더 싼 상점: B, 가격: %.2f원\n", totalB);
+        }
+    }
+}
 
 ```
 
 4. 스페이드 모양의 카드들을 섞은 후에 두 번 뽑아서 더 높은 숫자를 가진 카드를 가진 사람이 이기는 게임을 진행한다. 여기서는 두 개 카드 번호만 출력하고 어떤 카드가 더 높은 값을 가졌는지 화면에 출력하기로 한다. 카드 번호를 화면에 출력할 때에는 2~10까지는 숫자값을 사용하고 1, 11, 12, 13은 각각 "ace", "jack", "queen", "king"으로 대체한다.
 카드를 뽑는 것은 Math.random() 함수를 이용해서 1~13까지의 번호를 무작위로 2개 발생시키고, 어떤 카드가 더 높은 번호인지 화면에 출력한다.
 ```java
+class CardGame{
+    public static void play(){
+        String[] cardNames = {"ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king"};
 
+        int index1 = (int)(Math.random() * 13);
+        int index2 = (int)(Math.random() * 13);
+
+        System.out.println("첫번째 카드: " + cardNames[index1]);
+        System.out.println("두번째 카드: " + cardNames[index2]);
+
+        if(index1 < index2){
+            System.out.println("두번째 카드가 더 높은 값입니다.");
+        }
+        else if(index1 > index2){
+            System.out.println("첫번째 카드가 높은 값입니다.");
+        }
+        else{
+            System.out.println("두 카드의 값이 같습니다.");
+        }
+    }
+
+    public static void main(String[] args){
+        play();
+    }
+}
 ```
 
 5. 사용자로부터 2 이상의 정수 한 개를 입력 받고 해당 숫자의 약수를 모두 찾아 화면에 출력하는 프로그램을 작성한다. 사용자가 2 이상의 값을 입력하지 않으면 화면에 "잘못 입력했습니다. 2 이상의 정수를 입력하세요"라고 출력하고, 제대로 입력할 때까지 입력 받는다.
 ```java
+import java.util.Scanner;
 
+public class Prac5 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        do{
+            System.out.println("2 이상의 정수 한 개를 입력해주세요: ");
+            int n = sc.nextInt();
+
+            if(n < 2){
+                System.out.println("잘못 입력했습니다. 2 이상의 정수를 입력하세요");
+            }
+            else{
+                for(int i = 1; i <= n; i++){
+                    if(n % i == 0){
+                        System.out.print(i + "\t");
+                    }
+                }
+                break;
+            }
+        } while (true);
+
+    }
+}
 ```
 
 6. 사용자로부터 2 이상의 정수 한 개를 입력 받고 그 정수가 소수인지 아닌지 화면에 출력하는 프로그램을 작성한다. 사용자가 2 이상의 정수값만을 입력할 것이라고 가정한다.
 ```java
+import java.util.Scanner;
+
+public class Prac6 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("2 이상의 정수 한 개를 입력해주세요: ");
+        int n = sc.nextInt();
+
+        int divcount = 0;
+
+        for(int i = 1; i <= n; i++){
+            if(n % i == 0){
+                divcount++;
+            }
+        }
+
+        if(divcount == 2){
+            System.out.println("소수입니다.");
+        }
+        else{
+            System.out.println("소수가 아닙니다.");
+        }
+    }
+}
 
 ```
 
 7. 사용자로부터 2 이상의 정수 한 개를 입력 받고 2~해당 숫자까지 약수의 개수와 소수인지 아닌지를 출력하는 프로그램을 작성한다. 여기서는 사용자가 2 이상의 정수값만을 입력할 것이라고 가정한다. 화면에 정수값, 약수 개수, 소수인지 확인하는 것을 (정수: 2 약수 개수: 2 소수: true) 형태로 출력한다.
 ```java
+import java.util.Scanner;
+
+public class Prac7 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("2 이상의 정수 한 개를 입력해주세요: ");
+        int n = sc.nextInt();
+
+        int divcount = 0;
+
+        for(int i = 1; i <= n; i++){
+            if(n % i == 0){
+                divcount++;
+            }
+        }
+
+        if(divcount == 2){
+            System.out.printf("정수: %d  약수 개수: %d  소수: true\n", n, divcount);
+        }
+        else{
+            System.out.printf("정수: %d  약수 개수: %d  소수: false\n", n, divcount);
+        }
+    }
+}
 
 ```
 
 8. 사용자로부터 월(month)을 영어 단어로 입력 받고, 해당 월이 몇 일까지 있는지 화면에 출력하는 프로그램을 작성한다. 사용자가 월 이름을 입력할 때 첫 글자만 대문자이고 단어의 나머지는 소문자로 구성되어 있다고 가정한다. 윤년은 따로 처리하지 않고 2월은 무조건 28일까지만 있는 것으로 출력한다. 월에 해당되는 단어들을 문자열 배열로 구성하고, 반복문을 이용해서 문제를 해결한다.
 ```java
+import java.util.Scanner;
+
+public class Prac8 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        int[] days = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+        System.out.print("월을 영어로 입력해주세요: ");
+        String month = sc.next();
+
+        for(int i = 0; i < 12; i++){
+            if(month.equals(months[i])){
+                System.out.println(month + "월에는 " + days[i] + "일까지 있습니다.");
+            }
+        }
+    }
+}
 
 ```
 
-9. 사용자로부터 정수 한 개를 입력 받고 n이라는 변수에 저장한다. n개만큼 0~100 사이(100 포함)의 정수를 무작위로 생성하고, 그 중에서 50보다 작은 값들의 평균을 구해서 화면에 출력하는 프로그램을 작성한다.
+9. 사용자로부터 정수 한 개를 입력 받고 n이라는 변수에 저장한다. n개만큼 0 ~ 100 사이(100 포함)의 정수를 무작위로 생성하고, 그 중에서 50보다 작은 값들의 평균을 구해서 화면에 출력하는 프로그램을 작성한다.
 ```java
+import java.util.Scanner;
+
+public class Prac9 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("정수 한 개를 입력해주세요: ");
+        int n = sc.nextInt();
+
+        int[] numbers = new int[n];
+
+        for(int i = 0; i < n; i++){
+            numbers[i] = (int)(Math.random() * 100) + 1;
+        }
+
+        int sum = 0;
+        int cnt = 0;
+        for(int num : numbers){
+            if(num < 50){
+                sum += num;
+                cnt++;
+            }
+        }
+        double avg = sum / cnt;
+
+        System.out.println(avg);
+    }
+}
 
 ```
 
 10. $a^4$ 이 10000을 넘는 가장 작은 정수 a를 화면에 출력한다.
 ```java
-
+public class Prac10 {
+    public static void main(String[] args) {
+        int a = 0;
+        while(a * a * a * a < 10000){
+            a++;
+        }
+        System.out.println(a);
+    }
+}
 ```
 
 11. $a^3$ 이 100을 넘는 최초 값까지의 양의 정수 $a^3$ 의 값을 구한다. 단 break문을 반드시 사용한다.
 ```java
+public class Prac11 {
+    public static void main(String[] args) {
+        int a = 1;
+        do{
+            System.out.println(a * a * a);
+            a++;
+            if(a * a * a > 100){
+                System.out.println(a * a * a);
+                break;
+            }
+        }while(a * a * a < 100);
 
+    }
+}
 ```
 
 12. 50개 정수를 담을 수 있는 배열을 만들고 무작위로 1 ~ 30 사이의 정수를 생성해서 배열을 채운다. 배열에 있는 숫자들 중에서 1 ~ 10, 11 ~ 20, 21 ~ 30 사이의 숫자들이 각각 몇 개씩 있는지 화면에 출력한다.
 ```java
+public class Prac12 {
+    public static void main(String[] args) {
+        int[] numbers = new int[50];
+
+        for(int i = 0; i < 50; i++){
+            numbers[i] = (int)(Math.random() * 30) + 1;
+        }
+
+        int section1 = 0;
+        int section2 = 0;
+        int section3 = 0;
+
+        for(int i = 0; i < 50; i++){
+            if(numbers[i] >= 1 && numbers[i] <= 10){
+                section1++;
+            }
+            else if(numbers[i] >= 11 && numbers[i] <= 20){
+                section2++;
+            }
+            else{
+                section3++;
+            }
+        }
+
+        System.out.println("1~10 사이의 숫자: " + section1 + "개\n11~20 사이의 숫자: " + section2 + "개\n21~30 사이의 숫자: " + section3 + "개");
+
+    }
+}
 
 ```
 
 13. 1000 ~ 9999까지의 정수 중 한 개를 n이라고 가정한다. n의 천 단위 수를 n1, 백 단위 수를 n2, 십 단위 수를 n3, 일 단위 수를 n4라고 가정한다. 1000 ~ 9999까지의 정수 중에서 $n = n1^4 + n2^4 + n3^4 + n4^4$인 n을 모두 찾아서 출력하는 프로그램을 작성한다.
 ```java
+public class Prac13 {
+    public static void main(String[] args) {
+        for(int n = 1000; n <= 9999; n++){
+            int n1 = n / 1000;
+            int n2 = (n % 1000) / 100;
+            int n3 = ((n % 1000) % 100) / 10;
+            int n4 = (((n % 1000) % 100) % 10);
+
+            if(n == Math.pow(n1, 4) + Math.pow(n2, 4) + Math.pow(n3, 4) + Math.pow(n4, 4)){
+                System.out.println(n);
+            }
+        }
+    }
+}
 
 ```
 
@@ -1879,16 +2172,99 @@ switch(비교값){
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nunc tellus, faucibus quis maximus in, sodales in est. Aenean nec ipsum mauris. Morbi bibendum bibendum dui, commodo convallis turpis volutpat eu. Etiam consectetur a magna pretium mollis. Duis egestas ultrices lacinia. Morbi nunc sapien, varius sit amet maximus id, pharetra eget ipsum. Quisque interdum augue mauris, non facilisis ligula consectetur sit amet. Nam scelerisque est sed convallis sodales. Proin tempor nibh sit amet neque pretium, nec elementum libero mattis. Duis commodo eu nisl non varius. Mauris dapibus quam eros, nec volutpat magna tincidunt fermentum. Cras elit leo, porta quis pulvinar a, condimentum rutrum justo. Nunc et odio fringilla sem rhoncus efficitur sit amet vitae ligula. Pellentesque vel aliquam magna, vitae auctor metus.
 ```
 ```java
+import java.util.Scanner;
+
+public class Prac14 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String str = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+                    "Curabitur nunc tellus, faucibus quis maximus in, sodales in est. " +
+                    "Aenean nec ipsum mauris. " +
+                    "Morbi bibendum bibendum dui, commodo convallis turpis volutpat eu. " +
+                    "Etiam consectetur a magna pretium mollis. Duis egestas ultrices lacinia. " +
+                    "Morbi nunc sapien, varius sit amet maximus id, pharetra eget ipsum. " +
+                    "Quisque interdum augue mauris, non facilisis ligula consectetur sit amet. " +
+                    "Nam scelerisque est sed convallis sodales. " +
+                    "Proin tempor nibh sit amet neque pretium, nec elementum libero mattis. " +
+                    "Duis commodo eu nisl non varius. Mauris dapibus quam eros, nec volutpat magna tincidunt fermentum. " +
+                    "Cras elit leo, porta quis pulvinar a, condimentum rutrum justo. " +
+                    "Nunc et odio fringilla sem rhoncus efficitur sit amet vitae ligula. " +
+                    "Pellentesque vel aliquam magna, vitae auctor metus.";
+
+        String[] words = new String[5];
+
+        for(int i = 0; i < 5; i++){
+            words[i] = sc.next();
+        }
+
+        String[] strarr = str.trim().split(" |\\.|,");
+        
+        for(int i = 0; i < 5; i++){
+            int cnt = 0;
+            for(String s : strarr){
+                if(words[i].equals(s)){
+                    cnt++;
+                }
+            }
+            System.out.printf("%s: %d\n", words[i], cnt);
+        }
+    }
+}
 
 ```
 
 15. 사용자로부터 반지름 정수 r을 입력 받고, 원 내부에 있는 정수 좌표의 개수를 세는 프로그램을 작성한다. 좌표가 원의 내부에 있는지 확인하는 것은 원의 방정식을 사용한다. $x^2 + y^2 = r^2$ 을 만족하는 (x, y)는 원의 내부에 있다.
 ```java
+import java.util.Scanner;
+
+public class Prac15 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("반지름을 입력해주세요: ");
+        int r = sc.nextInt();
+
+        int cnt = 0;
+
+        for(int x = 0; x <= r; x++){
+            for(int y = 0; y <= r; y++){
+                if((x * x) + (y * y) == r * r){
+                    System.out.printf("(%d, %d)\n", x, y);
+                }
+            }
+        }
+    }
+}
 
 ```
 
 16. 버스를 탈지 지하철을 탈지 고민하는 사람이 있다. 이 사람을 주사위를 n번 던져서 합계를 구했을 때 짝수이면 버스를 타고, 홀수이면 지하철을 타도록 한다. 사용자로부터 n을 입력받고, 이 사람이 타고 가야 하는 교통 수단을 화면에 출력해주는 프로그램을 작성한다.
 ```java
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("주사위를 던질 횟수를 입력해주세요: ");
+        int n = sc.nextInt();
+        
+        int[] dice = new int[n];
+        int sum = 0;
+        for(int i = 0; i < n; i++){
+            dice[i] = (int)(Math.random() * 6) + 1;
+            sum += dice[i];
+        }
+        
+        if(sum % 2 == 0){
+            System.out.println("버스");
+        }
+        else{
+            System.out.println("지하철");
+        }
+    }
+}
 
 ```
 
@@ -1902,9 +2278,68 @@ classDiagram
     Scores: +Scores(SubjectType t)
     Scores: +void addScore(int score)
     Scores: +double getAverage()
-    Scores: +SubjectType getTupe()
+    Scores: +SubjectType getType()
 ```
 ```java
+enum SubjectType{
+    ENGLISH,
+    MATH
+}
+class Scores{
+    private SubjectType type;
+    private int[] scores;
+    private int count;
+
+    public Scores(SubjectType t){
+        type = t;
+        scores = new int[4];
+        count = 0;
+    }
+
+    public void addScore(int score){
+        if(count < scores.length){
+            scores[count++] = score;
+        }
+        else{
+            System.out.println("점수를 더이상 추가할 수 없습니다.");
+        }
+    }
+
+    public double getAverage(){
+        if(count == 0){
+            return 0.0;
+        }
+
+        int sum = 0;
+        for(int i = 0; i < count; i++){
+            sum += scores[i];
+        }
+        return (double) sum / count;
+    }
+
+    public SubjectType getType(){
+        return type;
+    }
+}
+
+public class Prac17 {
+    public static void main(String[] args) {
+        Scores englishScores = new Scores(SubjectType.ENGLISH);
+        Scores mathScores = new Scores(SubjectType.MATH);
+
+        englishScores.addScore(80);
+        englishScores.addScore(75);
+
+        mathScores.addScore(90);
+        mathScores.addScore(85);
+        mathScores.addScore(88);
+        mathScores.addScore(92);
+
+        System.out.println("영어 평균: " + englishScores.getAverage());
+        System.out.println("수학 평균: " + mathScores.getAverage());
+
+    }
+}
 
 ```
 
@@ -1921,6 +2356,66 @@ classDiagram
 |이매트 KE|EMAT_KE|15|0|
 
 ```java
+import java.util.Scanner;
+
+enum CardType{
+    CKONE_SAMMI(30, 1),
+    CKONE_SINNAM(30, 1),
+    THE_CK(20, 2),
+    SAMMI_6_V4(20, 0),
+    SHINNAM_LADY(20, 0),
+    KE_STAR(20, 0),
+    EMAT_KE(15, 0);
+
+    private int discountRate;
+    private int accumulationRate;
+
+    CardType(int discountRate, int accumulationRate){
+        this.discountRate = discountRate;
+        this.accumulationRate = accumulationRate;
+    }
+
+    public int getDiscountRate(){
+        return discountRate;
+    }
+    public int getAccumulationRate(){
+        return accumulationRate;
+    }
+}
+
+public class Prac18 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("카드 이름을 입력하세요: ");
+        String cardName = sc.nextLine();
+
+        CardType cardType = getCardType(cardName);
+
+        if(cardType != null){
+            printCard(cardType);
+        }
+        else{
+            System.out.println("해당하는 카드가 없습니다.");
+        }
+    }
+
+    //입력 받은 카드 이름에 해당하는 enum 값 반환
+    private static CardType getCardType(String cardName){
+        for(CardType cardType : CardType.values()){
+            if(cardType.name().equalsIgnoreCase(cardName.replace(" ", "_"))){
+                return cardType;
+            }
+        }
+        return null;
+    }
+
+    //카드 정보 출력
+    private static void printCard(CardType cardType){
+        System.out.println("할인율: " + cardType.getDiscountRate() + "%");
+        System.out.println("적립률: " + cardType.getAccumulationRate() + "%");
+    }
+}
 
 ```
 
