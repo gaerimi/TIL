@@ -1037,17 +1037,80 @@ public class Prac15 {
 
 1. "Kim 65.0Kg"를 출력하는 Person 클래스를 구현한다. 생성자를 이용해서 이름을 설정하고, 몸무게는 setWeight()함수로 입력한다.
 ```java
+class Person{
+    private String name;
+    private double weight;
 
+    public Person(String name){
+        this.name = name;
+    }
+    public void setWeight(double weight){
+        this.weight = weight;
+    }
+    public String toString(){
+        return name + " " + weight + "Kg";
+    }
+}
+
+public class Prac1 {
+    public static void main(String[] args) {
+        Person person = new Person("Kim");
+        person.setWeight(65.0);
+        System.out.println(person);
+    }
+}
 ```
 
 2. "Let's meet in my office at 10"이라는 문자열에서 사용자로부터 입력 받은 문자열을 새로운 문자열로 치환하는 프로그램을 작성한다. 예를 들어 사용자가 "10"을 "12"로 바꾸겠다고 입력하면, 새로운 문장은 "Let's meet in my office at 12"가 출력된다.
 ```java
+import java.util.Scanner;
+
+public class Prac2 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("원본 문자열을 입력하세요: ");
+        String original = sc.nextLine();
+
+        System.out.println("치환할 문자열을 입력하세요: ");
+        String target = sc.nextLine();
+
+        System.out.println("새로운 문자열을 입력하세요: ");
+        String replace = sc.nextLine();
+
+        String newStr = original.replace(target, replace);
+        System.out.println(newStr);
+    }
+}
 
 ```
 
-3. 여러 카드 중에서 한 장의 카드를 나타내는 클래스를 구현한다. 카드 클래스의 show() 멤버 함수를 호출하면 카드에 있는 모양과 변호를 화면에 출력하도록 한다.(하트 10, J, Q, K, A)
+3. 여러 카드 중에서 한 장의 카드를 나타내는 클래스를 구현한다. 카드 클래스의 show() 멤버 함수를 호출하면 카드에 있는 모양과 번호를 화면에 출력하도록 한다.(하트 10, J, Q, K, A)
 ```java
+import java.util.Random;
 
+class Card{
+    private String shape;
+    private String[] numbers = {"10", "J", "Q", "K", "A"};
+    private String number;
+
+    public Card(){
+        this.shape = "하트";
+        int index = (int)(Math.random() * 5);
+        this.number = numbers[index];
+    }
+
+    public void show(){
+        System.out.println("모양: " + shape + ", " + "번호: " + number);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Card card = new Card();
+        card.show();
+    }
+}
 ```
 
 4. 문자열 "Sangmyung University"를 반대로 뒤집어서 출력하는 프로그램을 구현한다.
@@ -1059,12 +1122,32 @@ class StringMirror{
 ```
 
 ```java
+class StringMirror{
+    public String mirror(String s){
+        StringBuilder reversed = new StringBuilder(s);
+        return reversed.reverse().toString();
+    }
+    public static void main(String[] args){
+        StringMirror stringMirror = new StringMirror();
+        System.out.println(stringMirror.mirror("Sangmyung University"));
+    }
 
+}
 ```
 
-5. 서울(Seoul), 인천(incheon), 성남(Seongnam)의 도시명을 문자열 배열에 저장하고, 도시 이름 앞과 뒤에 각각 "www"와 "go.kr"을 붙여서 www.seoul.go.kr 같은 형태로 만들어서 출력하는 프로그램을 구현한다.
+5. 서울(Seoul), 인천(Incheon), 성남(Seongnam)의 도시명을 문자열 배열에 저장하고, 도시 이름 앞과 뒤에 각각 "www."와 "go.kr"을 붙여서 www.seoul.go.kr 같은 형태로 만들어서 출력하는 프로그램을 구현한다.
 ```java
+public class Prac5 {
+    public static void main(String[] args) {
+        String[] cities = {"Seoul", "Incheon", "Seongnam"};
+        String front = "www.";
+        String end = ".go.kr";
 
+        System.out.println(front + cities[0] + end);
+        System.out.println(front + cities[1] + end);
+        System.out.println(front + cities[2] + end);
+    }
+}
 ```
 
 6. 우리가 사용하는 주사위를 클래스로 만들어 본다. 다음은 클래스 속성과 함수들을 보인다. 주사위는 굴리면 1 ~ 6 사이의 수가 나온다.
@@ -1077,7 +1160,25 @@ class StringMirror{
 |함수|주사위를 던져서 나온 결과를 확인할 수 있는 함수 getNumber()|
 
 ```java
+class Dice{
+    private int number;
 
+    public void roll(){
+        number = (int)(Math.random() * 6) + 1;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+}
+
+public class Prac6 {
+    public static void main(String[] args) {
+        Dice dice = new Dice();
+        dice.roll();
+        System.out.println(dice.getNumber());
+    }
+}
 ```
 
 7. String 배열 10개짜리를 만들고 사용자로부터 두 글자 이상의 문자열 3개를 입력 받아 배열에 저장하는 프로그램을 작성한다. 문자형은 정수형과 사칙 연산을 하면 자동으로 형 변환이 일어난다. 이를 이용해서 문자열을 배열에 저장할 때는 문자열의 처음 두 개 글자의 합을 배열의 크기로 나눈 나머지를 인덱스로 사용한다. 다음은 문자열 "hello"의 인덱스 번호를 구하는 코드 예시를 보인다. 같은 인덱스 번호를 갖는 문자열이 입력되는 경우 기존에 저장된 내용을 무시하고 새로운 문자열을 저장한다.
@@ -1088,17 +1189,92 @@ int index = sum % 10;//index = 5;
 ```
 
 ```java
+import java.util.Scanner;
+
+public class Prac7 {
+    public static void main(String[] args) {
+        String[] sarr = new String[10];
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("두 글자 이상의 문자열을 입력하세요: ");
+        String str = sc.nextLine();
+        int sum = 0;
+        sum += (str.charAt(0) + str.charAt(1));
+        int index = sum % 10;
+        sarr[index] = str;
+
+        System.out.println("두 글자 이상의 문자열을 입력하세요: ");
+        str = sc.nextLine();
+        sum = 0;
+        sum += (str.charAt(0) + str.charAt(1));
+        index = sum % 10;
+        sarr[index] = str;
+
+        System.out.println("두 글자 이상의 문자열을 입력하세요: ");
+        str = sc.nextLine();
+        sum = 0;
+        sum += (str.charAt(0) + str.charAt(1));
+        index = sum % 10;
+        sarr[index] = str;
+
+        System.out.println(sarr[0]);
+        System.out.println(sarr[1]);
+        System.out.println(sarr[2]);
+        System.out.println(sarr[3]);
+        System.out.println(sarr[4]);
+        System.out.println(sarr[5]);
+        System.out.println(sarr[6]);
+        System.out.println(sarr[7]);
+        System.out.println(sarr[8]);
+        System.out.println(sarr[9]);
+
+    }
+}
 
 ```
 
-8. 사용자로부터 문자열 한 개를 입력 받고, 단어의 개수를 센 뒤, 문자열의 길이, 단어의 개수를 화면에 출력하는 프로그램을 작성한다. 단어 구별은 공백 문자(' ','It', 'In')로 한다. 공백 문자는 두 개 이상 연속적으로 나타날 수 있다. 공백 문자는 두 개 이상 연속적으로 나타날 수 있다.
+8. 사용자로부터 문자열 한 개를 입력 받고, 단어의 개수를 센 뒤, 문자열의 길이, 단어의 개수를 화면에 출력하는 프로그램을 작성한다. 단어 구별은 공백 문자(' ','\t', '\n')로 한다. 공백 문자는 두 개 이상 연속적으로 나타날 수 있다.
 ```java
+import java.util.Scanner;
 
+public class Prac8 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("문자열 한 개를 입력해주세요: ");
+        String str = sc.nextLine();
+        str.trim().replaceAll("\\s+", " ");
+        String[] words;
+        words = str.split(" ");
+
+        System.out.println("문자열의 길이: "+ str.length() + ", 단어의 개수: " + words.length);
+    }
+}
 ```
 
 9. 파일 이름에서 확장자를 변경하는 프로그램을 작성하려 한다. 사용자로부터 파일 이름, 새로운 확장자를 입력 받아서 변경하는 프로그램을 작성한다. 예를 들어 사용자가 "italy_3280.jpg"를 파일 이름으로 새로운 확장자를 "png"로 입력했다면 새로운 파일은 "italy_3280.png"가 된다. 파일 이름에는 '.'가 여러 개 포함될 수 있고, 이때 확장자는 가장 마지막 '.' 다음 단어가 된다. 확장자가 없는 파일 이름에 대해서는 고려하지 않는다.
 ```java
+import java.util.Scanner;
 
+public class Prac9 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("파일 이름을 입력해주세요: ");
+        String fileName = sc.nextLine();
+        System.out.println("새로운 확장자를 입력해주세요: ");
+        String newfile = sc.nextLine();
+
+        fileName.trim();
+
+        int index = fileName.lastIndexOf('.');
+        String file = fileName.substring(0, index);
+        String newName = file + '.' + newfile;
+
+        System.out.println(newName);
+    }
+}
 ```
 
 ## Chapter 3
