@@ -6506,29 +6506,224 @@ class StringComparator implements Comparator {
 
 1. 사각형 좌표 (-100, -50), (-100, 100), (100, 50), (50, -50)을 클래스의 멤버 변수인 리스트(List)로 저장하고, 중심이 되는 좌표를 계산한 수에 출력하는 프로그램을 작성한다. setCoordinates() 함수는 사각형의 좌표를 8개 double 값으로 입력 받아 리스트로 저장한다. 리스트는 좌표를 나타내는 Point 클래스를 사용하거나 double 값을 요소로 지정하고 두 개 double 값을 한 개 좌표로 취급한다. getCenter() 함수는 사각형의 좌표에서 중심점을 계산해서 double[] 로 반환한다.
 ```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Point {
+    double x, y;
+
+    public Point(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+class Rectangle {
+    private List<Point> coordinates;
+
+    public void setCoordinates(double... values) {
+        if (values.length % 2 != 0) {
+            System.out.println("잘못된 좌표 개수입니다.");
+            return;
+        }
+
+        coordinates = new ArrayList<>();
+        for (int i = 0; i < values.length; i += 2) {
+            coordinates.add(new Point(values[i], values[i + 1]));
+        }
+    }
+
+    public double[] getCenter() {
+        if (coordinates == null || coordinates.size() != 4) {
+            System.out.println("올바른 좌표가 설정되지 않았습니다.");
+            return null;
+        }
+
+        double centerX = 0, centerY = 0;
+        for (Point point : coordinates) {
+            centerX += point.x;
+            centerY += point.y;
+        }
+
+        centerX /= coordinates.size();
+        centerY /= coordinates.size();
+
+        return new double[]{centerX, centerY};
+    }
+}
+
+public class Prac1 {
+    public static void main(String[] args) {
+        Rectangle rectangle = new Rectangle();
+        rectangle.setCoordinates(-100, -50, -100, 100, 100, 50, 50, -50);
+
+        double[] center = rectangle.getCenter();
+
+        if (center != null) {
+            System.out.println("중심 좌표: (" + center[0] + ", " + center[1] + ")");
+        }
+    }
+}
 
 ``` 
 
 2. 무작위로 1~100 사이의 정수를 10개 생성하고 클래스의 멤버 변수인 리스트(List)에 저장하는 setNumbers() 함수를 구현한다. 저장된 리스트의 요소 중에서 짝수를 골라서 평균을 계산하고 반환하는 함수인 getAverageOfEvenNumbers() 를 구현하고 다음 형태로 출력한다. VALUE는 평균값을 나타낸다. (리스트 요소 중에서 짝수의 평균값 = VALUE)
 ```java
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class Prac2 {
+
+    private List<Integer> numbers;
+
+    public RandomNumbers() {
+        this.numbers = new ArrayList<>();
+    }
+
+    // 1부터 100 사이의 정수를 무작위로 10개 생성하여 리스트에 저장
+    public void setNumbers() {
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            int randomNumber = random.nextInt(100) + 1;
+            numbers.add(randomNumber);
+        }
+    }
+
+    // 리스트의 짝수들의 평균을 계산하고 반환
+    public double getAverageOfEvenNumbers() {
+        int sum = 0;
+        int count = 0;
+
+        for (int number : numbers) {
+            if (number % 2 == 0) {
+                sum += number;
+                count++;
+            }
+        }
+
+        if (count == 0) {
+            System.out.println("리스트에 짝수가 없습니다.");
+            return 0.0;
+        }
+
+        double average = (double) sum / count;
+        return average;
+    }
+
+    public static void main(String[] args) {
+        RandomNumbers randomNumbers = new RandomNumbers();
+
+        // 무작위로 10개의 정수 생성 및 리스트에 저장
+        randomNumbers.setNumbers();
+
+        // 짝수의 평균을 계산하고 출력
+        double averageOfEvenNumbers = randomNumbers.getAverageOfEvenNumbers();
+        System.out.println("리스트 요소 중에서 짝수의 평균값 = " + averageOfEvenNumbers);
+    }
+}
 
 ``` 
 
 3. 다음에 보인 Tour 클래스를 완성한다. 접근 제어자를 지정하고, 컴파일 해서 실행할 수 있도록 완성한다. 도시 이름 Seoul, New York, Sydney, Tokyo, Beijing을 배열로 구성하고, 리스트로 변환한 후에 반복문으로 출력한다. 단 counter를 사용하지 않는 for문으로 출력한다.
 ```java
-class Problem03_Tour{
-    void printCities();
-    void main(String[] args);
+import java.util.ArrayList;
+import java.util.List;
+
+public class Problem03_Tour {
+
+    private String[] cities = {"Seoul", "New York", "Sydney", "Tokyo", "Beijing"};
+
+    // 접근 제어자를 지정하여 메서드를 완성
+    public void printCities() {
+        List<String> cityList = new ArrayList<>();
+        
+        // 배열을 리스트로 변환
+        for (String city : cities) {
+            cityList.add(city);
+        }
+
+        // 리스트를 반복문으로 출력
+        for (String city : cityList) {
+            System.out.println(city);
+        }
+    }
+
+    // main 메서드를 완성
+    public static void main(String[] args) {
+        // Problem03_Tour 객체 생성
+        Problem03_Tour tour = new Problem03_Tour();
+
+        // printCities 메서드 호출
+        tour.printCities();
+    }
 }
+
 ``` 
 
 4. ArrayList에 색상 이름들을 각각 문자열 형태로 추가하고, 색상 이름을 for 반복문과 for each 반복문을 이용해 화면에 출력하는 프로그램을 작성한다.(Pink, Red, Green, Blue, Orange, Yellow, Cyan, Gray, White, Black)
 ```java
+import java.util.ArrayList;
+
+public class Prac4 {
+    public static void main(String[] args) {
+        // ArrayList 생성 및 색상 이름 추가
+        ArrayList<String> colorList = new ArrayList<>();
+        colorList.add("Pink");
+        colorList.add("Red");
+        colorList.add("Green");
+        colorList.add("Blue");
+        colorList.add("Orange");
+        colorList.add("Yellow");
+        colorList.add("Cyan");
+        colorList.add("Gray");
+        colorList.add("White");
+        colorList.add("Black");
+
+        // for 반복문을 사용한 출력
+        for (int i = 0; i < colorList.size(); i++) {
+            System.out.println(colorList.get(i));
+        }
+
+        // for each 반복문을 사용한 출력
+        for (String color : colorList) {
+            System.out.println(color);
+        }
+    }
+}
 
 ``` 
 
 5. 앞 문제에서 만든 리스트의 내용을 오름차순으로 정렬한 후에 화면에 출력하는 프로그램을 작성한다.
 ```java
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Prac5 {
+    public static void main(String[] args) {
+        // ArrayList 생성 및 색상 이름 추가
+        ArrayList<String> colorList = new ArrayList<>();
+        colorList.add("Pink");
+        colorList.add("Red");
+        colorList.add("Green");
+        colorList.add("Blue");
+        colorList.add("Orange");
+        colorList.add("Yellow");
+        colorList.add("Cyan");
+        colorList.add("Gray");
+        colorList.add("White");
+        colorList.add("Black");
+
+        // 리스트 오름차순 정렬
+        Collections.sort(colorList);
+
+        // 정렬된 리스트를 화면에 출력
+        System.out.println("Sorted Color List:");
+        for (String color : colorList) {
+            System.out.println(color);
+        }
+    }
+}
 
 ``` 
 
@@ -6543,11 +6738,102 @@ class Problem03_Tour{
 |Orange|#FFA500|Black|#000000|
 
 ```java
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Color {
+    private String colorName;
+    private String colorCode;
+
+    public Color(String colorName, String colorCode) {
+        this.colorName = colorName;
+        this.colorCode = colorCode;
+    }
+
+    public String getColorName() {
+        return colorName;
+    }
+
+    public String getColorCode() {
+        return colorCode;
+    }
+}
+
+public class Prac6 {
+    public static void main(String[] args) {
+        // Color 객체를 담을 ArrayList 생성
+        ArrayList<Color> colorList = new ArrayList<>();
+        colorList.add(new Color("Pink", "#FFC0CB"));
+        colorList.add(new Color("Yellow", "#FFFF00"));
+        colorList.add(new Color("Red", "#FF0000"));
+        colorList.add(new Color("Cyan", "#00FFFF"));
+        colorList.add(new Color("Green", "#00FF00"));
+        colorList.add(new Color("Gray", "#808080"));
+        colorList.add(new Color("Blue", "#0000FF"));
+        colorList.add(new Color("White", "#FFFFFF"));
+        colorList.add(new Color("Orange", "#FFA500"));
+        colorList.add(new Color("Black", "#000000"));
+
+        // 사용자로부터 색상 이름 입력 받기
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("색상 이름을 입력하세요: ");
+        String inputColorName = scanner.nextLine();
+
+        // 입력받은 색상 이름에 해당하는 색상 코드 찾아서 출력
+        boolean found = false;
+        for (Color color : colorList) {
+            if (color.getColorName().equalsIgnoreCase(inputColorName)) {
+                System.out.println("색상 이름: " + color.getColorName());
+                System.out.println("색상 코드: " + color.getColorCode());
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("해당하는 색상 이름을 찾을 수 없습니다.");
+        }
+    }
+}
 
 ``` 
 
 7. 6번 문제에 있는 표의 내용을 Map 자료 구조를 이용해서 저장하고(Color 클래스는 사용하지 않음), 사용자가 색상 이름을 입력하면 해당 색상 코드를 화면에 출력하는 프로그램을 작성한다.
 ```java
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Prac7 {
+    public static void main(String[] args) {
+        // Map을 사용하여 색상 정보 저장
+        Map<String, String> colorMap = new HashMap<>();
+        colorMap.put("Pink", "#FFC0CB");
+        colorMap.put("Yellow", "#FFFF00");
+        colorMap.put("Red", "#FF0000");
+        colorMap.put("Cyan", "#00FFFF");
+        colorMap.put("Green", "#00FF00");
+        colorMap.put("Gray", "#808080");
+        colorMap.put("Blue", "#0000FF");
+        colorMap.put("White", "#FFFFFF");
+        colorMap.put("Orange", "#FFA500");
+        colorMap.put("Black", "#000000");
+
+        // 사용자로부터 색상 이름 입력 받기
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("색상 이름을 입력하세요: ");
+        String inputColorName = scanner.nextLine();
+
+        // 입력받은 색상 이름에 해당하는 색상 코드 찾아서 출력
+        String colorCode = colorMap.get(inputColorName);
+        if (colorCode != null) {
+            System.out.println("색상 이름: " + inputColorName);
+            System.out.println("색상 코드: " + colorCode);
+        } else {
+            System.out.println("해당하는 색상 이름을 찾을 수 없습니다.");
+        }
+    }
+}
 
 ``` 
 
@@ -6573,11 +6859,69 @@ class Problem03_Tour{
 |84|Vietnam|33|France|
 
 ```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class Prac10 {
+    public static void main(String[] args) {
+        // 국제 전화 코드와 국가 이름을 매핑하는 Map 생성
+        Map<Integer, String> internationalCodes = new HashMap<>();
+        internationalCodes.put(82, "South Korea");
+        internationalCodes.put(86, "China");
+        internationalCodes.put(81, "Japan");
+        internationalCodes.put(886, "Taiwan");
+        internationalCodes.put(1, "United States of America");
+        internationalCodes.put(49, "Germany");
+        internationalCodes.put(44, "United Kingdom");
+        internationalCodes.put(65, "Singapore");
+        internationalCodes.put(84, "Vietnam");
+        internationalCodes.put(33, "France");
+
+        // 코드 첫 자리가 8인 국가를 출력
+        System.out.println("코드 첫 자리가 8인 국가:");
+        for (Map.Entry<Integer, String> entry : internationalCodes.entrySet()) {
+            int code = entry.getKey();
+            if (String.valueOf(code).startsWith("8")) {
+                System.out.println("국제 전화 코드: " + code + ", 국가 이름: " + entry.getValue());
+            }
+        }
+    }
+}
 
 ``` 
 
 11. 사용자로부터 문자, 특수 기호, 공백 문자, 숫자 등으로 구성된 문자열을 한 개 입력 받고, 여기서 숫자, 문자 그리고 기타 문자(특수 기호와 공백 문자)를 세서 각각 "DIGITS=개수, LETTERS=개수, OTHERS=개수" 형태로 출력하는 프로그램을 작성한다.
 ```java
+import java.util.Scanner;
+
+public class Prac11 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // 사용자로부터 문자열 입력 받기
+        System.out.print("문자열을 입력하세요: ");
+        String inputString = scanner.nextLine();
+
+        // 문자, 숫자, 기타 문자(특수 기호와 공백 문자) 개수 계산
+        int digitCount = 0;
+        int letterCount = 0;
+        int otherCount = 0;
+
+        for (char c : inputString.toCharArray()) {
+            if (Character.isDigit(c)) {
+                digitCount++;
+            } else if (Character.isLetter(c)) {
+                letterCount++;
+            } else {
+                otherCount++;
+            }
+        }
+
+        // 결과 출력
+        System.out.println("DIGITS=" + digitCount + ", LETTERS=" + letterCount + ", OTHERS=" + otherCount);
+
+    }
+}
 
 ``` 
 
@@ -6593,6 +6937,18 @@ class Problem03_Tour{
 
 14. 입력으로 주어진 문자열에서 공백 문자 또는 특수 기호('.', ',', '"', ''', ';', '?', '!' 등)를 이용해서 단어를 분리해서 문자열의 모든 단어를 ArrayList의 요소로 담아 변환하는 함수인 tokenize()를 정적 메소드로 포함하는 클래스인 StringTokenizer를 구현한다. 그리고 이 클래스를 이용해서 Lorem Ipsum 사이트에서 무작위로 생성한 텍스트의 모든 단어(공백 또는 특수 문자는 무시)들을 분리해서 화면에 출력하는 프로그램을 작성한다.
 ```java
+import java.util.ArrayList;
+
+public class StringTokenizer {
+    public static ArrayList<String> tokenize(String input) {
+        ArrayList<String> words = new ArrayList<String>();
+        String[] tokens = input.split("[\\s\\p{Punct}]+");
+        for (String token : tokens) {
+            words.add(token);
+        }
+        return words;
+    }
+}
 
 ``` 
 
