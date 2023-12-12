@@ -4290,16 +4290,311 @@ public class Prac17 {
 
 1. 온라인 쇼핑몰에서 주문하는 클래스를 구현한다. 고객(Customer)은 고유 ID, 이름, 전화번호, 주소, 마일리지를 포함한다. 주문(Order) 클래스는 주문 ID, 상품명, 개수, 금액, 시간, 상태, 배송지를 포함한다. 고객과 주문 사이에는 연관, 의존(집합, 구성) 가운데 적절한 관계를 만들고, 주문 관련 정보들을 배열을 이용해서 저장한다(최대 10개까지 주문 가능). 구현된 클래스를 이용해서 고객 정보를 입력하고, 주문하고, 주문 내역을 출력하는 프로그램을 작성한다. 필요하다면 원하는 멤버 변수와 함수들을 추가해서 구현한다.
 ```java
+import java.util.Arrays;
+
+class Customer {
+    private int customerId;
+    private String name;
+    private String phoneNumber;
+    private String address;
+    private int mileage;
+
+    public Customer(int customerId, String name, String phoneNumber, String address, int mileage) {
+        this.customerId = customerId;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.mileage = mileage;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public int getMileage() {
+        return mileage;
+    }
+
+    public void setMileage(int mileage) {
+        this.mileage = mileage;
+    }
+}
+
+class Order {
+    private static final int MAX_ORDERS = 10;
+
+    private int orderId;
+    private String productName;
+    private int quantity;
+    private double amount;
+    private String time;
+    private String status;
+    private String shippingAddress;
+
+    public Order(int orderId, String productName, int quantity, double amount, String time, String status, String shippingAddress) {
+        this.orderId = orderId;
+        this.productName = productName;
+        this.quantity = quantity;
+        this.amount = amount;
+        this.time = time;
+        this.status = status;
+        this.shippingAddress = shippingAddress;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getShippingAddress() {
+        return shippingAddress;
+    }
+}
+
+class Prac1 {
+    public static void main(String[] args) {
+        Customer customer = new Customer(1, "John Doe", "123-456-7890", "123 Main St", 100);
+
+        Order order1 = new Order(101, "Product A", 2, 50.0, "2023-01-01 10:00", "Shipped", "456 Side St");
+        Order order2 = new Order(102, "Product B", 1, 30.0, "2023-02-02 15:30", "Processing", "789 Back St");
+
+        customer.setMileage(customer.getMileage() + (int) (order1.getAmount() + order2.getAmount()));
+        Order[] orders = { order1, order2 };
+
+        System.out.println("Customer Information:");
+        System.out.println("ID: " + customer.getCustomerId());
+        System.out.println("Name: " + customer.getName());
+        System.out.println("Phone Number: " + customer.getPhoneNumber());
+        System.out.println("Address: " + customer.getAddress());
+        System.out.println("Mileage: " + customer.getMileage());
+
+        System.out.println("\nOrder Information:");
+        for (Order order : orders) {
+            System.out.println("Order ID: " + order.getOrderId());
+            System.out.println("Product Name: " + order.getProductName());
+            System.out.println("Quantity: " + order.getQuantity());
+            System.out.println("Amount: " + order.getAmount());
+            System.out.println("Time: " + order.getTime());
+            System.out.println("Status: " + order.getStatus());
+            System.out.println("Shipping Address: " + order.getShippingAddress());
+            System.out.println();
+        }
+    }
+}
 
 ```
 
 2. 중고 자동차 판매사(Dealer)와 자동차(Car) 클래스를 어떤 연관 관계를 이용해서 구현할지 생각해 본다. 주문 관련 정보들을 배열을 사용해서 저장한다(최대 데이터 개수는 10개 이하로 가정한다). 판매사 클래스에는 판매할 수 있는 자동차의 목록이 있고, 자동차 클래스에는 ID, 제조사, 모델 이름, 제조년, 가격, 마일리지 등이 포함된다. 필요하다면 원하는 멤버 변수와 함수들을 추가해서 구현한다. 구현된 클래스들을 이용하는 프로그램을 작성한다.(판매 가능한 자동차를 등록하고 제외하는 기능, 자동차를 ID 또는 가격대로 검색하는 기능)
 ```java
+import java.util.ArrayList;
+
+class Car {
+    private int id;
+    private String manufacturer;
+    private String modelName;
+    private int manufacturingYear;
+    private double price;
+    private double mileage;
+
+    public Car(int id, String manufacturer, String modelName, int manufacturingYear, double price, double mileage) {
+        this.id = id;
+        this.manufacturer = manufacturer;
+        this.modelName = modelName;
+        this.manufacturingYear = manufacturingYear;
+        this.price = price;
+        this.mileage = mileage;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public String getModelName() {
+        return modelName;
+    }
+
+    public int getManufacturingYear() {
+        return manufacturingYear;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public double getMileage() {
+        return mileage;
+    }
+}
+
+class Dealer {
+    private ArrayList<Car> availableCars;
+
+    public Dealer() {
+        this.availableCars = new ArrayList<>();
+    }
+
+    public void addCar(Car car) {
+        if (availableCars.size() < 10) {
+            availableCars.add(car);
+            System.out.println("Car added to the inventory.");
+        } else {
+            System.out.println("Inventory is full. Cannot add more cars.");
+        }
+    }
+
+    public void removeCar(int carId) {
+        for (Car car : availableCars) {
+            if (car.getId() == carId) {
+                availableCars.remove(car);
+                System.out.println("Car removed from the inventory.");
+                return;
+            }
+        }
+        System.out.println("Car with ID " + carId + " not found in the inventory.");
+    }
+
+    public ArrayList<Car> searchCarById(int carId) {
+        ArrayList<Car> result = new ArrayList<>();
+        for (Car car : availableCars) {
+            if (car.getId() == carId) {
+                result.add(car);
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<Car> searchCarByPriceRange(double minPrice, double maxPrice) {
+        ArrayList<Car> result = new ArrayList<>();
+        for (Car car : availableCars) {
+            if (car.getPrice() >= minPrice && car.getPrice() <= maxPrice) {
+                result.add(car);
+            }
+        }
+        return result;
+    }
+}
+
+public class Prac2 {
+    public static void main(String[] args) {
+        Dealer myDealer = new Dealer();
+
+        myDealer.addCar(new Car(1, "Toyota", "Camry", 2020, 25000.0, 30000.0));
+        myDealer.addCar(new Car(2, "Honda", "Accord", 2019, 22000.0, 35000.0));
+        myDealer.addCar(new Car(3, "Ford", "Fusion", 2018, 20000.0, 40000.0));
+
+        int searchCarId = 2;
+        ArrayList<Car> resultById = myDealer.searchCarById(searchCarId);
+        if (!resultById.isEmpty()) {
+            System.out.println("Car with ID " + searchCarId + " found: " + resultById.get(0).getModelName());
+        } else {
+            System.out.println("Car with ID " + searchCarId + " not found.");
+        }
+
+        double minPrice = 22000.0;
+        double maxPrice = 25000.0;
+        ArrayList<Car> resultByPriceRange = myDealer.searchCarByPriceRange(minPrice, maxPrice);
+        if (!resultByPriceRange.isEmpty()) {
+            System.out.println("Cars in the price range " + minPrice + " - " + maxPrice + ":");
+            for (Car car : resultByPriceRange) {
+                System.out.println(car.getModelName());
+            }
+        } else {
+            System.out.println("No cars found in the specified price range.");
+        }
+    }
+}
 
 ```
 
 3. WordProcessor 클래스는 철자를 확인해주는 모듈과 문서를 다른 파일 포맷으로 저장해주는 클래스를 포함한다. SpellChecker 클래스는 check() 함수를 제공해서 워드프로세서에서 철자를 확인할 수 있도록 한다. DocConverter 클래스는 주어진 확장자를 가진 파일로 변환하는 코드를 포함한다. 세 개 클래스를 구현하고, WordProcessor의 기능을 이용해서 철자를 확인하는 것과 다른 파일 형식으로 저장하는 것을 실행해보는 Main 클래스를 구현한다.
 ```java
+// SpellChecker 클래스: 철자를 확인하는 모듈
+class SpellChecker {
+    public void check(String document) {
+        // 철자 확인 로직을 구현
+        System.out.println("Spell checking: " + document);
+    }
+}
+
+// DocConverter 클래스: 파일을 다른 포맷으로 변환하는 모듈
+class DocConverter {
+    public void convert(String document, String targetFormat) {
+        // 문서 변환 로직을 구현
+        System.out.println("Converting document to " + targetFormat + " format: " + document);
+    }
+}
+
+// WordProcessor 클래스: SpellChecker와 DocConverter를 포함하는 워드프로세서 클래스
+class WordProcessor {
+    private SpellChecker spellChecker;
+    private DocConverter docConverter;
+
+    public WordProcessor(SpellChecker spellChecker, DocConverter docConverter) {
+        this.spellChecker = spellChecker;
+        this.docConverter = docConverter;
+    }
+
+    public void processDocument(String document) {
+        // 철자 확인
+        spellChecker.check(document);
+
+        // 문서 저장 (기본적으로 현재 확장자를 유지하며 저장)
+        docConverter.convert(document, "same_format");
+    }
+}
+
+public class Prac3 {
+    public static void main(String[] args) {
+        // SpellChecker 및 DocConverter 인스턴스 생성
+        SpellChecker spellChecker = new SpellChecker();
+        DocConverter docConverter = new DocConverter();
+
+        // WordProcessor 인스턴스 생성 및 초기화
+        WordProcessor wordProcessor = new WordProcessor(spellChecker, docConverter);
+
+        // 예시 문서
+        String document = "This is a sample document.";
+
+        // WordProcessor를 사용하여 문서 처리
+        wordProcessor.processDocument(document);
+    }
+}
 
 ```
 
@@ -4324,11 +4619,202 @@ public class Prac17 {
 |이매트 KE|EMT_KE|15|0|
 
 ```java
+import java.util.Scanner;
+
+enum Restaurant {
+    VANS, OUTLAND
+}
+
+enum CardType {
+    CK_SAMMI(30, 1),
+    CK_SINNAM(30, 1),
+    SMI_6_V4(20, 0),
+    EMT_KE(20, 0),
+    SHM_LADY(25, 2),
+    KE_STAR(20, 1),
+    EMT_KE_OUTLAND(15, 0); // Enum for the same card in Outland
+
+    private final int discountRate;
+    private final int accumulationRate;
+
+    CardType(int discountRate, int accumulationRate) {
+        this.discountRate = discountRate;
+        this.accumulationRate = accumulationRate;
+    }
+
+    public int getDiscountRate() {
+        return discountRate;
+    }
+
+    public int getAccumulationRate() {
+        return accumulationRate;
+    }
+}
+
+public class Prac4 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("레스토랑을 선택하세요 (VANS 또는 OUTLAND): ");
+        String restaurantInput = scanner.nextLine().toUpperCase();
+
+        try {
+            Restaurant selectedRestaurant = Restaurant.valueOf(restaurantInput);
+
+            System.out.print("카드 이름을 입력하세요: ");
+            String cardInput = scanner.nextLine().toUpperCase();
+
+            CardType cardType = null;
+
+            switch (selectedRestaurant) {
+                case VANS:
+                    cardType = CardType.valueOf(cardInput);
+                    break;
+                case OUTLAND:
+                    // Check if the card is available in both VANS and OUTLAND
+                    cardType = CardType.valueOf(cardInput + "_OUTLAND");
+                    break;
+            }
+
+            if (cardType != null) {
+                System.out.println("할인율: " + cardType.getDiscountRate() + "%");
+                System.out.println("적립률: " + cardType.getAccumulationRate());
+            } else {
+                System.out.println("잘못된 레스토랑 또는 카드 이름입니다.");
+            }
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("잘못된 레스토랑을 선택하셨습니다.");
+        } finally {
+            scanner.close();
+        }
+    }
+}
 
 ```
 
 5. 주소(Address)와 주소록(AddressBook) 클래스를 구현한다. 주소록에는 주소를 최대 20개까지 저장할 수 있고, 주소록 전체 내용을 출력하거나 이름 및 전화번호 등으로 검색된 주소를 출력하는 프로그램을 작성한다.
 ```java
+import java.util.Scanner;
+
+class Address {
+    private String name;
+    private String phoneNumber;
+    private String address;
+
+    public Address(String name, String phoneNumber, String address) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + "\nPhone Number: " + phoneNumber + "\nAddress: " + address + "\n";
+    }
+}
+
+class AddressBook {
+    private static final int MAX_ADDRESSES = 20;
+    private Address[] addressList;
+    private int size;
+
+    public AddressBook() {
+        this.addressList = new Address[MAX_ADDRESSES];
+        this.size = 0;
+    }
+
+    public void addAddress(Address address) {
+        if (size < MAX_ADDRESSES) {
+            addressList[size++] = address;
+            System.out.println("Address added successfully.");
+        } else {
+            System.out.println("Address book is full. Cannot add more addresses.");
+        }
+    }
+
+    public void displayAllAddresses() {
+        if (size == 0) {
+            System.out.println("Address book is empty.");
+        } else {
+            for (int i = 0; i < size; i++) {
+                System.out.println(addressList[i]);
+            }
+        }
+    }
+
+    public void searchAddress(String keyword) {
+        boolean found = false;
+        for (int i = 0; i < size; i++) {
+            if (addressList[i].getName().contains(keyword) ||
+                addressList[i].getPhoneNumber().contains(keyword) ||
+                addressList[i].getAddress().contains(keyword)) {
+                System.out.println(addressList[i]);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No matching addresses found.");
+        }
+    }
+}
+
+public class AddressBookProgram {
+    public static void main(String[] args) {
+        AddressBook addressBook = new AddressBook();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("1. Add Address");
+            System.out.println("2. Display All Addresses");
+            System.out.println("3. Search Address");
+            System.out.println("4. Exit");
+            System.out.print("Select an option: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // consume the newline character
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter Phone Number: ");
+                    String phoneNumber = scanner.nextLine();
+                    System.out.print("Enter Address: ");
+                    String addressString = scanner.nextLine();
+
+                    Address newAddress = new Address(name, phoneNumber, addressString);
+                    addressBook.addAddress(newAddress);
+                    break;
+                case 2:
+                    addressBook.displayAllAddresses();
+                    break;
+                case 3:
+                    System.out.print("Enter a keyword to search: ");
+                    String keyword = scanner.nextLine();
+                    addressBook.searchAddress(keyword);
+                    break;
+                case 4:
+                    System.out.println("Exiting the program.");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option.");
+            }
+        }
+    }
+}
 
 ```
 
