@@ -2680,59 +2680,513 @@ public class Prac18 {
 
 1. 자바의 랜덤 함수를 이용해서 5~10 사이의 임의의 정수를 100개 생성하고 배열에 저장한다. countNum() 함수는 정수형 배열과 정수 한 개를 입력으로 전달 받는 함수이다. 이 함수는 첫 번째 인자로 전달 받은 배열에서 두 번째 인자로 전달 받은 정수를 검색하고 배열에 나타난 횟수를 반환하는 함수이다. main() 함수에서는 무작위로 생성된 100개짜리 배열에서 7이 몇개인지 화면에 출력하는 프로그램을 작성한다.
 ```java
+public class Prac1 {
+    public static void main(String[] args){
+        int[] array = new int[100];
 
+        for(int i = 0; i < 100; i++){
+            array[i] = (int)(Math.random() * 6) + 5;
+        }
+        System.out.println(countNum(array, 7));
+    }
+
+    private static int countNum(int[] arr, int n){
+        int cnt = 0;
+        for(int num : arr){
+            if(num == n){
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+}
 ```
 
 2. 문자열과 문자 한 개를 입력 받아서 해당 문자를 찾아 개수를 세고, 그 값을 반환하는 함수를 구현한다. 본인이 이름을 적절하게 붙이고, Lorem Ipsum을 생성해주는 사이트에서 문자열을 생성한 후에 'n'이라는 글자가 몇 개인지 화면에 출력하는 프로그램을 작성한다.
 ```java
+public class Prac2 {
+    public static void main(String[] args){
+        String s = "Aenean fringilla tincidunt sapien, a luctus ligula tempor.";
 
+        System.out.println(countChar(s, 'n'));
+    }
+
+    private static int countChar(String str, char ch){
+        int cnt = 0;
+
+        for(int i = 0; i < str.length(); i++){
+            if(str.charAt(i) == ch){
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+}
 ```
 
 3. 함수에 입력으로 전달되는 문자열을 거꾸로 뒤집어서 반환하는 함수를 구현하고, 이를 확인하는 프로그램을 작성한다.
 ```java
+public class Prac {
+    public static void main(String[] args){
+        //Scanner sc = new Scanner(System.in);
 
+        String s = "sangmyung university";
+        System.out.println(mirrorStr(s));
+    }
+
+    private static String mirrorStr(String str){
+        char[] charArr = str.toCharArray();
+        int start = 0;
+        int end = str.length() - 1;
+
+        while(start < end){
+            char temp = charArr[start];
+            charArr[start] = charArr[end];
+            charArr[end] = temp;
+
+            start++;
+            end--;
+        }
+        return new String(charArr);
+    }
+}
 ```
 
 4. 함수를 이용해서 생일을 월과 일로 입력 받고 별자리를 문자열 형태로 반환하는 함수를 구현한다. 별자리는 enum 형태로 구현하고 함수에서는 enum 자료형을 반환한다. enum 자료형은 별자리 이름을 나타내는 문자열과 연결시켜 화면에 출력할 때는 문자열이 출력되도록 한다.
 ```java
+import java.util.Scanner;
+
+// 별자리를 나타내는 enum
+enum ZodiacSign {
+    ARIES("Aries"),
+    TAURUS("Taurus"),
+    GEMINI("Gemini"),
+    CANCER("Cancer"),
+    LEO("Leo"),
+    VIRGO("Virgo"),
+    LIBRA("Libra"),
+    SCORPIO("Scorpio"),
+    SAGITTARIUS("Sagittarius"),
+    CAPRICORN("Capricorn"),
+    AQUARIUS("Aquarius"),
+    PISCES("Pisces");
+
+    private final String signName;
+
+    ZodiacSign(String signName) {
+        this.signName = signName;
+    }
+
+    public String getSignName() {
+        return signName;
+    }
+}
+
+public class Prac4 {
+
+    // 생일을 입력받아 별자리를 반환하는 함수
+    public static ZodiacSign findZodiacSign(int month, int day) {
+        switch (month) {
+            case 1:
+                return (day <= 20) ? ZodiacSign.CAPRICORN : ZodiacSign.AQUARIUS;
+            case 2:
+                return (day <= 19) ? ZodiacSign.AQUARIUS : ZodiacSign.PISCES;
+            case 3:
+                return (day <= 20) ? ZodiacSign.PISCES : ZodiacSign.ARIES;
+            case 4:
+                return (day <= 20) ? ZodiacSign.ARIES : ZodiacSign.TAURUS;
+            case 5:
+                return (day <= 21) ? ZodiacSign.TAURUS : ZodiacSign.GEMINI;
+            case 6:
+                return (day <= 21) ? ZodiacSign.GEMINI : ZodiacSign.CANCER;
+            case 7:
+                return (day <= 22) ? ZodiacSign.CANCER : ZodiacSign.LEO;
+            case 8:
+                return (day <= 23) ? ZodiacSign.LEO : ZodiacSign.VIRGO;
+            case 9:
+                return (day <= 23) ? ZodiacSign.VIRGO : ZodiacSign.LIBRA;
+            case 10:
+                return (day <= 23) ? ZodiacSign.LIBRA : ZodiacSign.SCORPIO;
+            case 11:
+                return (day <= 22) ? ZodiacSign.SCORPIO : ZodiacSign.SAGITTARIUS;
+            case 12:
+                return (day <= 22) ? ZodiacSign.SAGITTARIUS : ZodiacSign.CAPRICORN;
+            default:
+                throw new IllegalArgumentException("Invalid month");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("생일 월을 입력하세요: ");
+        int month = scanner.nextInt();
+
+        System.out.print("생일 일을 입력하세요: ");
+        int day = scanner.nextInt();
+
+        // 별자리 찾기
+        ZodiacSign zodiacSign = findZodiacSign(month, day);
+
+        // 출력
+        System.out.println("당신의 별자리는 " + zodiacSign.getSignName() + "입니다.");
+    }
+}
 
 ```
 
 5. 별자리 이름을 한글로 입력 받고 기간을 반환하는 함수를 구현한다. 기간을 반환할 수 있도록 두 개의 java.util.Date(시작 날짜, 마지막 날짜)를 속성으로 가지는 클래스와 적절한 메소드를 구현한다.
 ```java
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+
+public class Prac5 {
+    public enum ZodiacSign {
+        ARIES("양자리", "2023-03-21", "2023-04-19"),
+        TAURUS("황소자리", "2023-04-20", "2023-05-20"),
+        GEMINI("쌍둥이자리", "2023-05-21", "2023-06-20"),
+        CANCER("게자리", "2023-06-21", "2023-07-22"),
+        LEO("사자자리", "2023-07-23", "2023-08-22"),
+        VIRGO("처녀자리", "2023-08-23", "2023-09-22"),
+        LIBRA("천칭자리", "2023-09-23", "2023-10-22"),
+        SCORPIO("전갈자리", "2023-10-23", "2023-11-21"),
+        SAGITTARIUS("사수자리", "2023-11-22", "2023-12-21"),
+        CAPRICORN("염소자리", "2023-12-22", "2024-01-19"),
+        AQUARIUS("물병자리", "2024-01-20", "2024-02-18"),
+        PISCES("물고기자리", "2024-02-19", "2024-03-20");
+
+        private final String name;
+        private final Date startDate;
+        private final Date endDate;
+
+        ZodiacSign(String name, String startDate, String endDate) {
+            this.name = name;
+            this.startDate = parseDate(startDate);
+            this.endDate = parseDate(endDate);
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public Date getStartDate() {
+            return startDate;
+        }
+
+        public Date getEndDate() {
+            return endDate;
+        }
+
+        private Date parseDate(String dateString) {
+            try {
+                return new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+            } catch (ParseException e) {
+                throw new RuntimeException("Failed to parse date: " + dateString, e);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // 사용자로부터 별자리 이름 입력 받기
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("별자리 이름을 입력하세요: ");
+        String userInput = scanner.nextLine();
+
+        // 입력 받은 별자리에 대한 기간 출력
+        ZodiacSign zodiacSign = getZodiacSign(userInput);
+        if (zodiacSign != null) {
+            System.out.println(zodiacSign.getName() + "의 기간: " +
+                    new SimpleDateFormat("yyyy-MM-dd").format(zodiacSign.getStartDate()) + " ~ " +
+                    new SimpleDateFormat("yyyy-MM-dd").format(zodiacSign.getEndDate()));
+        } else {
+            System.out.println("해당하는 별자리가 없습니다.");
+        }
+    }
+
+    private static ZodiacSign getZodiacSign(String userInput) {
+        for (ZodiacSign sign : ZodiacSign.values()) {
+            if (sign.getName().equals(userInput)) {
+                return sign;
+            }
+        }
+        return null;
+    }
+}
 
 ```
 
 6. int, float, double형 값 2개와 '+', '-', '*', '/' 기호를 입력 받고 사칙 연산 결과를 반환하는 함수를 오버로딩을 이용해서 구현하고, 이를 활용하는 프로그램을 작성한다. 사용자로부터 int, float, double 중 어떤 값을 입력할지 물어보고, 적절한 입력 함수를 이용해서 값을 전달 받는다. 그런 후에 오버로딩된 함수를 호출해서 결과를 화면에 출력하는 프로그램을 작성한다.
 ```java
+import java.util.Scanner;
+
+public class Prac6 {
+
+    // 정수형 덧셈
+    public static int calculate(int a, int b, char operator) {
+        switch (operator) {
+            case '+':
+                return a + b;
+            case '-':
+                return a - b;
+            case '*':
+                return a * b;
+            case '/':
+                if (b != 0) {
+                    return a / b;
+                } else {
+                    System.out.println("Error: Division by zero");
+                    return 0;
+                }
+            default:
+                System.out.println("Error: Invalid operator");
+                return 0;
+        }
+    }
+
+    // 실수형(float) 덧셈
+    public static float calculate(float a, float b, char operator) {
+        switch (operator) {
+            case '+':
+                return a + b;
+            case '-':
+                return a - b;
+            case '*':
+                return a * b;
+            case '/':
+                if (b != 0) {
+                    return a / b;
+                } else {
+                    System.out.println("Error: Division by zero");
+                    return 0.0f;
+                }
+            default:
+                System.out.println("Error: Invalid operator");
+                return 0.0f;
+        }
+    }
+
+    // 실수형(double) 덧셈
+    public static double calculate(double a, double b, char operator) {
+        switch (operator) {
+            case '+':
+                return a + b;
+            case '-':
+                return a - b;
+            case '*':
+                return a * b;
+            case '/':
+                if (b != 0) {
+                    return a / b;
+                } else {
+                    System.out.println("Error: Division by zero");
+                    return 0.0;
+                }
+            default:
+                System.out.println("Error: Invalid operator");
+                return 0.0;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Choose data type: 1. int  2. float  3. double");
+        int dataTypeChoice = scanner.nextInt();
+
+        System.out.println("Enter two values:");
+        if (dataTypeChoice == 1) {
+            int a = scanner.nextInt();
+            int b = scanner.nextInt();
+            System.out.println("Enter operator (+, -, *, /):");
+            char operator = scanner.next().charAt(0);
+
+            int result = calculate(a, b, operator);
+            System.out.println("Result: " + result);
+        } else if (dataTypeChoice == 2) {
+            float a = scanner.nextFloat();
+            float b = scanner.nextFloat();
+            System.out.println("Enter operator (+, -, *, /):");
+            char operator = scanner.next().charAt(0);
+
+            float result = calculate(a, b, operator);
+            System.out.println("Result: " + result);
+        } else if (dataTypeChoice == 3) {
+            double a = scanner.nextDouble();
+            double b = scanner.nextDouble();
+            System.out.println("Enter operator (+, -, *, /):");
+            char operator = scanner.next().charAt(0);
+
+            double result = calculate(a, b, operator);
+            System.out.println("Result: " + result);
+        } else {
+            System.out.println("Invalid choice. Please choose 1, 2, or 3.");
+        }
+
+        scanner.close();
+    }
+}
 
 ```
 
-7. 정수 한 개를 입력 받고 1과 자시 자신을 제외한 약수의 개수를 반환하는 함수를 작성한다. 이 함수를 이용해서 2~99까지의 약수 개수를 출력하는 프로그램을 작성한다. 단 약수가 없는 소수인 경우에는 소수라고 출력한다.
+7. 정수 한 개를 입력 받고 1과 자기 자신을 제외한 약수의 개수를 반환하는 함수를 작성한다. 이 함수를 이용해서 2 ~ 99까지의 약수 개수를 출력하는 프로그램을 작성한다. 단 약수가 없는 소수인 경우에는 소수라고 출력한다.
 ```java
+public class Prac7 {
+
+    // 약수의 개수를 반환하는 함수
+    static int countDivisors(int n) {
+        int count = 0;
+        for (int i = 1; i <= n; ++i) {
+            if (n % i == 0) {
+                // i가 n의 약수인 경우
+                count++;
+            }
+        }
+        return count - 2; // 1과 n 자체를 뺀 약수의 개수
+    }
+
+    public static void main(String[] args) {
+        for (int i = 2; i <= 99; ++i) {
+            int divisorsCount = countDivisors(i);
+
+            if (divisorsCount == 0) {
+                System.out.println(i + "은(는) 소수입니다.");
+            } else {
+                System.out.println(i + "의 약수 개수: " + divisorsCount);
+            }
+        }
+    }
+}
 
 ```
 
 8. 문자열을 입력 받고 문자열의 해시 값을 반환하는 함수를 구현한다. 해시 값은 double 형으로 계산한다. 5개의 문자열을 생각해서 배열에 넣고, 여기서 구현한 함수를 이용해서 구한 해시 값을 화면에 출력하는 프로그램을 작성한다.
 ($s[0] \times 31^{(n-1)} + s[1] \times 31^{(n-2)} + ... + s[n-1] \times 31^0$)
 ```java
+import java.util.Scanner;
+
+public class Prac8 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // 5개의 문자열을 입력 받음
+        String[] strings = new String[5];
+        for (int i = 0; i < 5; i++) {
+            System.out.print("문자열을 입력하세요: ");
+            strings[i] = scanner.nextLine();
+        }
+
+        // 각 문자열의 해시 값을 계산하고 출력
+        for (int i = 0; i < 5; i++) {
+            double hashValue = calculateHash(strings[i]);
+            System.out.println("문자열: " + strings[i] + ", 해시 값: " + hashValue);
+        }
+    }
+
+    // 문자열의 해시 값을 계산하는 함수
+    private static double calculateHash(String s) {
+        int n = s.length();
+        double hashValue = 0;
+
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+            hashValue += c * Math.pow(31, (n - 1 - i));
+        }
+
+        return hashValue;
+    }
+}
 
 ```
 
 9. 클래스에 printSum(int from, int to) 함수를 구현하고 사용하는 코드를 작성하시오. 반복문은 while문으로 구현한다.
 ```java
-class SumNumbers{
-    void printSum(int from, int to);
-    public static void main(String[] args){
+class SumNumbers {
+    void printSum(int from, int to) {
+        int sum = 0;
+        int currentNumber = from;
+
+        while (currentNumber <= to) {
+            sum += currentNumber;
+            currentNumber++;
+        }
+
+        System.out.println("Sum from " + from + " to " + to + ": " + sum);
+    }
+
+    public static void main(String[] args) {
         SumNumbers s1 = new SumNumbers();
         s1.printSum(1, 100);
         s1.printSum(1, 101);
     }
 }
+
 ```
 
 10. 주민등록번호를 생성자를 통해 입력 받아 저장하는 클래스를 구현하고, 주민등록번호의 자릿수와 숫자를 검증하는 함수 boolean isValid()를 구현한다. 클래스에 전달되는 주민등록번호는"123456-7890123" 형태의 문자열로 구성된다. isValid() 메소드는 멤버 변수에 저장되어 있는 주민등록번호가 생년월일에 해당되는 여섯 자리 숫자와 '-' 기호, 그리고 일곱 자리 숫자로 구성되어있는지 확인한다. 이를 위해 먼저 문자열의 길이기 14인지 확인하고, 여섯 자리 생년월일에 해당되는 숫자들이 적절한지 확인한다. 또한 생년월일에서 우러에 해당되는 정보를 뽑아 영어로 출력하는 함수인 String getMonth() 메소드도 구현한다. 글자가 문자인지 또는 숫자인지 확인하는 것은 Character 클래스의 isLetter()나 isDigit 함수를 사용한다.
 ```java
+public class Prac10 {
+    private String registrationNumber;
+
+    // 생성자
+    public ResidentRegistrationNumber(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
+    }
+
+    // 유효성 검증 메소드
+    public boolean isValid() {
+        // 길이가 14인지 확인
+        if (registrationNumber.length() != 14) {
+            return false;
+        }
+
+        // 생년월일 부분이 숫자로 이루어져 있는지 확인
+        String birthDate = registrationNumber.substring(0, 6);
+        for (char ch : birthDate.toCharArray()) {
+            if (!Character.isDigit(ch)) {
+                return false;
+            }
+        }
+
+        // '-' 기호 확인
+        if (registrationNumber.charAt(6) != '-') {
+            return false;
+        }
+
+        // 뒷부분이 숫자로 이루어져 있는지 확인
+        String tail = registrationNumber.substring(7);
+        for (char ch : tail.toCharArray()) {
+            if (!Character.isDigit(ch)) {
+                return false;
+            }
+        }
+
+        // 모든 조건을 만족하면 유효한 주민등록번호로 판단
+        return true;
+    }
+
+    // 생년월일에서 월을 추출하는 메소드
+    public String getMonth() {
+        // 생년월일 부분을 추출
+        String birthDate = registrationNumber.substring(0, 6);
+
+        // 월 부분을 추출하여 반환
+        return birthDate.substring(2, 4);
+    }
+
+    public static void main(String[] args) {
+        // 테스트
+        ResidentRegistrationNumber rrn = new ResidentRegistrationNumber("123456-7890123");
+
+        if (rrn.isValid()) {
+            System.out.println("유효한 주민등록번호입니다.");
+            System.out.println("생년월일의 월: " + rrn.getMonth());
+        } else {
+            System.out.println("유효하지 않은 주민등록번호입니다.");
+        }
+    }
+}
 
 ```
 
@@ -2741,30 +3195,215 @@ $\sqrt{(\frac{\Sigma_{i = 0}^{n-1}(arr[i] - average)^2}{n})}$
 (arr: 배열의 이름, average: 배열에 있는 모든 요소의 평균, n: 배열 요소의 개수)
 사용자로부터 다섯 개 숫자를 입력 받고, 배열로 구성한 후, 함수에 전달애서 구한 표준 편차를 화면에 출력하는 프로그램을 작성한다.
 ```java
+import java.util.Scanner;
+
+public class Prac11 {
+
+    // 표준 편차를 계산하는 함수
+    public static double calculateStandardDeviation(double[] arr) {
+        int n = arr.length;
+        double sum = 0.0;
+        
+        // 배열의 합을 계산
+        for (double num : arr) {
+            sum += num;
+        }
+        
+        // 평균을 계산
+        double average = sum / n;
+        
+        // 각 요소와 평균 간의 제곱을 누적하여 계산
+        double sumOfSquares = 0.0;
+        for (double num : arr) {
+            sumOfSquares += Math.pow(num - average, 2);
+        }
+        
+        // 표준 편차 계산 및 반환
+        return Math.sqrt(sumOfSquares / n);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        double[] numbers = new double[5];
+
+        // 사용자로부터 다섯 개의 숫자를 입력받음
+        System.out.println("다섯 개의 숫자를 입력하세요:");
+
+        for (int i = 0; i < 5; i++) {
+            System.out.print("숫자 " + (i + 1) + ": ");
+            numbers[i] = scanner.nextDouble();
+        }
+
+        // 표준 편차 계산
+        double stdDeviation = calculateStandardDeviation(numbers);
+
+        // 결과 출력
+        System.out.println("입력한 숫자들의 표준 편차: " + stdDeviation);
+
+        // Scanner 닫기
+        scanner.close();
+    }
+}
 
 ```
 
 12. 사용자로부터 1000~9999 까지의 정수 한 개를 입력 받고, 천, 백, 십, 일 단위의 숫자들을 분리해서 출력하는 클래스와 프로그램을 작성한다. 이 클래스는 사용자가 입력한 정수를 저장할 수 있는 멤버 변수와 다음에 설명한 메소들을 포함하고 이들을 사용하는 코드를 작성한다.
 ```java
-/**
- * 사용자로부터 주어진 범위(low~high, high 포함)의 정수를 입력 받아서 변환. 범위 밖의 정수가 입력되면 제대로 입력할 때까지 반복해서 입력 받음.*/
+import java.util.Scanner;
 
-int readIntInRange(int low, int high);
+public class Prac12 {
+    private int userInput;
 
-/**
- * 멤버 변수로 있는 정수에서 주어진 단위(천, 백, 십, 일)의 숫자를 추출해서 반환.
- * 범위를 벗어나는 정수는 입력되지 않는다고 가정. placeNumber는 1000(천 단위 추출), 100, 10, 1을 입력 */
+    /**
+     * 사용자로부터 주어진 범위(low~high, high 포함)의 정수를 입력 받아서 변환.
+     * 범위 밖의 정수가 입력되면 제대로 입력할 때까지 반복해서 입력 받음.
+     */
+    public int readIntInRange(int low, int high) {
+        Scanner scanner = new Scanner(System.in);
+        int input;
 
-int getDigit(int placeNumber);
+        do {
+            System.out.println("정수를 입력하세요 (" + low + "~" + high + "): ");
+            while (!scanner.hasNextInt()) {
+                System.out.println("유효한 정수를 입력하세요.");
+                scanner.next(); // 잘못된 입력을 버림
+            }
+            input = scanner.nextInt();
+
+        } while (input < low || input > high);
+
+        this.userInput = input;
+        return input;
+    }
+
+    /**
+     * 멤버 변수로 있는 정수에서 주어진 단위(천, 백, 십, 일)의 숫자를 추출해서 반환.
+     * 범위를 벗어나는 정수는 입력되지 않는다고 가정. placeNumber는 1000(천 단위 추출), 100, 10, 1을 입력
+     */
+    public int getDigit(int placeNumber) {
+        int digit;
+
+        if (placeNumber == 0) {
+            digit = this.userInput % 10; // 일의 자리 숫자 추출
+        } else {
+            digit = (this.userInput / placeNumber) % 10; // 다른 자리 숫자 추출
+        }
+
+        return digit;
+    }
+
+    public static void main(String[] args) {
+        DigitExtractor digitExtractor = new DigitExtractor();
+
+        int input = digitExtractor.readIntInRange(1000, 9999);
+
+        System.out.println("천의 자리 숫자: " + digitExtractor.getDigit(1000));
+        System.out.println("백의 자리 숫자: " + digitExtractor.getDigit(100));
+        System.out.println("십의 자리 숫자: " + digitExtractor.getDigit(10));
+        System.out.println("일의 자리 숫자: " + digitExtractor.getDigit(1));
+    }
+}
+
 ```
 
 13. 인자로 정수 한 개를 입력 받아, 그 숫자만큼 사용자로부터 정수를 반복해서 입력 받고, 배열에 저장해서 반환하는 함수를 구현한다. 프로그램에서는 사용자로부터 입력할 정수의 개수를 먼저 입력 받고, 앞에서 만든 함수를 이용해서 배열을 구성한다. 그리고 배열에 있는 모든 요소의 평균을 구하고, 각 요소 값과 평균을 화면에 출력한다.
 ```java
+import java.util.Scanner;
+
+public class Prac13 {
+
+    // 정수를 입력받아 배열에 저장하고 배열을 반환하는 함수
+    public static int[] getIntArray(int size) {
+        Scanner scanner = new Scanner(System.in);
+        int[] array = new int[size];
+
+        System.out.println(size + "개의 정수를 입력하세요:");
+
+        for (int i = 0; i < size; i++) {
+            System.out.print("정수 입력: ");
+            array[i] = scanner.nextInt();
+        }
+
+        return array;
+    }
+
+    // 배열의 평균을 계산하는 함수
+    public static double calculateAverage(int[] array) {
+        int sum = 0;
+
+        for (int num : array) {
+            sum += num;
+        }
+
+        return (double) sum / array.length;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // 사용자로부터 정수의 개수 입력
+        System.out.print("정수의 개수를 입력하세요: ");
+        int size = scanner.nextInt();
+
+        // getIntArray 함수를 이용하여 배열 구성
+        int[] numbers = getIntArray(size);
+
+        // 배열의 평균 계산
+        double average = calculateAverage(numbers);
+
+        // 배열의 각 요소와 평균 출력
+        System.out.println("배열의 각 요소와 평균:");
+        for (int i = 0; i < size; i++) {
+            System.out.println("요소 " + (i + 1) + ": " + numbers[i] + ", 평균: " + average);
+        }
+    }
+}
 
 ```
 
 14. 무작위 정수 30개를 생성하면서 합계, 최대값, 최소값을 매회 계산하여 출력하는 함수 void printSumMinMax() 를 구현한다.
 ```java
+import java.util.Random;
+
+public class Prac14 {
+
+    public static void main(String[] args) {
+        printSumMinMax();
+    }
+
+    public static void printSumMinMax() {
+        // 난수 생성을 위한 Random 객체 생성
+        Random random = new Random();
+
+        // 변수 초기화
+        int sum = 0;
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+
+        // 30개의 무작위 정수 생성 및 합계, 최대값, 최소값 계산
+        for (int i = 0; i < 30; i++) {
+            int randomNumber = random.nextInt(100); // 0부터 99까지의 난수 생성 (임의로 범위 지정)
+            
+            // 합계 계산
+            sum += randomNumber;
+
+            // 최소값 및 최대값 갱신
+            if (randomNumber < min) {
+                min = randomNumber;
+            }
+            if (randomNumber > max) {
+                max = randomNumber;
+            }
+
+            // 결과 출력
+            System.out.println("Random number: " + randomNumber);
+            System.out.println("Sum: " + sum);
+            System.out.println("Min: " + min);
+            System.out.println("Max: " + max);
+            System.out.println("--------------------");
+        }
+    }
+}
 
 ```
 
@@ -2788,11 +3427,133 @@ int getDigit(int placeNumber);
 |제한속도 20이하 초과|OVER20|4|4|3|
 
 ```java
+import java.util.Scanner;
+
+public class Prac15 {
+    public enum ViolationCase {
+        LIGHT, PEDESTRIAN, YELLOW, BUSONLYHIGHWAY, BUSONLY, LANE, OVER60, OVER4060, OVER2040, OVER20
+    }
+
+    public enum CarType {
+        VAN, CAR, AUTO
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("법규 위반 사례를 입력하세요: ");
+        String violationCaseInput = scanner.nextLine();
+        ViolationCase violationCase = ViolationCase.valueOf(violationCaseInput.toUpperCase());
+
+        System.out.println("차종을 입력하세요 (VAN, CAR, AUTO 중 하나): ");
+        String carTypeInput = scanner.nextLine();
+        CarType carType = CarType.valueOf(carTypeInput.toUpperCase());
+
+        int fine = calculateFine(violationCase, carType);
+
+        if (fine == -1) {
+            System.out.println("올바르지 않은 입력입니다.");
+        } else {
+            System.out.println("교통 범칙금은 " + fine + "만원 입니다.");
+        }
+
+        scanner.close();
+    }
+
+    public static int calculateFine(ViolationCase violationCase, CarType carType) {
+        switch (violationCase) {
+            case LIGHT:
+                return getFineAmount(carType, 8, 7, 5);
+            case PEDESTRIAN:
+                return getFineAmount(carType, 8, 7, 5);
+            case YELLOW:
+                return getFineAmount(carType, 10, 9, 0);
+            case BUSONLYHIGHWAY:
+                return getFineAmount(carType, 10, 9, 0);
+            case BUSONLY:
+                return getFineAmount(carType, 0, 5, 4);
+            case LANE:
+                return getFineAmount(carType, 4, 4, 3);
+            case OVER60:
+                return getFineAmount(carType, 14, 13, 9);
+            case OVER4060:
+                return getFineAmount(carType, 11, 10, 7);
+            case OVER2040:
+                return getFineAmount(carType, 8, 7, 5);
+            case OVER20:
+                return getFineAmount(carType, 4, 4, 3);
+            default:
+                return -1;
+        }
+    }
+
+    public static int getFineAmount(CarType carType, int vanFine, int carFine, int autoFine) {
+        switch (carType) {
+            case VAN:
+                return vanFine;
+            case CAR:
+                return carFine;
+            case AUTO:
+                return autoFine;
+            default:
+                return -1;
+        }
+    }
+}
 
 ```
 
 16. 사용자로부터 자연수 N을 입력 받고 1, 2, 3, ..., N을 순차적으로 출력하는 프로그램을 반복문과 재귀 호출을 이용해서 구현한다.
 ```java
+import java.util.Scanner;
+
+public class Prac16 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // 사용자로부터 자연수 N 입력 받기
+        System.out.print("자연수 N을 입력하세요: ");
+        int N = scanner.nextInt();
+
+        // 반복문을 사용하여 1부터 N까지 출력
+        System.out.println("반복문을 사용한 출력:");
+        for (int i = 1; i <= N; i++) {
+            System.out.print(i + " ");
+        }
+
+        scanner.close();
+    }
+}
+
+```
+```java
+import java.util.Scanner;
+
+public class PrintNumbers {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // 사용자로부터 자연수 N 입력 받기
+        System.out.print("자연수 N을 입력하세요: ");
+        int N = scanner.nextInt();
+
+        // 재귀 호출을 사용하여 1부터 N까지 출력
+        System.out.println("재귀 호출을 사용한 출력:");
+        printNumbersRecursively(1, N);
+
+        scanner.close();
+    }
+
+    // 재귀 호출을 사용하여 숫자 출력
+    public static void printNumbersRecursively(int start, int end) {
+        if (start > end) {
+            return;
+        }
+
+        System.out.print(start + " ");
+        printNumbersRecursively(start + 1, end);
+    }
+}
 
 ```
 
@@ -2803,6 +3564,42 @@ int getDigit(int placeNumber);
     4. m을 n으로 나눈 나머지를 새로 m에 저장한 후에, m과 n을 바꾸고 2번으로 다시 돌아감
 
 ```java
+public class Prac17 {
+    public static int findGCDIterative(int m, int n) {
+        while (n != 0) {
+            int temp = m;
+            m = n;
+            n = temp % n;
+        }
+        return m;
+    }
+
+    public static void main(String[] args) {
+        int m = 48;
+        int n = 18;
+        int result = findGCDIterative(m, n);
+        System.out.println("최대 공약수: " + result);
+    }
+}
+
+```
+```java
+public class Prac17 {
+    public static int findGCDRecursive(int m, int n) {
+        if (n == 0) {
+            return m;
+        } else {
+            return findGCDRecursive(n, m % n);
+        }
+    }
+
+    public static void main(String[] args) {
+        int m = 48;
+        int n = 18;
+        int result = findGCDRecursive(m, n);
+        System.out.println("최대 공약수: " + result);
+    }
+}
 
 ```
 
