@@ -5255,22 +5255,143 @@ public class AddressBookProgram {
     - 속도를 20에서 30으로 변경해본다.
     - stop() 함수를 호출해서 "stopping..."을 출력한다.
 ```java
-interface Vehicle{
+// 방향을 나타내는 열거형
+enum Direction {
+    LEFT, RIGHT
+}
+
+// Vehicle 인터페이스 정의
+interface Vehicle {
     void signalTurn(Direction direction, boolean signalOn);
+
     void changeSpeed(int newSpeed);
+
     void start();
+
     void stop();
 }
 
-class Sedan implements Vehicle{
-    boolean power;
-    int speed;
+// Sedan 클래스 정의
+class Sedan implements Vehicle {
+    boolean signalOn; // 시동 여부를 나타내는 변수
+    int speed; // 속도를 나타내는 변수
+
+    // 생성자
+    public Sedan() {
+        this.signalOn = false; // 초기에 시동이 꺼져있음
+        this.speed = 0; // 초기 속도는 0
+    }
+
+    // Vehicle 인터페이스의 메소드 구현
+    @Override
+    public void signalTurn(Direction direction, boolean signalOn) {
+        // 여기에 필요한 동작을 구현
+        // 예를 들어, 좌우 방향으로 신호등을 켜거나 끄는 동작 등
+    }
+
+    @Override
+    public void changeSpeed(int newSpeed) {
+        // 속도 변경 메소드 구현
+        this.speed = newSpeed;
+        System.out.println("changing speed now at " + newSpeed);
+    }
+
+    @Override
+    public void start() {
+        // 시동 거는 동작 구현
+        System.out.println("starting...");
+        this.signalOn = true; // 시동이 걸린 상태로 변경
+    }
+
+    @Override
+    public void stop() {
+        // 시동 끄는 동작 구현
+        System.out.println("stopping...");
+        this.signalOn = false; // 시동이 꺼진 상태로 변경
+    }
 }
+
+// 예제 실행을 위한 메인 클래스
+public class Prac1 {
+    public static void main(String[] args) {
+        Sedan mySedan = new Sedan();
+
+        // 시동 거는 동작
+        mySedan.start();
+
+        // 속도 변경
+        mySedan.changeSpeed(10);
+
+        // 속도 변경
+        mySedan.changeSpeed(20);
+
+        // 속도 변경
+        mySedan.changeSpeed(30);
+
+        // 시동 끄는 동작
+        mySedan.stop();
+    }
+}
+
 ```
 
 2. 면적과 둘레를 계산해서 반환하는 함수를 포함하는 Shape 클래스를 구현한다. 그리고 Shape에서 상속 받는 Rectangle과 Circle 클래스를 구현한다. 사각형은 왼쪽 위 좌표가 (x1, y1), 오른쪽 아래 좌표가 (x2, y2)이며 원은 중심의 좌표가 (x, y), 반지름의 길이가 r이다. 특정 좌표계를 지정하지 않으므로 x1과 x2, y1과 y2 중에 어떤 것이 더 큰지 알 수 없다. 따라서 면적과 둘레를 계산할 때에는 절대값을 사용해야 한다.
 ```java
-    
+public class Shape {
+    public double calculateArea() {
+        return 0.0;  // 기본값, 하위 클래스에서 오버라이드될 것임
+    }
+
+    public double calculatePerimeter() {
+        return 0.0;  // 기본값, 하위 클래스에서 오버라이드될 것임
+    }
+}
+
+public class Rectangle extends Shape {
+    private double x1, y1, x2, y2;
+
+    public Rectangle(double x1, double y1, double x2, double y2) {
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
+    }
+
+    @Override
+    public double calculateArea() {
+        double width = Math.abs(x2 - x1);
+        double height = Math.abs(y2 - y1);
+        return width * height;
+    }
+
+    @Override
+    public double calculatePerimeter() {
+        double width = Math.abs(x2 - x1);
+        double height = Math.abs(y2 - y1);
+        return 2 * (width + height);
+    }
+}
+
+public class Circle extends Shape {
+    private double x, y, r;
+
+    public Circle(double x, double y, double r) {
+        this.x = x;
+        this.y = y;
+        this.r = r;
+    }
+
+    @Override
+    public double calculateArea() {
+        return Math.PI * Math.pow(r, 2);
+    }
+
+    @Override
+    public double calculatePerimeter() {
+        return 2 * Math.PI * r;
+    }
+}
+
 ```
 
 3. 컴퓨터 기기 중에서 저장 장치(Storage Device)를 나타내는 클래스를 만든다. 저장 장치 클래스에는 장치의 이름(ModelName, 문자열), 용량(Capacity, 정수) 속성들이 있고, 이를 초기화시키는 생성자와 속성들을 문자열로 구성해서 반환하는 toString() 함수가 있다. StorageDevice 클래스는 Connection 인터페이스를 구현한다.
@@ -5284,12 +5405,216 @@ interface Connection{
 StorageDevice로부터 상속 받는 하드 디스크(HDD) 클래스를 구현한다. HDD는 회전 속도(RPM, 5400 또는 7200)와 크기 정보(2.5 또는 3.5) 속성을 갖는다. 외장형 하드인 ExternalHDD는 HDD로부터 상속 받으며, Connection 인터페이스를 오버라이딩해서 "USB로 연결됨"이라는 문자열을 출력한다. 내장형 하드인 InternalHDD도 역시 HDD로부터 상속 받으며, Connection 인터페이스를 오버라이딩해서 "SATA로 연결됨"이라는 문자열을 출력한다.USB 메모리를 나타내는 USBMemory 클래스도 StorageDevice로부터 상속 받으며, Connection 인터페이스를 구현한다. 이 클래스는 USB 메모리를 구성하는 메모리칩의 종류(MemoryType)로 SLC, MLC, TCLC, QLC라는 enum 자료형의 값 중 한가지를 멤버 변수에 저장한다(생성자에서 지정된다). USBMemory 클래스도 Connection 인터페이스를 구현하며 "USB로 연결됨"이라는 문자열을 출력한다.
 이러한 메모리 장치들을 사용하는 컴퓨터(Computer) 클래스를 구현한다. 컴퓨터 클래스에는 SATA 연결 장치가 최대 4대까지, USB 연결 장치가 최대 3대까지 지원된다고 가정한다. main() 함수에서 SATA 연결 장치 두 개와 USB 연결 장치 두 개를 생성해서 컴퓨터에 연결한 후에, 컴퓨터에 연결된 모든 저장 장치의 이름, 용량을 출력한다. 만약 있다면 디스크의 크기나 회전 속도도 출력한다.
 ```java
-    
+// Connection 인터페이스
+interface Connection {
+    default void connected() {
+        System.out.println("Not Connected");
+    }
+}
+
+// 저장 장치 클래스
+class StorageDevice implements Connection {
+    protected String modelName;
+    protected int capacity;
+
+    public StorageDevice(String modelName, int capacity) {
+        this.modelName = modelName;
+        this.capacity = capacity;
+    }
+
+    @Override
+    public String toString() {
+        return "Model: " + modelName + ", Capacity: " + capacity + "GB";
+    }
+}
+
+// HDD 클래스
+class HDD extends StorageDevice {
+    protected int rpm;
+    protected double size;
+
+    public HDD(String modelName, int capacity, int rpm, double size) {
+        super(modelName, capacity);
+        this.rpm = rpm;
+        this.size = size;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", RPM: " + rpm + ", Size: " + size;
+    }
+}
+
+// 외장형 HDD 클래스
+class ExternalHDD extends HDD {
+    public ExternalHDD(String modelName, int capacity, int rpm, double size) {
+        super(modelName, capacity, rpm, size);
+    }
+
+    @Override
+    public void connected() {
+        System.out.println("USB로 연결됨");
+    }
+}
+
+// 내장형 HDD 클래스
+class InternalHDD extends HDD {
+    public InternalHDD(String modelName, int capacity, int rpm, double size) {
+        super(modelName, capacity, rpm, size);
+    }
+
+    @Override
+    public void connected() {
+        System.out.println("SATA로 연결됨");
+    }
+}
+
+// USB 메모리 클래스
+enum MemoryType {SLC, MLC, TLC, QLC}
+
+class USBMemory extends StorageDevice {
+    private MemoryType memoryType;
+
+    public USBMemory(String modelName, int capacity, MemoryType memoryType) {
+        super(modelName, capacity);
+        this.memoryType = memoryType;
+    }
+
+    @Override
+    public void connected() {
+        System.out.println("USB로 연결됨");
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", Memory Type: " + memoryType;
+    }
+}
+
+// 컴퓨터 클래스
+class Computer {
+    private StorageDevice[] sataDevices = new StorageDevice[4];
+    private StorageDevice[] usbDevices = new StorageDevice[3];
+    private int sataCount = 0;
+    private int usbCount = 0;
+
+    public void connectSataDevice(StorageDevice device) {
+        if (sataCount < 4) {
+            sataDevices[sataCount++] = device;
+        } else {
+            System.out.println("SATA 연결 장치가 모두 사용 중입니다.");
+        }
+    }
+
+    public void connectUsbDevice(StorageDevice device) {
+        if (usbCount < 3) {
+            usbDevices[usbCount++] = device;
+        } else {
+            System.out.println("USB 연결 장치가 모두 사용 중입니다.");
+        }
+    }
+
+    public void printConnectedDevices() {
+        System.out.println("Connected SATA Devices:");
+        for (int i = 0; i < sataCount; i++) {
+            System.out.println(sataDevices[i]);
+        }
+
+        System.out.println("\nConnected USB Devices:");
+        for (int i = 0; i < usbCount; i++) {
+            System.out.println(usbDevices[i]);
+        }
+    }
+}
+
+public class Prac3 {
+    public static void main(String[] args) {
+        // SATA 연결 장치 생성
+        InternalHDD internalHDD1 = new InternalHDD("SATA_HDD_1", 1000, 7200, 3.5);
+        InternalHDD internalHDD2 = new InternalHDD("SATA_HDD_2", 2000, 5400, 2.5);
+
+        // USB 연결 장치 생성
+        ExternalHDD externalHDD = new ExternalHDD("USB_HDD", 500, 5400, 2.5);
+        USBMemory usbMemory = new USBMemory("USB_Memory", 128, MemoryType.MLC);
+
+        // 컴퓨터에 연결
+        Computer computer = new Computer();
+        computer.connectSataDevice(internalHDD1);
+        computer.connectSataDevice(internalHDD2);
+        computer.connectUsbDevice(externalHDD);
+        computer.connectUsbDevice(usbMemory);
+
+        // 컴퓨터에 연결된 저장 장치 출력
+        computer.printConnectedDevices();
+    }
+}
+ 
 ```
 
 4. 문자열형으로 이름, 전화번호, 주소를 멤버 변수로 포함하는 Address 클래스 코드를 작성하고, hashCode()와 equals() 함수를 오버라이딩한다. 이 함수들이 제대로 동작하는지 확인하는 프로그램을 작성한다.
 ```java
-    
+import java.util.Objects;
+
+class Address {
+    private String name;
+    private String phoneNumber;
+    private String address;
+
+    public Address(String name, String phoneNumber, String address) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+    }
+
+    // hashCode 오버라이딩
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, phoneNumber, address);
+    }
+
+    // equals 오버라이딩
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Address other = (Address) obj;
+
+        return Objects.equals(name, other.name) &&
+               Objects.equals(phoneNumber, other.phoneNumber) &&
+               Objects.equals(address, other.address);
+    }
+
+    // 다른 메서드나 필요한 것들도 추가할 수 있음
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "name='" + name + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
+}
+
+public class Prac4 {
+    public static void main(String[] args) {
+        // Address 객체 생성
+        Address address1 = new Address("John Doe", "123-456-7890", "123 Main St");
+        Address address2 = new Address("Jane Smith", "987-654-3210", "456 Oak Ave");
+        Address address3 = new Address("John Doe", "123-456-7890", "123 Main St");
+
+        // hashCode 비교
+        System.out.println("HashCode 1: " + address1.hashCode());
+        System.out.println("HashCode 2: " + address2.hashCode());
+        System.out.println("HashCode 3: " + address3.hashCode());
+
+        // equals 비교
+        System.out.println("Equals 1 and 2: " + address1.equals(address2));
+        System.out.println("Equals 1 and 3: " + address1.equals(address3));
+    }
+}
+
 ```
 
 5. 컴퓨터 부품 관련 인터넷 쇼핑몰 프로그램을 개선하려 한다. 처음에는 CPU만 전문으로 파는 쇼핑몰로 시작하였다. 판매되는 CPU는 아이템 번호(itemNumber), 이름(name), 제조업체(manufacturer), 가격(price), 재고 개수(numInStock), 코어 개수(numCores), 속도(speed), 모델 번호(modelNumber), 일련 번호(serialNumber)라는 속성들이 포함되었다. 그러다가 그래픽 카드(GPU)도 함께 판매하기로 결정되었고 쇼핑몰 관리 프로그램을 수정해야 한다. GPU는 아이템 번호(itemNumber), 이름(name), 제조업체(manufacturer), 가격(price), 재고 개수(numInStock), 코어 개수(numCores), 속도(speed), 그래픽 칩셋(chipset), 메모리 속도(memorySpeed), 메모리 종류(GDDR6X, GDDR6, GDDR5, GDDR4, GDDR3), 메모리 용량(memorySize), 모델 번호(modelNumber), 일련 번호(serialNumber)라는 속성이 포함된다. CPU와 GPU를 함께 판매하게 되면서 중복되는 부분을 정리해서 부모 클래스로 만들고 달라지는 부분만 CPU와 GPU 클래스로 남기는 리팩토링 작업을 하려고 한다. 다음 요구 사항을 만족시키는 프로그램을 작성한다.
@@ -5300,7 +5625,145 @@ StorageDevice로부터 상속 받는 하드 디스크(HDD) 클래스를 구현�
     - 각 클래스의 멤버 변수 정보들을 화면에 출력할 수 있는 함수 구현
     - 상속 관계로 구성된 클래스들을 사용하는 main() 함수 작성
 ```java
-    
+// 부모 클래스: ComputerComponent
+class ComputerComponent {
+    protected int itemNumber;
+    protected String name;
+    protected String manufacturer;
+    protected double price;
+    protected int numInStock;
+    protected int numCores;
+    protected double speed;
+    protected String modelNumber;
+    protected String serialNumber;
+
+    // 생성자
+    public ComputerComponent(int itemNumber, String name, String manufacturer, double price,
+                             int numInStock, int numCores, double speed, String modelNumber, String serialNumber) {
+        this.itemNumber = itemNumber;
+        this.name = name;
+        this.manufacturer = manufacturer;
+        this.price = price;
+        this.numInStock = numInStock;
+        this.numCores = numCores;
+        this.speed = speed;
+        this.modelNumber = modelNumber;
+        this.serialNumber = serialNumber;
+    }
+
+    // get 함수
+    public int getItemNumber() {
+        return itemNumber;
+    }
+
+    // 화면 출력 함수
+    public void displayInfo() {
+        System.out.println("Item Number: " + itemNumber);
+        System.out.println("Name: " + name);
+        System.out.println("Manufacturer: " + manufacturer);
+        System.out.println("Price: " + price);
+        System.out.println("Stock: " + numInStock);
+        System.out.println("Model Number: " + modelNumber);
+        System.out.println("Serial Number: " + serialNumber);
+    }
+}
+
+// CPU 클래스: 상속 ComputerComponent
+class CPU extends ComputerComponent {
+    // 추가 속성
+    private String socketType;
+
+    // CPU 클래스 생성자
+    public CPU(int itemNumber, String name, String manufacturer, double price,
+               int numInStock, int numCores, double speed, String modelNumber,
+               String serialNumber, String socketType) {
+        super(itemNumber, name, manufacturer, price, numInStock, numCores, speed, modelNumber, serialNumber);
+        this.socketType = socketType;
+    }
+
+    // 추가된 속성의 get 함수
+    public String getSocketType() {
+        return socketType;
+    }
+
+    // CPU 정보 출력 함수
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Socket Type: " + socketType);
+    }
+}
+
+// GPU 클래스: 상속 ComputerComponent
+class GPU extends ComputerComponent {
+    // 추가 속성
+    private String chipset;
+    private String memoryType;
+    private int memorySpeed;
+    private int memorySize;
+
+    // GPU 클래스 생성자
+    public GPU(int itemNumber, String name, String manufacturer, double price,
+               int numInStock, int numCores, double speed, String modelNumber,
+               String serialNumber, String chipset, String memoryType,
+               int memorySpeed, int memorySize) {
+        super(itemNumber, name, manufacturer, price, numInStock, numCores, speed, modelNumber, serialNumber);
+        this.chipset = chipset;
+        this.memoryType = memoryType;
+        this.memorySpeed = memorySpeed;
+        this.memorySize = memorySize;
+    }
+
+    // 추가된 속성의 get 함수
+    public String getChipset() {
+        return chipset;
+    }
+
+    public String getMemoryType() {
+        return memoryType;
+    }
+
+    public int getMemorySpeed() {
+        return memorySpeed;
+    }
+
+    public int getMemorySize() {
+        return memorySize;
+    }
+
+    // GPU 정보 출력 함수
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Chipset: " + chipset);
+        System.out.println("Memory Type: " + memoryType);
+        System.out.println("Memory Speed: " + memorySpeed);
+        System.out.println("Memory Size: " + memorySize);
+    }
+}
+
+// Main 클래스
+public class Prac5 {
+    public static void main(String[] args) {
+        // CPU 객체 생성
+        CPU cpu = new CPU(1, "Intel i7", "Intel", 299.99, 10, 8, 3.6, "i7-1234", "SN123456", "LGA1200");
+
+        // GPU 객체 생성
+        GPU gpu = new GPU(2, "NVIDIA RTX 3080", "NVIDIA", 699.99, 5, 8704, 1.71, "RTX3080", "SN789012",
+                "Ampere", "GDDR6X", 19, 10);
+
+        // CPU 정보 출력
+        System.out.println("CPU Information:");
+        cpu.displayInfo();
+
+        System.out.println();
+
+        // GPU 정보 출력
+        System.out.println("GPU Information:");
+        gpu.displayInfo();
+    }
+}
+ 
 ```
 
 6. 다음에 보인 StringComparator, Comparator, Sorter, Problem6 클래스를 구현하고, 이를 이용해서 국내 광역시 이름 6개(Busan, Daegu, Incheon, Gwangju, Daejeon, Ulsan)를 정렬하는 프로그램을 완성한다. 정렬된 도시 이름을 화면에 출력한다. 필요하면 다른 메소드와 멤버 변수들을 추가해서 작성한다.
@@ -5320,6 +5783,54 @@ interface Comparator{
 class StringComparator implements Comparator{
     int compare(Object o1, Object o2);
 }
+```
+```java
+class Problem6 {
+    public static void main(String[] args) {
+        String[] cities = {"Busan", "Daegu", "Incheon", "Gwangju", "Daejeon", "Ulsan"};
+
+        // Creating an instance of StringComparator
+        StringComparator stringComparator = new StringComparator();
+
+        // Sorting the array of cities using StringComparator
+        Sorter.sort(cities, stringComparator);
+
+        // Printing the sorted cities
+        for (String city : cities) {
+            System.out.println(city);
+        }
+    }
+}
+
+class Sorter {
+    static void sort(Object[] data, Comparator comp) {
+        // Implementing a simple bubble sort algorithm
+        int n = data.length;
+        for (int i = 0; i < n-1; i++) {
+            for (int j = 0; j < n-i-1; j++) {
+                if (comp.compare(data[j], data[j+1]) > 0) {
+                    // Swapping elements if they are in the wrong order
+                    Object temp = data[j];
+                    data[j] = data[j+1];
+                    data[j+1] = temp;
+                }
+            }
+        }
+    }
+}
+
+interface Comparator {
+    int compare(Object o1, Object o2);
+}
+
+class StringComparator implements Comparator {
+    @Override
+    public int compare(Object o1, Object o2) {
+        // Assuming that o1 and o2 are strings, you can use compareToIgnoreCase for case-insensitive sorting
+        return ((String) o1).compareToIgnoreCase((String) o2);
+    }
+}
+
 ```
 
 ## Chapter 7
