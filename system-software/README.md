@@ -1452,3 +1452,71 @@
         - 확장 시 추가되는 값은 부호 비트로 채워짐
     - **movzx** (move and zero extended)
         - 확장 시 추가되는 값은 0으로 채워짐
+
+### String Operations
+
+- movs, lods, stos
+    - 바이트, 워드, 더블 워드, 또는 반복되는 경우 각각의 블록 데이터 전송을 허용
+    - D 플래그 비트(direction), esi, edi는 암시적으로 사용됨
+        - D = 0: edi와 esi 자동 증가
+        - cld 명령을 이용해 D 플래그 클리어
+        - D = 1: edi와 esi 자동 감소
+        - std 명령을 이용해 D 플래그 설정
+    - edi: 추가 세그먼트의 데이터에 접근한다, 오버라이드 불가
+    - esi: 데이터 세그먼트의 데이터에 접근한다, 접두사로 다른 세그먼트와 짝이 되도록 오버라이드 가능
+
+![string operations](../image/string_operations.jpg)
+    - String: 같은 크기의 데이터가 연속적으로 메모리 상에 나열되어 있는 것
+    - esi: 데이터 세그먼트 내에서 다음번 스트링 연산이 일어날 곳을 가리킴
+    - edi: 추가 세그먼트 내에서 다음번 스트링 연산이 일어날 곳을 가리킴
+    - A 레지스터: 로드 스트링이나 스토어 스트링이 동작할 때 실제 데이터가 로드, 스토어 되는데 관여하는 레지스터
+    - lods
+        - 데이터 세그먼트에 저장되어 있는 스트링 중에 데이터를 eax에 복사해 넣는 것
+        - esi가 가리키고 있는 곳에서 로드
+    - stos
+        - A 레지스터에 저장되어 있는 값을 메모리에 복사하는 것
+        - edi가 가리키는 곳으로 저장
+    - movs
+        - 메모리에서 메모리로 바로 전송
+    - esi와 edi는 로드와 스토어 후에 자동적으로 다음 데이터를 가리키도록 갱신
+
+#### lods
+
+- **lods**
+    - lodsb(byte), lodsw(word), lodsd(double word)
+    - 데이터 세그먼트(또는 추가 세그먼트)에 저장된 데이터로 al, ax 또는 eax가 제공하는 오프셋을 로드한다
+    - esi는 그 후에 증가 또는 감소한다
+    - lodsb
+        - al=ds:[esi];  esi=esi+/-1
+    - lodsd
+        - eax=ds:[esi]; esi=esi+/-4
+    - **es** lodsb DATA1
+        - ds 오버라이드
+
+#### stos
+
+- **stos**
+    - stosb(byte), stosw(word), stosd(double word)
+    - al, ax 또는 eax를 추가 세그먼트(es) + edi가 제공하는 오프셋에 저장한다(edi는 오버라이드 불가)
+    - edi는 그 후에 증가 또는 감소한다
+    - stosb
+        - es:[edi]=al;  edi=edi+/-1
+    - stosd
+        - es:[edi]=eax; edi=edi+/-4
+
+#### movs
+
+- **movs**
+    - movsb(byte), movsw(word), movsd(double word)
+    - 바이트, 워드 또는 더블 워드를 데이터 세그먼트 및 오프셋 esi에서 추가 세그먼트 및 오프셋 edi로 이동한다
+    - edi 및 esi 모두 증가 또는 감소한다
+    - movsb
+        - es:[edi]=ds[esi];     edi+/-=1;    esi+/-=1
+    - movsd
+        - es:[edi]=ds:[esi];    edi+/-=4;    edi+/-=4
+
+#### rep Prefix
+
+- **rep** 접두사
+    - 명령을 ecx번 반복
+    - lods 명령에는 의미가 없다
