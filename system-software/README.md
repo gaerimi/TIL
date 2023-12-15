@@ -1315,3 +1315,37 @@
     - 데이터 타입 변환
 - 스트링 연산(String operations)
     - 스트링 전용 명령
+
+### General Data Movement
+
+- mov 명령
+
+|데이터 이동 타입|Source -> Destination|
+|:---|:---|
+|메모리에서 레지스터|메모리 -> 범용 레지스터 <br/>메모리 -> 세그먼트 레지스터|
+|레지스터에서 메모리|범용 레지스터 -> 메모리 <br/>세그먼트 레지스터 -> 메모리|
+|레지스터에서 레지스터|범용 레지스터 -> 범용 레지스터 <br/>범용 레지스터 -> 세그먼트 레지스터 <br/> 범용 레지스터 -> 컨트롤 레지스터 <br/> 범용 레지스터 -> 디버그 레지스터 <br/> 세그먼트 레지스터 -> 범용 레지스터 <br/> 컨트롤 레지스터 -> 범용 레지스터 <br/> 디버그 레지스터 -> 범용 레지스터|
+|상수 데이터에서 레지스터|상수 -> 범용 레지스터|
+|상수 데이터에서 메모리|상수 -> 메모리|
+ 
+    - 이외에는 불가
+
+- 조건부 mov 명령
+    - **cmov**
+        - 조건이 참인 경우에만 데이터 이동
+        - 조건은 이전 명령에 의해 설정되면 캐리, 제로, 사인, 오버플로우, 패리티를 포함
+        - cmovz eax, ebx
+            - 제로플래그가 설정되어 있을 경우 mov
+        - 많은 변형이 있음
+    ![variations of conditional move](../image/variation_cmov.jpg)
+        - A: above
+        - E: equal
+        - C: carry
+        - B: below
+        - N: not
+        - Z: zero
+        - P: parity, PE: parity even, PO: parity odd
+        - G: greater
+        - L: less
+        - O: overflow
+        - S: sign
