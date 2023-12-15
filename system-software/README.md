@@ -1431,3 +1431,24 @@
         - edi의 값을 ebx에 복사한다
         - lea ebx, [edi]와 같은 수행을 한다
     - lea는 오른쪽 피연산자에서 제공하는 주소를 계산하여 왼쪽 피연산자에 저장한다
+
+### Type Conversion Instructions
+
+- Simple conversion
+    - **cbw** (convert byte to word, 8비트 -> 16비트)
+        - AX <- sign-extended of AL
+    - **cwde** (convert word to doubleword extended, 16비트 -> 32비트)
+        - EAX <- sign-extended of AX
+    - **cwd** (convert doubleword, 16비트 -> 32비트)
+        - DX:AX <- sign-extended of AX
+        - 16비트 나눗셈 전에 사용(16비트 나눗셈의 나뉘는 수 형식)
+    - **cdq** (convert doubleword to quadword, 32비트 -> 64비트)
+        - EDX:EAX <- sign-extended of EAX
+        - 32비트 나눗셈 전에 사용(32비트 나눗셈의 나뉘는 수 형식)
+
+- Move with sign or zero extension
+    - movsx와 movzx(80386 이상)
+    - **movsx** (move and sign extended)
+        - 확장 시 추가되는 값은 부호 비트로 채워짐
+    - **movzx** (move and zero extended)
+        - 확장 시 추가되는 값은 0으로 채워짐
