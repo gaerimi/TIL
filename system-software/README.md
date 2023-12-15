@@ -1144,3 +1144,22 @@
     - cmpsb/cmpsw/cmpsd는 메모리 데이터의 두 섹션을 비교한다
 
 ## Chapter 6
+
+### Control Transfer Instructions
+
+- Control Transfer Instruction
+    - 프로그램의 순차적 실행 흐름을 바꿀 수 있는 명령
+
+- 무조건 분기(Unconditional transfers)
+    - jump
+    - call and return(함수 호출, 함수가 끝나서 복귀)
+
+- 조건 분기(Conditional transfers)
+
+- 소프트웨어 인터럽트
+    - 인터럽트
+        - 소프트웨어
+            - CPU가 동작을 하다가 CPU 내부적으로 어떤 문제가 생겨서 CPU의 상태가 하드웨어 인터럽트를 받은 상태 직후와 유사한 상태로 바뀌는 것
+        - 하드웨어
+            - 입출력 장치가 CPU에게 보내는 전기적인 신호
+            - 하드웨어 인터럽트도 분기 발생
