@@ -996,4 +996,14 @@
         - 만약 ecx == eax 라면 eax = edx
         - ecx != eax라면 eax = ecx
         - 상호 배제 구현 시 사용
- 
+
+#### INC and DEC
+
+- INC
+    - INC reg
+    - reg의 값을 1 증가 시킨다
+    - ADD reg, 1과 같다
+- DEC
+    - DEC reg
+    - reg의 값을 1 감소 시킨다
+    - SUB reg, 1과 같다
