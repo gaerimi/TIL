@@ -1379,3 +1379,28 @@
 - 혼합된 형태들도 존재하는데, 예를 들어 16비트 워드의 바이트들의 순서는 32비트 워드 내의 16비트 워드들의 순서와 다를 수 있다 그런 경우들은 때때로 혼합-엔디안(mixed-endian) 또는 중간-엔디안(middle-endian)으로 지칭된다
 
 - 리틀-엔디안 또는 빅-엔디안 모드로 동작하는 일부 바이-엔디안(bi-endian) 프로세서들도 있다
+
+### Stack Manipulation
+
+- **push**
+    - 데이터의 소스는 임의의 16비트 또는 32비트 레지스터, 상수, 임의의 세그먼트 레지스터, 메모리 데이터의 임의의 워드 또는 더블 워드일 수 있다
+    - push
+        ![push](../image/push.jpg)
+            - ESP를 감소시킨 후 push
+    - pusha
+        ![pusha](../image/pusha.jpg)
+            - pushall
+            - 피연산자가 없음
+            - 범용 레지스터 8개의 모든 값을 스택에 일정한 순서로 push, CPU 상태를 저장할 때 많이 사용
+            - EAX, ECX, EDX, EBX, Old ESP, EBP, ESI, EDI 순서
+
+- **pop**
+    - 데이터의 소스는 임의의 16비트 또는 32비트 레지스터, 임의의 세그먼트 레지스터(cs 제외), 메모리 데이터의 임의의 워드 또는 더블 워드일 수 있다
+    - pop
+        ![pop](../image/pop.jpg)
+            - pop을 한 후 ESP 증가
+    - popa
+        ![popa](../image/popa.jpg)
+            - popall
+            - 피연산자가 없음
+            - ESP를 제외한 범용 레지스터의 값을 복원
