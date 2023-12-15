@@ -1192,3 +1192,112 @@
 - Short jump
     - 단일 바이트를 사용하여 점프의 변위를 저장한다(범위: -128 ~ +128)
     - 위쪽으로 점프 시 -, 아래쪽으로 점프 시 +
+
+### Conditional Transfer
+
+- 조건부 분기는 진리값에 근거하여 수행된다
+- 결정은 eflags의 1비트를 기반으로 한다(ZF, SF, CF, OF, PF, AF)
+    - **JZ**: 제로플래그가 설정된 경우에만 분기(ZF = 1)
+    - **JNZ**: 제로플래그가 설정되지 않은 경우에만 분기(ZF = 0)
+    - **JO**: 오버플로우 비트가 설정된 경우에만 분기(OF = 1)
+    - **JNO**: 오버플로우 비트가 설정되지 않은 경우에만 분기(OF = 0)
+    - **JS**: 사인플래그가 설정된 경우에만 분기(SF = 1)
+    - **JNS**: 사인플래그가 설정되지 않은 경우에만 분기(SF = 0)
+    - **JC**: 캐리플래그가 설정된 경우에만 분기(CF = 1)
+    - **JNC**: 캐리플래그가 설정되지 않은 경우에만 분기(CF = 0)
+    - **JP**: 패리티플래그가 설정된 경우에만 분기(PF = 1)
+    - **JNP**: 패리티플래그가 설정되지 않은 경우에만 분기(PF = 0)
+
+#### Comparision-based Jump
+
+- cmp vleft, vright
+
+- 부호 없는 정수: ZF, CF
+    - 만약 vleft == vright면 ZF == 1, CF == 0
+    - 만약 vleft > vright면 ZF == 0, CF == 0
+    - 만약 vleft < vright면 ZF == 0, CF == 1
+
+- 부호 있는 정수: ZF, OF, SF
+    - 만약 vleft == vright면 ZF == 1, OF == 0, SF == 0
+    - 만약 vleft > vright면 ZF == 0, OF == SF
+        - 둘 다 양수인 경우 SF == OF == 0
+        - 둘 다 음수인 경우 SF == OF == 0
+        - vleft > 0 > vright인 경우 vleft + |vright|가 오버플로우인 경우에만 SF == OF == 1
+    - 만약 vleft < vright면 ZF == 0, OF $\neq$ SF
+        - 둘 다 양수인 경우 SF == 1, OF == 0
+        - 둘 다 음수인 경우 SF == 1, OF == 0
+        - vright > 0 > vleft인 경우 오버플로우면 SF == 0, OF == 1, 오버플로우가 아니면 SF == 1, OF == 0
+
+|Signed|Unsigned|
+|:---|:---|
+|vleft = vright이면 JE 분기|vleft = vright이면 JZ 분기|
+|vleft $\neq$ vright이면 JNE 분기|vleft $\neq$ vright이면 JNZ 분기|
+|vleft < vright이면 JL, JNGE 분기|vleft < vright이면 JB, JNAE 분기|
+|vleft $\le$ vright이면 JLE, JNG 분기|vleft $\le$ vright이면 JBE, JNA 분기|
+|vleft > vright이면 JG, JNLE 분기|vleft > vright이면 JA, JNBE 분기|
+|vleft $\ge$ vright이면 JGE, JNL 분기||vleft $\ge$ vright이면 JAE, JNB 분기|
+
+    - L: less
+    - G: greater
+    - B: below
+    - A: above
+
+- 부호 없는 조건 분기
+    ![unsigned conditional jumps](../image/unsigned_conditional_jumps.jpg)
+
+- 부호 있는 조건 분기
+    ![signed conditional jumps](../image/signed_conditional_jumps.jpg)
+
+#### Translating Standard Control Structures
+
+- if
+    ```
+        ;FLAGS를 설정하는 코드
+        jxx endif   ;조건을 불만족 할 경우 분기가 발생하도록 xx 선택
+
+        ;then_block에 들어갈 코드
+    endif:
+    ```
+
+- if-else
+    ```
+        ;FLAGS를 설정하는 코드
+        jxx else_block  ;조건을 불만족 할 경우 분기가 발생하도록 xx 선택
+
+        ;then_block에 들어갈 코드
+        jmp endif
+    else_block:
+        ;else_block에 들어갈 코드
+    endif:
+    ```
+
+- while
+    ```
+    while:
+        ;조건에 따라 FLAGS를 설정하는 코드
+        jxx end_while   ;조건을 불만족 할 경우 분기가 발생하도록 xx 선택
+
+        ;반복할 코드
+        jmp while
+    end_while:
+    ```
+
+- do-while
+    ```
+    do:
+        ;반복할 코드
+        ;조건에 따라 FLAGS를 설정하는 코드
+        jxx do  ;조건을 불만족 할 경우 분기가 발생하도록 xx 선택
+    ```
+
+#### Loop Instruction
+
+- ecx의 감소와 조건부 분기 jnz의 조합
+    - ecx 감소
+    - ecx != 0인 경우 레이블로 점프
+    - 그렇지 않으면 통가
+
+- LOOP, LOOPE(loop while equal), LOOPZ(loop while zero), LOOPNE(loop while not equal), LOOPNZ(loop while not zero)
+
+- 앞에 ecx(반복 횟수)가 설정되어야 함
+    - ecx의 값은 루프의 바디에서는 바꾸지 않는다
