@@ -1303,3 +1303,15 @@
     - ecx의 값은 루프의 바디에서는 바꾸지 않는다
 
 ## Chapter 7
+
+### Data Transfer Instructions
+
+- 데이터 이동 명령(General data movement)
+    - 데이터 복사 명령
+- 데이터 교환(Exchange)
+- 스택 조작(Stack manipulation)
+    - 스택 영역에 저장되어 있는 데이터를 접근하는데 사용
+- 타입 변환(Type conversion)
+    - 데이터 타입 변환
+- 스트링 연산(String operations)
+    - 스트링 전용 명령
