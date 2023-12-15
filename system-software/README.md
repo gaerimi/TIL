@@ -1124,3 +1124,21 @@
             - 5비트 회전 시 제일 왼쪽 값이 캐리플래그에 들어간다
         - RCL: 캐리플래그를 포함한 33비트를 왼쪽으로 회전한다
         - RCR: 캐리플래그를 포함한 33비트를 오른쪽으로 회전한다
+
+#### Bit/String Scan
+
+- Bit Scan Instruction (80386 이상)
+    - 피연산자를 통해 1인 비트를 검색한다
+    - 1인 비트가 발견되면 제로플래그가 클리어되고, 비트의 위치가 목적 피연산자에 저장된다
+        - 1인 비트가 없으면 목적 피연산자가 바뀌지 않음
+    - **bsl**
+        - bls ebx, eax
+        - eax를 왼쪽부터 스캔한다
+    - **bsr**
+        - bsr bl, cl
+        - cl을 오른쪽부터 스캔한다
+
+- String Scan Instruction
+    - scasb/scasw/scasd는 al/ax/eax 레지스터를 메모리 바이트 블록과 비교하여 플래그를 설정한다
+    - repe나 repne와 함께 사용되는 경우가 많다
+    - cmpsb/cmpsw/cmpsd는 메모리 데이터의 두 섹션을 비교한다
