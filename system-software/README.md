@@ -1404,3 +1404,30 @@
             - popall
             - 피연산자가 없음
             - ESP를 제외한 범용 레지스터의 값을 복원
+
+### Address Loading Instructions
+
+- lea
+    - load effective address
+    - 첫번째 피연산자에 있는 32비트 레지스터에 두번째 피연산자에 표시된 데이터 주소를 로드한다
+    - lea eax, [ebx+ecx*4+100]
+        - 두번째 연산자가 100번지를 의미한다면 eax에는 100이 저장됨
+
+- lds, les, lfs, lgs, lss
+    - 32비트 오프셋 주소를 로드한 다음 48비트 메모리 위치에서 ds, es, fs, gs 또는 ss를 로드한다
+    - lds edi, LIST
+        - edi와 ds를 로드
+    - lfs esi, DATA1
+        - esi와 fs를 로드
+
+- lea vs mov
+    - lea ebx, [edi]
+        - 두번째 피연산자가 100번지를 의미하면 ebx에는 100이 저장됨
+        - edi의 유효주소를 ebx에 로드한다
+    - mov ebx, [edi]
+        - 두번재 피연산자가 100번지를 의미하면 ebx에는 100번지에 있는 값이 저장됨
+        - edi에 있는 값을 ebx에 로드한다
+    - mov ebx, edi
+        - edi의 값을 ebx에 복사한다
+        - lea ebx, [edi]와 같은 수행을 한다
+    - lea는 오른쪽 피연산자에서 제공하는 주소를 계산하여 왼쪽 피연산자에 저장한다
