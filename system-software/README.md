@@ -1142,3 +1142,5 @@
     - scasb/scasw/scasd는 al/ax/eax 레지스터를 메모리 바이트 블록과 비교하여 플래그를 설정한다
     - repe나 repne와 함께 사용되는 경우가 많다
     - cmpsb/cmpsw/cmpsd는 메모리 데이터의 두 섹션을 비교한다
+
+## Chapter 6
