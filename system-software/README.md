@@ -970,3 +970,30 @@
     - xadd ecx, ebx
     - ecx = ecx + ebx, ebx = original ecx
     - 첫번째 피연산자에는 첫번째 피연산자와 두번째 피연산자의 덧셈 결과의 값이, 두번째 피연산자에는 덧셈 수행 전의 첫번째 피연산자의 값이 저장된다
+
+#### Subtraction
+
+- **sub** (subtraction)
+    - sub eax, ebx
+    - 캐리를 포함하지 않은 뺄셈
+- **dec** (decrement)
+    - dec edi
+    - 피연산자의 값을 1 감소한다
+- **sbb** (subtract with borrow)
+    - sbb ecx, ebx
+    - 캐리를 포함한 뺄셈
+    - 레지스터의 값들과 캐리 플래그의 값을 뺀다
+    - ecx = ecx - ebx - carry flag
+
+- Comparison
+    - 뺄셈 연산을 하되 결과는 저장하지 않는다
+    - 뺄셈 결과로 플래그 값만 영향을 받는다
+    - **cmp**
+        - cmp al, 10H
+        - 뒤에 조건 분기 명령이 나온다
+    - **cmpxchg**
+        - cmpxchg ecx, edx
+        - 만약 ecx == eax 라면 eax = edx
+        - ecx != eax라면 eax = ecx
+        - 상호 배제 구현 시 사용
+ 
