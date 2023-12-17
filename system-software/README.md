@@ -1920,3 +1920,213 @@
     - E9 FF FF FF E7 5바이트
         - 리틀 엔디안으로 저장
         - E9 E7 FF FF FF
+
+### General Machine Instruction Format
+
+![general machine instruction format](../image/general_machine_instruction_format.jpg)
+
+- Prefix Byte(s) (0 ~ 4)
+    - 옵코드 바이트에 옵션 추가
+
+- Opcode Byte(s) (1 ~ 2)
+    - 특정한 명령이 무엇인지 확인하는 값
+
+- ModRM Operand Specifier (0 ~ 2)
+    - 피연산자 명시
+
+- Address Displacement (0 ~ 4)
+    - 주소 상수
+
+- Immediate Constant (0 ~ 4)
+    - 상수
+
+#### Opcode space
+
+- 심볼이나 피연산자 정보 모두 포함
+- 피연산자를 위한 문자키
+    - 타입
+        - **r** 레지스터
+        - **m** 메모리
+        - **i** 상수
+    - 크기
+        - **b** 바이트
+        - **2** 2바이트
+        - **v** 32비트 또는 16비트
+        - **e** E인 경우 32비트, 16비트인 경우 표시 안함
+
+![overview of the entire set of x86 machine code](../image/x86_machine_code.jpg)
+
+- 예
+    - 옵코드 바이트 03: ADD rv, rmv
+        - rv: 첫번째 피연산자가 16비트 또는 32비트인 레지스터
+        - rmv: 두번째 피연산자가 16비트 또는 32비트인 레지스터 또는 메모리 피연산자
+
+##### The type of information conveyed by the first byte
+
+- 첫번째 바이트가 전달하는 정보 유형
+
+1. 명령어를 완전히 지정하는데 1바이트면 충분한 경우
+    - F4 -> HLT
+
+2. 첫번째 바이트는 어떤 연산을 수행할 것인지 결정하지만 피연산자는 명시하지 않음
+    - 두번째(와 세번째) 바이트는 종종 피연산자 정보(ModRM 바이트)를 전달
+    - 89 -> MOV rmv, rv
+
+3. 첫번째 바이트는 단지 일반적인 유형의 연산을 지정하고, ModRM 바이트는 연산을 구체화하고 연산자 정보를 가져오는데 사용
+    - C1 -> Shift rmv, ib
+    - [Nonregister R bits](#nonregister-r-bits)에 대한 포인터
+
+4. 386 space에 대한 포인터
+    - 0F
+
+5. 첫번째 바이트가 D8 ~ DF 범위에 있으면, 명령어는 부동 소수점 명령어
+    - 부동 소수점 명령에 대한 정보 필요
+
+6. 후속 명령어를 수정하는 접두사 바이트
+    - F0 -> LOCK
+
+#### The ModRM byte
+
+- 구성
+    ![consist of three parts](../image/modrm_consist.jpg)
+    - 7비트와 6비트는 모드 비트
+        - 모드 비트가 11일 때, R/M 비트는 레지스터 저장
+        - 그렇지 않으면 R/M 비트는 메모리 코딩에 사용
+    - 5, 4, 3비트는 레지스터 비트
+        - 종종 슬래시 표기 /r을 사용하여 지정됨
+    - 2, 1, 0비트는 R/M 비트
+        - Mod 비트가 11인 경우를 제외하고 메모리 위치를 지정하거나 위치 특정을 돕기 위해 사용
+
+##### rv, rmv coding
+
+- ADD EDI, EAX
+    - 두 개의 모드 비트는 11이어야 한다
+        - R/M 비트에 레지스터를 저장해야 하기 때문
+    - EDI의 경우 R비트가 111
+    - EAX의 경우 R/M비트가 000
+    - 전체 코드는 11 111 000 = 1111 1000 = F8(16진수)
+    - 옵코드 03과 조합하면 03 F8
+
+- Mod bits usage
+    - 11
+        - ADD EDI, EAX
+        - ADD reg, reg
+    - 00
+        - ADD EDI, [EAX]
+        - 메모리 피연산자가 base 레지스터로만 구성
+    - 01
+        - ADD EDI, [EAX+5]
+            - base 레지스터와 8비트 immediate displacement
+    - 10
+        - ADD EDI, [EAX+87654321H]
+            - base 레지스터와 32비트 immediate displacement
+
+##### One Byte Address Modes - One Byte ModRM
+
+- **Base reg + Displacement**
+    - 0 0 _ _ _ R/M
+        - R/M != 100b, R/M != 101b
+        - R/M: [base]
+    - 0 0 _ _ _ 1 0 1 + 32비트 displacement
+        - 101: [displacement]
+    - 0 1 _ _ _ R/M + 8비트 displacement
+        - R/M != 100b
+        - R/M: [base+displacement]
+    - 1 0 _ _ _ R/M + 32비트 displacement
+        - R/M: [base+displacement]
+    
+- 예
+- mod = 00, ADD EAX, [EDX]
+    - opcode 00 000 010
+- mod = 01, SUB EDI, [EDI+127]
+    - opcode 01 111 111 01111111
+- mod = 10, ADD ESI, [EDI+12345678h]
+    - opcode 10 110 111 01111000 01010110 00110100 00010010
+- mod = 00, R/M = 101, MOV ESI, [12345678h]
+    - opcode 00 110 101 01111000 01010110 00110100 00010010
+- mod = 01, R/M = 101, MOV ESI, [EBP]
+    - opcode 01 110 101 00000000
+    - ebp를 단독으로 사용하고 싶을 때
+
+##### Two Byte Address Modes - Two Byte ModRM
+
+- **Base reg + Index reg * scale factor + displacement**
+    - 0 0 _ _ _ 1 0 0 + scale index base
+        - base != 101b
+        - base, scale*index
+    - 0 0 _ _ _ 1 0 0 + scale index 1 0 1  + 32비트 displacement
+        - displacement, scale*index
+    - 0 1 _ _ _ 1 0 0 + scale index base  + 8비트 displacement
+        - base, scale*index, displacement(8비트)
+    - 1 0 _ _ _ 1 0 0 + sclae index base + 32비트 displacement
+        - base, scale*index, displacement(32비트)
+    
+    - s
+        - 00, 01, 10, 11만 가능
+
+- 예
+- MOV EAX, [EBX+ESI*2]
+    - opcode 00 000 100 + 01 110 011
+- MOV EAX, [999999+EDI+EAX*4]
+    - opcode 10 000 100 + 10 000 111 + 32비트 displacement
+- MOV EAX, [TABLE+ESI*4]
+    - opcode 00 000 100 + 10 110 101 + 32비트 displacement
+- MOV EDI, [ESP+24]
+    - opcode 01 111 100 + 00 100 100 + 00011000
+
+##### rmv, rv coding
+
+- MOV EDI, EAX
+    - 8B 사용 시 -> 8B F8
+        - mov rv, rmv
+    - 89 사용 시 -> 89 C7
+        - mov rmv, rv
+        - EDI가 최하위비트에 들어간다
+        - EAX는 R비트로 코딩된다
+
+#### Nonregister R bits
+
+- 첫번째 바이트는 연산을 지정하기에는 부족하지만 ModRM의 R비트를 이용해서 구체화한다
+
+- SUB ECX, 32
+    - 83 -> Immed rmv, ib
+    - Immed는 SUB를 가지고 있다 /r = /5 = 101
+    - Mod = 11
+    - M = 001 (ECX)
+    - 32 = 20h
+    - 83 (11 101 001) 20 = 83 E9 20
+
+![nonregister r bits](../image/nonregister_r_bits.jpg)
+
+#### 386 space
+
+- 0F뒤에 나타남
+- 때때로 하나의 엔트리는 정확히 하나의 명령어를 지정
+    - 0F CA -> BSWAP EDX
+- 연산자 정보를 전달하기 위해서는 ModRM 바이트가 필요
+    - XADD 명령어의 처음 2바이트는 0F C1
+- 연산을 지정하기 위해 ModRM 바이트가 사용되기도 함
+    - ModRM의 R비트를 확인해야 함
+- MMX 명령어들
+
+![386 space](../image/386space1.jpg)
+![386 space r bits](../image/386space2.jpg)
+
+#### 32-bits vs 16-bit code
+
+- MOV ECX, EAX
+    - 32비트: 89 C1
+    - 16비트: 66 89 C1
+- MOV CX, AX
+    - 32비트: 66 89 C1
+    - 16비트: 89 C1
+
+- 8비트 레지스터 코드
+    - AL 000
+    - AH 100
+    - CL 001
+    - CH 101
+    - DL 010
+    - DH 110
+    - BL 011
+    - BH 111
