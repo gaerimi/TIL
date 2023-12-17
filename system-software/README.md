@@ -1522,3 +1522,164 @@
     - lods 명령에는 의미가 없다
 
 ## Chapter 8
+
+### Data Addressing Modes
+
+- mov 명령을 사용해서 데이터 주소 지정 모드 설명
+    - 데이터 이동 명령어는 레지스터와 레지스터, 레지스터와 메모리 간에 데이터(바이트, 워드, 더블워드)를 이동시킨다
+    - 두 개의 피연산자를 모두 메모리로 가질 수 있는 것은 movs(strings) 명령밖에 없다
+    - 대부분의 대이터 전송 명령은 EFLAGS 레지스터를 변경하지 않는다
+
+- 스토리지 프로토콜(Storage protocols)
+    - n바이트 전송이 주소 a로 표시될 때, 참조되는 메모리들은 a, a+1, ..., a+n-1이다
+    - n바이트의 숫자가 메모리에 저장될 때, 리틀 엔디안 방식으로 저장된다
+
+- Register
+    - mov eax, ebx
+
+- Immediate
+    - mov ch, 0x4b
+
+- Direct(eax), Displacement(other regs)
+    - mov [0x1234], eax
+    - [](각괄호) 안에 메모리 주소의 상수를 직접 넣는 방식
+    - 레지스터 피연산자가 eax인 경우에는 direct, 다른 레지스터인 경우에는 displacement
+
+- Register Indirect
+    - mov [ebx], cl
+    - 레지스터 값의 메모리 번지
+    - eax, ebx, ecx, edx, ebp, edi, esi 사용 가능
+
+- Base-plus-index
+    - mov [ebx+esi], ebp
+    - 베이스가 되는 레지스터와 인덱스가 되는 레지스터 값의 메모리 번지
+    - eax, ebx, ecx, edx, ebp, edi, esi의 조합 사용 가능
+
+- Register relative
+    - mov cl, [ebx+4]
+    - 베이스가 되는 레지스터와 상수 값의 메모리 번지
+    - 상수자리에 심볼이 올 수도 있음
+
+#### x86 Indirect Addressing Modes
+
+- indirection operator인 [](각괄호)를 사용해서 메모리 주소를 나타내는 표현 방식
+
+- **BASE + (INDEX * SCALE) + DISPLACEMENT**
+    - BASE
+        - base register
+        - None, eax, ecx, edx, ebx, esp, ebp, esi, edi 사용 가능
+    - INDEX * SCALE
+        - index register * scale factor
+        - None, eax, ecx, edx, ebx, ebp, esi, edi 사용 가능
+        - esp는 사용 불가
+        - scale factor에는 1, 2, 4, 8로 네가지만 가능
+    - DISPLACEMENT
+        - 주소 상수
+        - None, 8-bit, 32-bit
+    - 위 조합으로 여러 가지 indirect addressing 모드 생성 가능
+
+#### Displacement Addressing
+
+- 각괄호 안에 주소 상수만 사용되는 경우
+
+- Displacement addressing
+    - 최대 7바이트로 인코딩(32비트 레지스터, 32비트 주소 상수)
+    - 정적으로 할당된 단일 데이터에 대한 접근 시 사용
+    - mov cl, [DATA1]   ;DATA1에서 1바이트를 복사
+    - mov edi, [SUM]    ;SUM에서 4바이트를 복사
+
+- Direct addressing
+    - 메모리와 al, ax, eax 간의 전송
+    - 일반적으로 3바이트로 인코딩, 어떤 때는 4바이트
+    - mov al, [DATA1]
+    - mov al, [0x4321]
+    - mov al, ds:[0x1234]
+    - mov [DATA2], ax
+
+#### Register Indirect Addressing
+
+- 레지스터에 저장된 오프셋(레지스터에 담긴 수)이 세그먼트의 시작점에 더해진다
+    - 변수 및 데이터 구조의 동적 저장을 위해 사용
+    - mov ecx, [ebx]
+        - ebx에 담겨 있는 주소 값이 최종 접근하고자 하는 메모리 주소가 됨
+
+- 메모리와 메모리간의 mov는 문자열 명령으로 허용됨
+    - esp를 제외한 모든 레지스터 사용 가능(80386 이상)
+    - eax, ebx, ecx, edx, edi, esi의 경우, 데이터 세그먼트가 기본값
+    - ebp의 경우, 스택 세그먼트가 기본값
+    - 일부 명령에는 byte, word, dword의 특별한 어셈블러 지시어 필요
+        - mov al, [edi]     ;레지스터이므로 크기가 명확(1바이트)
+        - mov [edi], 0x10   ;크기가 명확하지 않아 오류 발생
+        - mov byte [edi], 0x10  ;1바이트를 복사
+
+![register indirect addressing](../image/register_indirect_addressing.jpg)
+    - mov eax, [ebx] 설명하는 그림
+
+#### Register Relative Addressing
+
+- 유효 주소 계산: seg_base + base + constant
+- ebp, ebx, edi, esi와 관련하여 기본 세그먼트 규칙 적용
+- 주소 상수는 모두 32비트 부호 있는 값
+
+##### Base + Displacement
+
+- 베이스 레지스터 + 주소 상수
+- 요소의 크기가 2바이트, 4바이트, 8바이트가 아닌 경우 배열 인덱싱에 적합
+- 주소 상수는 배열의 시작점을 나타냄
+- 베이스 레지스터는 배열의 특정 요소에 대한 변위를 결정하기 위한 계산 결과 보유
+- 레코드의 필드에 접근 시 베이스 레지스터는 레코드의 시작 주소 보유, 주소 상수는 필드에 대한 정적 변위
+- 엑티베이션 레코드(activation record)의 매개변수에 대한 접근(기본 레지스터는 ebp)
+
+##### (Index * Scale) + Dispacement
+
+- (인덱스 레지스터 * 상수) + 주소 상수
+- 요소의 크기가 2바아트, 4바이트, 8바이트인 경우 정적 배열 인덱싱에 적합
+
+#### Base + Index Addressing
+
+- 유효 주소 계산: seg_base + base + index
+- 베이스 레지스터: 배열의 시작 위치
+    - 스택의 경우, ebp, esp
+    - 데이터의 경우, eax, ebx 등 나머지 레지스터
+- 인덱스 레지스터: 오프셋 위치
+    - 주로 사용되는 것은 edi, esi
+    - esp 제외 32비트 레지스터 가능
+- 동적 배열의 요소들에 접근하기 위해 자주 사용
+    - 동적 배열: 프로그램 실행 중에 기본 주소가 변경될 수 있는 배열
+
+- mov ecx, [ebx+edi]    ;데이터 세그먼트 복사
+- mov ch, [ebp+esi]     ;스택 세그먼트 복사
+- mov dl, [eax+ebx]     ;eax가 베이스 레지스터, ebx가 인덱스 레지스터
+
+#### Base + Index + Displacement Addressing
+
+- 유효 주소 계산: seg_base + base + index + constant
+- 2차원 배열 접근 시 사용
+- 주소 상수는 배열 시작 주소 유지
+- 레코드 배열의 여러 인스턴스 중 하나(주소 상수는 레코드 내의 필드에 대한 오프셋)
+
+- mov dh, [ebx+edi+20H]     ;데이터 세그먼트 복사
+- mov ax, [FILE+ebx+edi]    ;주소 상수가 FILE(순서가 바뀌어도 됨)
+- mov [LIST+ebp+esi+4], dh  ;스택 세그먼트 복사
+- mov eax, [FILE+ebx+ecx+2] ;32비트 전송
+
+#### Scaled Index Addressing
+
+- 유효 주소 계산: seg_base + base + constant * index
+- 배열 요소의 크기가 2바이트, 4바이트, 8바이트인 경우 2차원 배열 인덱싱에 적합
+
+- mov eax, [ebx+4*ecx]      ;베이스 레지스터는 ebx, 인덱스 레지스터는 ecx, 데이터 세그먼트 더블워드 복사
+- mov [eax+2*edi-100H], cx
+- mov eax, [ARRAY+4*ecx]
+
+### Summary
+
+|IA-32 SW Developer 매뉴얼|강의 노트 정리|적용|
+|:---|:---|:---|
+|displacement|Direct <br/>Displacement|정적으로 할당된 단일 데이터에 접근|
+|base|Register indirect|변수 및 데이터 구조의 동적 저장에 사용|
+|Base+displacement|Register relative|-요소 크기가 2,4,8바이트가 아닌 경우 배열로 인덱싱(displacement: 정적 오프셋을 배열의 시작으로 인코딩, base: 배열 내의 특정 요소로 오프셋을 결정하기 위한 계산 결과 보유) <br/>- 레코드의 필드에 접근(base: 레코드 시작 부분의 주소 유지, displacement: 필드에 대한 정적 오프셋) <br/>- 특수한 경우: 액티베이션 레코드의 매개변수에 대한 접근(기본 레지스터 EBP)|
+|(Index*scale)+displacement|Register relative|요소 크기가 2,4,8바이트인 경우 정적 배열로 인덱싱|
+|Base+Index+Displacement|Base relative plus index|- 2차원 배열(displacement: 배열 시작 주소 유지) <br/>- 레코드 배열의 여러 인스턴스 중 하나(displacement: 레코드 내의 필드에 대한 오프셋)|
+|Base+Index+Displacement|Base plus index|동적 배열|
+|Base+(Index*sclae)+Displacement|Scaled index|배열 요소의 크기가 2,4,8바이트인 경우 2차원 배열 인덱싱|
