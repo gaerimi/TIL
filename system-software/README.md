@@ -1730,3 +1730,102 @@
     - 피연산자 없음
 
 - RET 명령에 의해 올바른 숫자가 pop되도록 스택을 올바르게 관리하는 것이 매우 중요
+
+### Calling Convention
+
+- 함수 호출 규칙
+
+- Call and Return
+    - Call 명령과 함께 하위 프로그램이 호출되고, RET를 통해 반환됨
+
+- Parameter passing
+    - 호출자(caller)가 매개변수를 push
+    - 스택의 매개변수는 하위 프로그램별로 EBP를 이용해 접근
+    - 호출자에 의해 매개변수 제거
+
+- Local variables
+    - 지역 변수가 스택에 할당됨
+    - 지역 변수도 EBP를 사용하여 접근
+
+- Return value
+    - 반환값은 EAX 레지스터를 통해 전달
+    - 복귀 주소를 eax에 담는다 -> 호출자는 복귀 직후 eax에 담긴 값을 ret값으로 간주
+
+#### Parameter Passing
+
+- 하위 프로그램에 대한 매개변수들은 스택 상에서 저장될 수 있다
+    - 매개변수는 호출자가 호출에 나타나는 순서의 역순으로 push
+    - 스택의 매개변수는 하위 프로그램에 의해 pop되지 않으며, 스택 자체에서 접근된다
+    - 스택 상의 매개변수는 베이스 레지스터가 EBP(ESP가 아님)인 간접 주소 지정을 사용하여 [EBP+8]과 같이 접근된다
+    - 매개변수는 RET 명령 후에(호출자에 의해서) 제거된다
+        - 다양한 수의 인수를 지원하기 위해
+        - ADD 또는 POP 명령
+
+![accessing parameters with EBP, ESP](../image/why_ebp_not_esp.jpg)   
+
+- ESP 사용 시
+    - 스택에 값이 추가될 때마다 ESP 값도 바뀌기 때문에 매개변수나 복귀 주소에 접근하기가 어려워짐
+- EBP 사용 시
+    - 모든 함수 실행 시 **push ebp**, **mov ebp, esp** 명령 실행
+    - 항상 첫번째 매개변수는 EBP+8에 저장됨
+    - 항상 복귀 주소는 EBP+4에 저장됨
+    - EBP의 값을 push하면 그 값을 ESP가 가리키고 있는데 그것을 EBP에 복사하면 EBP값이 저장된 곳을 EBP가 가리키게 만들 수 있음
+
+![general caller and callee form - parameter passing](../image/general_caller_callee_form.jpg)
+![stack image](../image/parameter_passing_stack.jpg)
+
+#### Local Variables on the Stack
+
+- 스택은 지역 변수의 위치를 편리하게 사용 가능
+    - 스택은 C 프로그램이 일반(자동) 변수를 저장하는 위치
+    - 하위 프로그램에 재진입하기 위해
+    - 지역 변수는 ESP에서 필요한 바이트 수를 감소하여 EBP가 저장된 주소 바로 뒤에 저장됨
+    - 베이스 레지스터 EBP를 사용한 간접 주소 지정은 지역 변수에 접근하는데 사용됨
+
+![general caller and callee form - local variables](../image/general_caller_callee_form_2.jpg)
+![stack image](../image/local_variables_stack.jpg)
+
+- 항상 첫번째 지역 변수는 EBP-4에 저장됨
+
+#### ENTER and LEAVE instruction
+
+- **ENTER**
+    - 피연산자 2개(지역 변수가 차지할 공간, 0)
+    ```
+    push ebp
+    mov ebp, esp
+    sub esp, Local_bytes
+    ```
+    위와 같은 결과
+
+- **LEAVE**
+    - 피연산자 없음
+    ```
+    mov esp, ebp
+    pop ebp
+    ```
+    위와 같은 결과
+
+#### Nested Call Frames
+
+![nested call frame](../image/nested_call_frame.jpg)
+
+#### Subprogram Calls in Assembly Program
+
+- Caller(Before Call)
+    - 인자를 push(마지막에서 첫번째 순서 = 역순)
+    - 함수 호출
+
+- Callee
+    - 호출자의 EBP를 저장하고 호출자의 스택 프레임(또는 ENTER 명령) 설정
+    - 지역 변수에 대한 공간 할당
+    - 필요에 따라 레지스터 저장(또는 PUSHA 명령)
+    - 작업 수행
+    - EAX에 반환값 저장
+    - 레지스터 복원(또는 POPA 명령)
+    - 호출자의 스택 프레임 복원(또는 LEAVE 명령)
+    - 반환
+
+- Caller(After Return)
+    - 인자를 pop
+    - EAX에서 반환값 가져오기
