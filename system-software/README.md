@@ -1866,3 +1866,7 @@
 - 다른 호출 규약
     - cdecl을 사용하지만 stdcall을 사용하는 경우도 있음
     - gcc에서 void f ( int ) \_\_attribute\_\_ ((cdecl))
+
+### Command Line Arguments
+
+![command line arguments](../image/command_line_arguments.jpg)
