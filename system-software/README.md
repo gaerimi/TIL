@@ -1698,3 +1698,22 @@
     - ESP는 프로그램이 시작될 때 OS에서 이미 설정됨
     - ESP에 임의의 값을 저장하면 기존 스택 중단
     - ESP: 스택의 탑을 가리키는 포인터
+
+### Push and Pop
+
+- ESP 레지스터
+    - 스택 포인터
+    - 스택의 탑을 가리킴
+- **PUSH** 명령
+    - PUSH EAX
+        - ESP의 값을 감소시키고, ESP가 가리키고 있는 주소에 EAX의 값을 복사하는 것과 같은 동작
+    - PUSHA
+        [7장 참조](#stack-manipulation)
+- **POP** 명령
+    - POP EBX
+        - ESP가 가리키고 있는 주소에 있는 값을 EBX에 복사하고, ESP의 값을 증가시키는 것과 같은 동작
+    - POPA
+        [7장 참조](#stack-manipulation)
+
+- push와 pop의 동작은 대칭적으로 반대
+- 스택은 메모리 주소가 감소하는 방향으로 쌓인다
