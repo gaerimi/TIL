@@ -1872,3 +1872,51 @@
 ![command line arguments](../image/command_line_arguments.jpg)
 
 ## Chapter 10
+
+### Machine language
+
+- 프로세서가 보는 언어
+- 어셈블리어가 기계 코드를 지정
+- Assemble(어셈블)
+    - 어셈블리 코드를 기계 코드로 변환하는 과정
+- Assembler(어셈블러)
+    - 어셈블리어를 입력으로 받고 기계어를 출력하는 프로그램
+
+#### Assembling simple program
+
+![base form](../image/assembling_simple1.jpg)
+
+- SSS: 소스 피연산자의 레지스터 코드
+- DDD: 목적지 피연산자의 레지스터 코드
+- 4 More의 밑줄: 4바이트가 더 사용된다
+
+![example](../image/assembling_simple2.jpg)
+
+- MOV EDX, 0
+    - MOV reg, imm 형태
+    - 10111010 00 00 00 00
+        - 010: EDX 레지스터 코드
+        - 0의 32비트 표현: 00 00 00 00
+        - 1011: 11 = B
+        - 1010: 10 = A
+    - BA 00 00 00 00 5바이트
+
+- JZ GCD
+    - JZ imm 형태
+    - 0F 84 _____
+        - GCD의 주소: 24
+        - 분기 명령의 다음 주소: 13
+        - _____: 분기 명령과 레이블의 상대적 위치 차이 = 24 - 13 = 11
+    - 0F 84 00 00 00 11 6바이트
+        - 리틀 엔디안으로 저장
+        - 0F 84 11 00 00 00
+
+- JMP ORD
+    - JMP imm 형태
+    - E9 ____
+        - ORD의 주소: B
+        - 분기 명령의 다음 주소: 24
+        - ____: B - 24 = -19 = E7
+    - E9 FF FF FF E7 5바이트
+        - 리틀 엔디안으로 저장
+        - E9 E7 FF FF FF
