@@ -1683,3 +1683,5 @@
 |Base+Index+Displacement|Base relative plus index|- 2차원 배열(displacement: 배열 시작 주소 유지) <br/>- 레코드 배열의 여러 인스턴스 중 하나(displacement: 레코드 내의 필드에 대한 오프셋)|
 |Base+Index+Displacement|Base plus index|동적 배열|
 |Base+(Index*sclae)+Displacement|Scaled index|배열 요소의 크기가 2,4,8바이트인 경우 2차원 배열 인덱싱|
+
+## Chapter 9
